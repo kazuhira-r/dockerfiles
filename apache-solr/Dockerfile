@@ -2,7 +2,7 @@ FROM ubuntu:latest
 
 ENV JAVA_HOME /usr/lib/jvm/java-8-oracle
 
-ENV SOLR_VERSION 5.4.0
+ENV SOLR_VERSION 5.4.1
 ENV SOLR_ARCHIVE solr-${SOLR_VERSION}.tgz
 
 ENV SOLR_INSTALL_DIR /opt
