@@ -1,7 +1,7 @@
 FROM java:8
 MAINTAINER kazuhira<kazuhira.m@gmail.com>
 
-ENV INFINISPAN_VERSION 8.1.0.Final
+ENV INFINISPAN_VERSION 8.1.1.Final
 
 RUN mkdir -p /opt/infinispan
 
