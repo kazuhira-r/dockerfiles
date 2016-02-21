@@ -15,6 +15,9 @@ RUN wget -qO - https://packages.elastic.co/GPG-KEY-elasticsearch | apt-key add -
     apt-get update && \
     apt-get install -y kibana=${KIBANA_VERSION}
 
+RUN chown -R kibana.root /opt/kibana/installedPlugins /opt/kibana/optimize && \
+    sudo -u kibana /opt/kibana/bin/kibana plugin --install elastic/sense
+
 ADD start_kibana.sh start_kibana.sh
 RUN chmod a+x start_kibana.sh
 
