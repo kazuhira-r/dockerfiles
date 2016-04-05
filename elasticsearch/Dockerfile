@@ -2,7 +2,7 @@ FROM ubuntu:latest
 
 ENV JAVA_HOME /usr/lib/jvm/java-8-oracle
 
-ENV ELASTICSEARCH_VERSION 2.3.0
+ENV ELASTICSEARCH_VERSION 2.3.1
 ENV ELASTICSEARCH_REPOSITORY http://packages.elasticsearch.org/elasticsearch/2.x/debian
 
 EXPOSE 9200 9300
