@@ -13,13 +13,15 @@ ENV SOLR_CORE_NAME mycore
 
 ## Oracle JDK 8インストール
 RUN echo oracle-java8-installer shared/accepted-oracle-license-v1-1 select true | debconf-set-selections && \
+    apt-get update && \
     apt-get install -y software-properties-common && \
     add-apt-repository -y ppa:webupd8team/java && \
     apt-get update && \
     apt-get install -y oracle-java8-installer
 
 ## ツールインストール
-RUN apt-get install -y lsof \
+RUN apt-get install -y sudo \
+                       lsof \
                        curl \
                        vim
 
