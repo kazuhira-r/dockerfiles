@@ -17,7 +17,7 @@ RUN echo 'deb http://www.rabbitmq.com/debian/ testing main' | \
     apt-key add -
 
 RUN apt-get update && \
-    #apt-get install -y --allow-unauthenticated rabbitmq-server=${RABBITMQ_VERSION}
-    apt-get install -y rabbitmq-server=${RABBITMQ_VERSION}
+    apt-get install -y --allow-unauthenticated rabbitmq-server=${RABBITMQ_VERSION}
+    # apt-get install -y rabbitmq-server=${RABBITMQ_VERSION}
 
 ENTRYPOINT service rabbitmq-server start && tail -f /dev/null
