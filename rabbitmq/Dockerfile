@@ -20,4 +20,7 @@ RUN apt-get update && \
     apt-get install -y --allow-unauthenticated rabbitmq-server=${RABBITMQ_VERSION}
     # apt-get install -y rabbitmq-server=${RABBITMQ_VERSION}
 
+ADD add-user.sh add-user.sh
+RUN chmod a+x add-user.sh
+
 ENTRYPOINT service rabbitmq-server start && tail -f /dev/null
