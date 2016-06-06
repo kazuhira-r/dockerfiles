@@ -11,4 +11,4 @@ perl -wpi -e 's!(.*)elasticsearch.url:.+!elasticsearch.url: "'${ELASTICSEARCH_UR
 echo >> /opt/kibana/config/kibana.yml
 echo "sense.defaultServerUrl: ${ELASTICSEARCH_URL}" >> /opt/kibana/config/kibana.yml
 
-service kibana start && tailf /dev/null
+service kibana start && tail -f /dev/null
