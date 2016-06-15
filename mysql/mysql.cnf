@@ -1,0 +1,12 @@
+## from apt-get package default
+!includedir /etc/mysql/conf.d/
+!includedir /etc/mysql/mysql.conf.d/
+
+[client]
+port = 3306
+socket = /var/run/mysqld/mysqld.sock
+
+[mysql]
+default-character-set = utf8mb4
+# safe_updates
+show_warnings
