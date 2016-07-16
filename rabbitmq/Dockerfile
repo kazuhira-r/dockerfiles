@@ -1,7 +1,7 @@
 FROM ubuntu:latest
 
 # see: http://www.rabbitmq.com/debian/pool/main/r/rabbitmq-server/
-ENV RABBITMQ_VERSION 3.6.2-1
+ENV RABBITMQ_VERSION 3.6.3-1
 
 EXPOSE 5672 25672
 
