@@ -16,8 +16,13 @@ RUN wget https://dev.mysql.com/get/mysql-apt-config_${MYSQL_APT_VERSION}_all.deb
     echo 4 | dpkg -i mysql-apt-config_${MYSQL_APT_VERSION}_all.deb
 
 RUN sudo apt-get update && \
-    # !!root password is empty!!
-    echo '' | apt-get install mysql-server
+    # !!root password is ''!!
+    { \
+      echo mysql-community-server mysql-community-server/root-pass password ''; \
+      echo mysql-community-server mysql-community-server/re-root-pass password ''; \
+    } | debconf-set-selections && \
+    apt-get update && \
+    apt-get install -y mysql-server
 
 ADD mysql.cnf /etc/mysql/mysql.cnf
 ADD mysqld.cnf /etc/mysql/mysql.conf.d/mysqld.cnf
