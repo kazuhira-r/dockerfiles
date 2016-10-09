@@ -32,9 +32,7 @@ ADD elasticsearch.yml /etc/elasticsearch/elasticsearch.yml
 RUN chown root.elasticsearch /etc/elasticsearch/elasticsearch.yml
 
 ## Elasticsearchプラグインインストール
-RUN sudo -u elasticsearch /usr/share/elasticsearch/bin/plugin install analysis-kuromoji && \
-    sudo -u elasticsearch /usr/share/elasticsearch/bin/plugin install mobz/elasticsearch-head && \
-    sudo -u elasticsearch /usr/share/elasticsearch/bin/plugin install royrusso/elasticsearch-HQ
+RUN sudo -u elasticsearch /usr/share/elasticsearch/bin/plugin install analysis-kuromoji
 
 ## プラグイン等向け設定ファイル
 RUN touch /etc/elasticsearch/userdict_ja.txt && \
