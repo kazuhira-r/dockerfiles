@@ -1,7 +1,7 @@
 FROM ubuntu:latest
 
 ## see, https://dev.mysql.com/downloads/repo/apt/
-ENV MYSQL_APT_VERSION 0.7.3-1
+ENV MYSQL_APT_VERSION 0.8.0-1
 
 EXPOSE 3306
 
