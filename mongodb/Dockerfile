@@ -6,7 +6,8 @@ EXPOSE 27017
 
 RUN apt-get -y update && \
     apt-get install -y wget && \
-    rm -rf /var/lib/apt/lists/*
+    apt-get clean && \
+    rm -rf /var/lib/apt/lists
 
 RUN adduser --disabled-password --gecos '' mongodb
 
@@ -17,7 +18,6 @@ RUN cd /opt && \
     mv mongodb-linux-x86_64-${MONGODB_VERSION} mongodb && \
     mkdir -p /data/db && \
     chown -R mongodb.mongodb /opt/mongodb /data
-
 
 USER mongodb
 
