@@ -13,19 +13,20 @@ RUN echo oracle-java8-installer shared/accepted-oracle-license-v1-1 select true 
     apt-get install -y software-properties-common && \
     add-apt-repository -y ppa:webupd8team/java && \
     apt-get update && \
-    apt-get install -y oracle-java8-installer
-
+    apt-get install -y oracle-java8-installer && \
 ## ツールインストール
-RUN apt-get install -y sudo \
+    apt-get install -y sudo \
                        wget \
                        curl \
-                       vim
-
+                       vim && \
 ## Elasticsearchインストール
-RUN wget -qO - https://packages.elastic.co/GPG-KEY-elasticsearch | apt-key add - && \
+    wget -qO - https://packages.elastic.co/GPG-KEY-elasticsearch | apt-key add - && \
     echo "deb ${ELASTICSEARCH_REPOSITORY} stable main" | sudo tee -a /etc/apt/sources.list.d/elasticsearch-2.x.list && \
     apt-get update && \
-    apt-get install -y elasticsearch=${ELASTICSEARCH_VERSION}
+    apt-get install -y elasticsearch=${ELASTICSEARCH_VERSION} && \
+    apt-get clean && \
+    rm -rf /var/lib/apt/lists && \
+    rm -rf /var/cache/oracle-jdk${JAVA_VER}-installer
 
 RUN cp -p /etc/elasticsearch/elasticsearch.yml /etc/elasticsearch/elasticsearch.yml.default
 ADD elasticsearch.yml /etc/elasticsearch/elasticsearch.yml
