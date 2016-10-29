@@ -3,7 +3,8 @@ FROM ubuntu:latest
 ENV JAVA_HOME /usr/lib/jvm/java-8-oracle
 
 ENV ELASTICSEARCH_VERSION 5.0.0
-ENV ELASTICSEARCH_REPOSITORY https://artifacts.elastic.co/packages/5.x/apt
+ENV ELASTICSEARCH_REPOSITORY_VERSION 5.x
+ENV ELASTICSEARCH_REPOSITORY https://artifacts.elastic.co/packages/${ELASTICSEARCH_REPOSITORY_VERSION}/apt
 
 EXPOSE 9200 9300
 
@@ -18,11 +19,11 @@ RUN echo oracle-java8-installer shared/accepted-oracle-license-v1-1 select true 
     apt-get install -y sudo \
                        wget \
                        curl \
-                       vim && \
+                       vim \
+                       apt-transport-https && \
 ## Elasticsearchインストール
     wget -qO - https://artifacts.elastic.co/GPG-KEY-elasticsearch | apt-key add - && \
-    apt-get install -y apt-transport-https && \
-    echo "deb ${ELASTICSEARCH_REPOSITORY} stable main" | sudo tee -a /etc/apt/sources.list.d/elastic-5.x.list && \
+    echo "deb ${ELASTICSEARCH_REPOSITORY} stable main" | sudo tee -a /etc/apt/sources.list.d/elastic-${ELASTICSEARCH_REPOSITORY_VERSION}.list && \
     apt-get update && \
     apt-get install -y elasticsearch=${ELASTICSEARCH_VERSION} && \
     apt-get clean && \
