@@ -6,9 +6,10 @@ else
     ELASTICSEARCH_URL=http://localhost:9200
 fi
 
-perl -wpi -e 's!(.*)elasticsearch.url:.+!elasticsearch.url: "'${ELASTICSEARCH_URL}'"!' /opt/kibana/config/kibana.yml
+perl -wpi -e 's!(.*)elasticsearch.url:.+!elasticsearch.url: "'${ELASTICSEARCH_URL}'"!' /etc/kibana/kibana.yml
 
-echo >> /opt/kibana/config/kibana.yml
-echo "sense.defaultServerUrl: ${ELASTICSEARCH_URL}" >> /opt/kibana/config/kibana.yml
+perl -wpi -e 's!^#server.host:.+!server.host: 0.0.0.0!' /etc/kibana/kibana.yml
+
+echo >> /etc/kibana/kibana.yml
 
 service kibana start && tail -f /dev/null
