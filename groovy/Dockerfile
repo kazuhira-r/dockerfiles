@@ -20,8 +20,9 @@ RUN echo oracle-java8-installer shared/accepted-oracle-license-v1-1 select true 
     rm -rf /var/cache/oracle-jdk*-installer
 
 USER guser
+WORKDIR /home/guser
 
-ADD install-sdkman.sh install-sdkman.sh
+ADD install-sdkman.sh /home/guser/install-sdkman.sh
 
 RUN bash install-sdkman.sh
 
