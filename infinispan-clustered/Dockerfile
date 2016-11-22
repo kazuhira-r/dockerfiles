@@ -1,7 +1,7 @@
 FROM java:8
 MAINTAINER kazuhira<kazuhira.m@gmail.com>
 
-ENV INFINISPAN_VERSION 9.0.0.Alpha4
+ENV INFINISPAN_VERSION 8.2.5.Final
 
 WORKDIR /opt
 
