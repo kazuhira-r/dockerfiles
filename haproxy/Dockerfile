@@ -5,6 +5,7 @@ RUN apt-get update && \
                        wget \
                        vim && \
     apt-get install -y haproxy && \
+    apt-get install -y rsyslog && \
     apt-get clean
 
-ENTRYPOINT service haproxy start && tail -f /dev/null
+ENTRYPOINT service rsyslog start && service haproxy start && tail -f /dev/null
