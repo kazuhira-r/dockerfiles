@@ -20,6 +20,7 @@ RUN echo oracle-java8-installer shared/accepted-oracle-license-v1-1 select true 
 #    rm -rf /var/cache/oracle-jdk*-installer
 
 RUN adduser --disabled-password --gecos '' guser && \
+    echo guser:password | chpasswd && \
     usermod -G sudo guser
 
 USER guser
