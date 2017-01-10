@@ -8,8 +8,19 @@ RUN echo oracle-java8-installer shared/accepted-oracle-license-v1-1 select true 
     add-apt-repository -y ppa:webupd8team/java && \
     apt-get update && \
     apt-get install -y oracle-java8-installer && \
-    apt-get clean && \
-    rm -rf /var/lib/apt/lists && \
-    rm -rf /var/cache/oracle-jdk*-installer
+    apt-get install -y sudo \
+                       wget \
+                       curl \
+                       vim && \
+    apt-get clean
+#    apt-get clean && \
+#    rm -rf /var/lib/apt/lists && \
+#    rm -rf /var/cache/oracle-jdk*-installer
+
+RUN adduser --disabled-password --gecos '' jdk-user && \
+    echo jdk-user:password | chpasswd && \
+    usermod -G sudo jdk-user
+
+USER jdk-user
 
 CMD "/bin/bash"
