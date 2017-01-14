@@ -1,13 +1,13 @@
 FROM ubuntu:latest
 
-ENV REDIS_VERSION 3.2.5
-ENV REDIS_HOME /opt/redis
+ARG redis_version=3.2.5
+ARG redis_home=/opt/redis
 
 RUN adduser --disabled-password --gecos '' redis
 
-WORKDIR ${REDIS_HOME}
+WORKDIR ${redis_home}
 
-RUN mkdir -p ${REDIS_HOME}
+RUN mkdir -p ${redis_home}
 
 RUN apt-get update
 
@@ -17,14 +17,14 @@ RUN cd /opt && \
      gcc \
      make && \
     apt-get clean && \
-    wget -q http://download.redis.io/releases/redis-${REDIS_VERSION}.tar.gz && \
-    tar -zxvf redis-${REDIS_VERSION}.tar.gz && \
-    mv redis-${REDIS_VERSION} redis-src && \
+    wget -q http://download.redis.io/releases/redis-${redis_version}.tar.gz && \
+    tar -zxvf redis-${redis_version}.tar.gz && \
+    mv redis-${redis_version} redis-src && \
     cd redis-src && \
     make && \
-    make PREFIX=${REDIS_HOME} install
+    make PREFIX=${redis_home} install
 
-RUN chown -R redis.redis ${REDIS_HOME} && \
+RUN chown -R redis.redis ${redis_home} && \
     chown -R redis.redis /opt/redis-src
 
 USER redis

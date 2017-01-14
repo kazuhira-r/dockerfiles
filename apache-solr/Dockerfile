@@ -2,14 +2,14 @@ FROM ubuntu:latest
 
 ENV JAVA_HOME /usr/lib/jvm/java-8-oracle
 
-ENV SOLR_VERSION 5.4.1
-ENV SOLR_ARCHIVE solr-${SOLR_VERSION}.tgz
+ARG solr_version=5.4.1
+ARG solr_archive=solr-${solr_version}.tgz
 
-ENV SOLR_INSTALL_DIR /opt
-ENV SOLR_DATA_DIR /var/solr
-ENV SOLR_PORT 8983
+ARG solr_install_dir=/opt
+ARG solr_data_dir=/var/solr
+ARG solr_port=8983
 
-ENV SOLR_CORE_NAME mycore
+ARG solr_core_name=mycore
 
 ## Oracle JDK 8インストール
 RUN echo oracle-java8-installer shared/accepted-oracle-license-v1-1 select true | debconf-set-selections && \
@@ -38,20 +38,20 @@ ENV LC_ALL ja_JP.UTF-8
 ENV LC_CTYPE ja_JP.UTF-8
 
 ## Solrインストール
-RUN wget -q http://ftp.jaist.ac.jp/pub/apache//lucene/solr/${SOLR_VERSION}/${SOLR_ARCHIVE} && \
-    tar -zxvf ${SOLR_ARCHIVE} solr-${SOLR_VERSION}/bin/install_solr_service.sh && \
-    solr-${SOLR_VERSION}/bin/install_solr_service.sh ${SOLR_ARCHIVE} -i ${SOLR_INSTALL_DIR} -d ${SOLR_DATA_DIR} -p ${SOLR_PORT}
+RUN wget -q http://archive.apache.org/dist/lucene/solr/${solr_version}/${solr_archive} && \
+    tar -zxvf ${solr_archive} solr-${solr_version}/bin/install_solr_service.sh && \
+    solr-${solr_version}/bin/install_solr_service.sh ${solr_archive} -i ${solr_install_dir} -d ${solr_data_dir} -p ${solr_port}
 
-EXPOSE ${SOLR_PORT}
+EXPOSE ${solr_port}
 
 ## コア作成
 RUN service solr restart && \
-    sudo -u solr ${SOLR_INSTALL_DIR}/solr/bin/solr create -c ${SOLR_CORE_NAME} && \
+    sudo -u solr ${solr_install_dir}/solr/bin/solr create -c ${solr_core_name} && \
     service solr stop && \
-    rm /var/solr/data/${SOLR_CORE_NAME}/conf/managed-schema
+    rm /var/solr/data/${solr_core_name}/conf/managed-schema
 
-ADD solrconfig.xml /var/solr/data/${SOLR_CORE_NAME}/conf/solrconfig.xml
-ADD schema.xml /var/solr/data/${SOLR_CORE_NAME}/conf/schema.xml
+ADD solrconfig.xml /var/solr/data/${solr_core_name}/conf/solrconfig.xml
+ADD schema.xml /var/solr/data/${solr_core_name}/conf/schema.xml
 
 ## 実行コマンド
 ENTRYPOINT service solr start && tail -f /dev/null

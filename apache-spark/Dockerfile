@@ -1,12 +1,12 @@
 FROM java:8
 
-ENV SPARK_VERSION 1.5.2
-ENV HADOOP_DISTRIBUTION hadoop2.6
+ARG spark_version=1.5.2
+ARG hadoop_distribution=hadoop2.6
 
 RUN cd /tmp && \
-    wget -q http://d3kbcqa49mib13.cloudfront.net/spark-${SPARK_VERSION}-bin-${HADOOP_DISTRIBUTION}.tgz && \
-    tar -C /opt -zxvf spark-${SPARK_VERSION}-bin-${HADOOP_DISTRIBUTION}.tgz && \
+    wget -q http://d3kbcqa49mib13.cloudfront.net/spark-${spark_version}-bin-${hadoop_distribution}.tgz && \
+    tar -C /opt -zxvf spark-${spark_version}-bin-${hadoop_distribution}.tgz && \
     cd /opt && \
-    mv spark-${SPARK_VERSION}-bin-${HADOOP_DISTRIBUTION} spark-bin
+    mv spark-${spark_version}-bin-${hadoop_distribution} spark-bin
 
 EXPOSE 7077

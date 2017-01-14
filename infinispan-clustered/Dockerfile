@@ -1,17 +1,17 @@
 FROM java:8
 MAINTAINER kazuhira<kazuhira.m@gmail.com>
 
-ENV INFINISPAN_VERSION 8.2.5.Final
+ARG infinispan_version=8.2.5.Final
 
 WORKDIR /opt
 
 RUN adduser --disabled-password --gecos '' ispn
 
-RUN wget -q http://downloads.jboss.org/infinispan/$INFINISPAN_VERSION/infinispan-server-$INFINISPAN_VERSION-bin.zip && \
-    unzip infinispan-server-$INFINISPAN_VERSION-bin.zip && \
-    mv infinispan-server-$INFINISPAN_VERSION infinispan-server && \
+RUN wget -q http://downloads.jboss.org/infinispan/${infinispan_version}/infinispan-server-${infinispan_version}-bin.zip && \
+    unzip infinispan-server-${infinispan_version}-bin.zip && \
+    mv infinispan-server-${infinispan_version} infinispan-server && \
     chmod +x infinispan-server/bin/standalone.sh && \
-    rm infinispan-server-$INFINISPAN_VERSION-bin.zip
+    rm infinispan-server-${infinispan_version}-bin.zip
 
 WORKDIR /opt/infinispan-server
 

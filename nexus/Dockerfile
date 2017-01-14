@@ -1,7 +1,7 @@
 FROM ubuntu:latest
 
-ENV NEXUS_MAJOR_VERSION 3
-ENV NEXUS_VERSION 3.2.0-01
+ARG nexus_major_version=3
+ARG nexus_version=3.2.0-01
 
 ENV JAVA_HOME /usr/lib/jvm/java-8-oracle
 
@@ -29,9 +29,9 @@ RUN adduser --disabled-password --gecos '' nexus && \
 RUN cd /opt && \
     mkdir sonatype && \
     cd sonatype && \
-    wget -q https://sonatype-download.global.ssl.fastly.net/nexus/${NEXUS_MAJOR_VERSION}/nexus-${NEXUS_VERSION}-unix.tar.gz && \
-    tar -zxf nexus-${NEXUS_VERSION}-unix.tar.gz && \
-    mv nexus-${NEXUS_VERSION} nexus && \
+    wget -q https://sonatype-download.global.ssl.fastly.net/nexus/${nexus_major_version}/nexus-${nexus_version}-unix.tar.gz && \
+    tar -zxf nexus-${nexus_version}-unix.tar.gz && \
+    mv nexus-${nexus_version} nexus && \
     mkdir /opt/sonatype/sonatype-work/nexus3/etc && \
     chown -R nexus.nexus /opt/sonatype
 

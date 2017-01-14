@@ -1,7 +1,7 @@
 FROM ubuntu:latest
 
 # see: http://www.rabbitmq.com/debian/pool/main/r/rabbitmq-server/
-ENV RABBITMQ_VERSION 3.6.3-1
+ARG rabbitmq_version=3.6.6-1
 
 EXPOSE 5672 25672
 
@@ -17,8 +17,8 @@ RUN echo 'deb http://www.rabbitmq.com/debian/ testing main' | \
     apt-key add -
 
 RUN apt-get update && \
-    apt-get install -y --allow-unauthenticated rabbitmq-server=${RABBITMQ_VERSION}
-    # apt-get install -y rabbitmq-server=${RABBITMQ_VERSION}
+    apt-get install -y --allow-unauthenticated rabbitmq-server=${rabbitmq_version}
+    # apt-get install -y rabbitmq-server=${rabbitmq_version}
 
 ADD add-user.sh add-user.sh
 RUN chmod a+x add-user.sh

@@ -1,7 +1,7 @@
 FROM ubuntu:latest
 
 ## see, https://dev.mysql.com/downloads/repo/apt/
-ENV MYSQL_APT_VERSION 0.8.0-1
+ARG mysql_apt_version=0.8.0-1
 
 EXPOSE 3306
 
@@ -12,8 +12,8 @@ RUN apt-get update && \
                        sudo \
                        lsb-release
 
-RUN wget https://dev.mysql.com/get/mysql-apt-config_${MYSQL_APT_VERSION}_all.deb && \
-    echo 4 | dpkg -i mysql-apt-config_${MYSQL_APT_VERSION}_all.deb
+RUN wget https://dev.mysql.com/get/mysql-apt-config_${mysql_apt_version}_all.deb && \
+    echo 4 | dpkg -i mysql-apt-config_${mysql_apt_version}_all.deb
 
 RUN sudo apt-get update && \
     # !!root password is ''!!

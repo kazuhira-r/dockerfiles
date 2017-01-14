@@ -1,8 +1,8 @@
 FROM centos:6.6
 
-ENV JDK_VERSION 7u79
-ENV JDK_BUILD_NO b15
-ENV JDK_RPM jdk-${JDK_VERSION}-linux-x64.rpm
+ARG jdk_version=7u79
+ARG jdk_build_no=b15
+ARG jdk_rpm=jdk-${jdk_version}-linux-x64.rpm
 
 ENV JAVA_HOME /usr/java/default
 
@@ -20,7 +20,7 @@ EXPOSE 6066 7077 7078 18080 18081
 RUN yum install -y wget \
                    sudo && \
     sed -ri 's/Defaults    requiretty/Defaults:root    !requiretty/' /etc/sudoers && \
-    wget -q -O /tmp/jdk.rpm --no-check-certificate --no-cookies --header "Cookie: oraclelicense=accept-securebackup-cookie" http://download.oracle.com/otn-pub/java/jdk/${JDK_VERSION}-${JDK_BUILD_NO}/${JDK_RPM} && \
+    wget -q -O /tmp/jdk.rpm --no-check-certificate --no-cookies --header "Cookie: oraclelicense=accept-securebackup-cookie" http://download.oracle.com/otn-pub/java/jdk/${jdk_version}-${jdk_build_no}/${jdk_rpm} && \
     rpm -ivh /tmp/jdk.rpm && \
     wget -q -O /etc/yum.repos.d/cloudera-cdh5.repo http://archive.cloudera.com/cdh5/redhat/6/x86_64/cdh/cloudera-cdh5.repo && \
     sed -ri 's/cdh\/5/cdh\/5.4.5/' /etc/yum.repos.d/cloudera-cdh5.repo && \

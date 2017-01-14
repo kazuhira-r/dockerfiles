@@ -1,9 +1,9 @@
 FROM ubuntu:14.04
 
-ENV KIBANA_MAJAR_VERSION 5.1
-ENV KIBANA_REPOSITORY_MAJAR_VERSION 5.x
-ENV KIBANA_VERSION ${KIBANA_MAJAR_VERSION}.1
-ENV KIBANA_REPOSITORY https://artifacts.elastic.co/packages/${KIBANA_REPOSITORY_MAJAR_VERSION}/apt
+ARG kibana_major_version=5.1
+ARG kibana_repository_major_version=5.x
+ARG kibana_version=${kibana_major_version}.2
+ARG kibana_repository=https://artifacts.elastic.co/packages/${kibana_repository_major_version}/apt
 
 EXPOSE 5601
 
@@ -14,9 +14,9 @@ RUN apt-get update && \
                        vim \
                        apt-transport-https && \
     wget -qO - https://artifacts.elastic.co/GPG-KEY-elasticsearch | apt-key add - && \
-    echo "deb ${KIBANA_REPOSITORY} stable main" | tee -a /etc/apt/sources.list && \
+    echo "deb ${kibana_repository} stable main" | tee -a /etc/apt/sources.list && \
     apt-get update && \
-    apt-get install -y kibana=${KIBANA_VERSION} && \
+    apt-get install -y kibana=${kibana_version} && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists
 
