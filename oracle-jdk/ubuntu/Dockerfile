@@ -18,8 +18,11 @@ RUN echo oracle-java8-installer shared/accepted-oracle-license-v1-1 select true 
 #    rm -rf /var/cache/oracle-jdk*-installer
 
 RUN adduser --disabled-password --gecos '' jdk-user && \
-    echo jdk-user:password | chpasswd && \
     usermod -G sudo jdk-user
+
+RUN echo "Defaults:jdk-user !requiretty" >> /etc/sudoers.d/jdk-user && \
+    echo "jdk-user ALL=(ALL)      NOPASSWD: ALL" >> /etc/sudoers.d/jdk-user && \
+    chmod 440 /etc/sudoers.d/jdk-user
 
 USER jdk-user
 

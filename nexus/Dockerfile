@@ -23,8 +23,11 @@ RUN echo oracle-java8-installer shared/accepted-oracle-license-v1-1 select true 
     apt-get clean
 
 RUN adduser --disabled-password --gecos '' nexus && \
-    echo nexus:password | chpasswd && \
     usermod -G sudo nexus
+
+RUN echo "Defaults:nexus !requiretty" >> /etc/sudoers.d/nexus && \
+    echo "nexus ALL=(ALL)      NOPASSWD: ALL" >> /etc/sudoers.d/nexus && \
+    chmod 440 /etc/sudoers.d/nexus
 
 RUN cd /opt && \
     mkdir sonatype && \

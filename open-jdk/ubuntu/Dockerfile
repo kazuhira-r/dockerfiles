@@ -9,8 +9,11 @@ RUN apt-get update -y && \
     apt-get clean
 
 RUN adduser --disabled-password --gecos '' jdk-user && \
-    echo jdk-user:password | chpasswd && \
     usermod -G sudo jdk-user
+
+RUN echo "Defaults:jdk-user !requiretty" >> /etc/sudoers.d/jdk-user && \
+    echo "jdk-user ALL=(ALL)      NOPASSWD: ALL" >> /etc/sudoers.d/jdk-user && \
+    chmod 440 /etc/sudoers.d/jdk-user
 
 USER jdk-user
 

@@ -19,14 +19,17 @@ RUN echo oracle-java8-installer shared/accepted-oracle-license-v1-1 select true 
 #    rm -rf /var/lib/apt/lists && \
 #    rm -rf /var/cache/oracle-jdk*-installer
 
-RUN adduser --disabled-password --gecos '' guser && \
-    echo guser:password | chpasswd && \
-    usermod -G sudo guser
+RUN adduser --disabled-password --gecos '' groovy-user && \
+    usermod -G sudo groovy-user
 
-USER guser
-WORKDIR /home/guser
+RUN echo "Defaults:groovy-user !requiretty" >> /etc/sudoers.d/groovy-user && \
+    echo "groovy-user ALL=(ALL)      NOPASSWD: ALL" >> /etc/sudoers.d/groovy-user && \
+    chmod 440 /etc/sudoers.d/groovy-user
 
-ADD install-sdkman.sh /home/guser/install-sdkman.sh
+USER groovy-user
+WORKDIR /home/groovy-user
+
+ADD install-sdkman.sh /home/groovy-user/install-sdkman.sh
 
 RUN bash install-sdkman.sh
 
