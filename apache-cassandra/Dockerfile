@@ -2,6 +2,8 @@ FROM ubuntu:latest
 
 ENV JAVA_HOME /usr/lib/jvm/java-8-oracle
 
+ARG cassandra_version=3.9
+
 RUN apt-get update && \
     echo oracle-java8-installer shared/accepted-oracle-license-v1-1 select true | debconf-set-selections && \
     apt-get install -y software-properties-common && \
@@ -15,9 +17,16 @@ RUN apt-get update && \
     echo "deb http://www.apache.org/dist/cassandra/debian 39x main" | tee -a /etc/apt/sources.list.d/cassandra.sources.list && \
     curl https://www.apache.org/dist/cassandra/KEYS | sudo apt-key add - && \
     apt-get update && \
-    apt-get install -y cassandra && \
+    apt-get install -y cassandra=${cassandra_version} && \
     sudo -u cassandra touch /var/log/cassandra/system.log && \
     apt-get clean
+
+RUN adduser --disabled-password --gecos '' cassandra-user && \
+    usermod -G sudo cassandra-user
+
+RUN echo "Defaults:cassandra-user !requiretty" >> /etc/sudoers.d/cassandra-user && \
+    echo "cassandra-user ALL=(ALL)      NOPASSWD: ALL" >> /etc/sudoers.d/cassandra-user && \
+    chmod 440 /etc/sudoers.d/cassandra-user
 
 # 7000: intra-node communication
 # 7001: TLS intra-node communication
@@ -26,4 +35,10 @@ RUN apt-get update && \
 # 9160: thrift service
 EXPOSE 7000 7001 7199 9042 9160
 
-ENTRYPOINT service cassandra start && tail -f /var/log/cassandra/system.log
+WORKDIR /home/cassandra-user
+USER cassandra-user
+
+ADD start-cassandra.sh start-cassandra.sh
+RUN sudo chown cassandra-user.cassandra-user start-cassandra.sh && \
+    chmod a+x start-cassandra.sh
+ENTRYPOINT ["./start-cassandra.sh"]
