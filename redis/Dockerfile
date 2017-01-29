@@ -31,4 +31,4 @@ USER redis
 
 EXPOSE 6379
 
-ENTRYPOINT ["/opt/redis/bin/redis-server"]
+ENTRYPOINT ["/opt/redis/bin/redis-server", "--protected-mode", "no"]
