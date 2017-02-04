@@ -27,8 +27,12 @@ RUN cd /opt && \
 RUN chown -R redis.redis ${redis_home} && \
     chown -R redis.redis /opt/redis-src
 
+ADD docker-entrypoint.sh docker-entrypoint.sh
+RUN chown -R redis.redis docker-entrypoint.sh && \
+    chmod a+x docker-entrypoint.sh
+
 USER redis
 
 EXPOSE 6379
 
-ENTRYPOINT ["/opt/redis/bin/redis-server", "--protected-mode", "no"]
+ENTRYPOINT ["/opt/redis/docker-entrypoint.sh"]
