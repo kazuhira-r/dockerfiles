@@ -2,7 +2,7 @@ FROM ubuntu:latest
 
 ENV JAVA_HOME /usr/lib/jvm/java-8-oracle
 
-ARG geode_version=1.0.0-incubating
+ARG geode_version=1.1.0
 
 ARG geode_distribution_url=http://ftp.meisei-u.ac.jp/mirror/apache/dist/geode/${geode_version}/apache-geode-${geode_version}.tar.gz
 #ARG geode_distribution_url=https://archive.apache.org/dist/incubator/geode/${geode_version}/apache-geode-${geode_version}.tar.gz
