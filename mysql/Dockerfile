@@ -1,7 +1,7 @@
 FROM ubuntu:latest
 
 ## see, https://dev.mysql.com/downloads/repo/apt/
-ARG mysql_apt_version=0.8.1-1
+ARG mysql_apt_version=0.8.2-1
 
 EXPOSE 3306
 
@@ -24,10 +24,18 @@ RUN sudo apt-get update && \
     apt-get update && \
     apt-get install -y mysql-server
 
+RUN cp -p /etc/mysql/mysql.cnf /etc/mysql/mysql.cnf.org
+RUN cp -p /etc/mysql/mysql.conf.d/mysqld.cnf /etc/mysql/mysql.conf.d/mysqld.cnf.org
 ADD mysql.cnf /etc/mysql/mysql.cnf
 ADD mysqld.cnf /etc/mysql/mysql.conf.d/mysqld.cnf
 
 ADD create-database-and-user.sh create-database-and-user.sh
 RUN chmod a+x create-database-and-user.sh
+
+ADD setup-master.sh setup-master.sh
+RUN chmod a+x setup-master.sh
+
+ADD setup-slave.sh setup-slave.sh
+RUN chmod a+x setup-slave.sh
 
 ENTRYPOINT service mysql start && tail -f /dev/null 

@@ -28,11 +28,20 @@ transaction-isolation = READ-COMMITTED
 
 sql_mode = TRADITIONAL,NO_AUTO_VALUE_ON_ZERO,ONLY_FULL_GROUP_BY
 
+## gtid
+gtid_mode = on
+enforce_gtid_consistency = on
+
 ## binary log
-# log-bin = mysql-bin
-# binlog_format = MIXED
-# sync_binlog = 1
-# expire_logs_days = 10
+log-bin = mysql-bin
+binlog_format = ROW
+sync_binlog = 1
+expire_logs_days = 10
+
+## replication
+server_id = 1
+log_slave_updates
+#read_only = on
 
 ## innodb
 innodb_support_xa = 1
