@@ -5,7 +5,18 @@ ARG infinispan_version=8.2.6.Final
 
 WORKDIR /opt
 
-RUN adduser --disabled-password --gecos '' ispn
+RUN apt-get update && \
+    apt-get install -y sudo \
+                       vim \
+                       && \
+    apt-get clean
+
+RUN adduser --disabled-password --gecos '' ispn && \
+    usermod -G sudo ispn
+
+RUN echo "Defaults:ispn !requiretty" >> /etc/sudoers.d/ispn && \
+    echo "ispn ALL=(ALL)      NOPASSWD: ALL" >> /etc/sudoers.d/ispn && \
+    chmod 440 /etc/sudoers.d/ispn
 
 RUN wget -q http://downloads.jboss.org/infinispan/${infinispan_version}/infinispan-server-${infinispan_version}-bin.zip && \
     unzip infinispan-server-${infinispan_version}-bin.zip && \
