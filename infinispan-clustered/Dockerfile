@@ -1,7 +1,7 @@
 FROM java:8
 MAINTAINER kazuhira<kazuhira.m@gmail.com>
 
-ARG infinispan_version=8.2.6.Final
+ARG infinispan_version=9.0.0.Final
 
 WORKDIR /opt
 
