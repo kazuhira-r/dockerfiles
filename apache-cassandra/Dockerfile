@@ -2,7 +2,8 @@ FROM ubuntu:latest
 
 ENV JAVA_HOME /usr/lib/jvm/java-8-oracle
 
-ARG cassandra_version=3.9
+ARG cassandra_version=3.10
+ARG cassandra_repository_version=310x
 
 RUN apt-get update && \
     echo oracle-java8-installer shared/accepted-oracle-license-v1-1 select true | debconf-set-selections && \
@@ -14,7 +15,7 @@ RUN apt-get update && \
                        curl \
                        wget \
                        vim && \
-    echo "deb http://www.apache.org/dist/cassandra/debian 39x main" | tee -a /etc/apt/sources.list.d/cassandra.sources.list && \
+    echo "deb http://www.apache.org/dist/cassandra/debian ${cassandra_repository_version} main" | tee -a /etc/apt/sources.list.d/cassandra.sources.list && \
     curl https://www.apache.org/dist/cassandra/KEYS | sudo apt-key add - && \
     apt-get update && \
     apt-get install -y cassandra=${cassandra_version} && \
