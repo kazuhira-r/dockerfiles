@@ -3,8 +3,6 @@ MAINTAINER kazuhira<kazuhira.m@gmail.com>
 
 ARG infinispan_version=9.0.0.Final
 
-WORKDIR /opt
-
 RUN apt-get update && \
     apt-get install -y sudo \
                        vim \
@@ -18,7 +16,8 @@ RUN echo "Defaults:ispn !requiretty" >> /etc/sudoers.d/ispn && \
     echo "ispn ALL=(ALL)      NOPASSWD: ALL" >> /etc/sudoers.d/ispn && \
     chmod 440 /etc/sudoers.d/ispn
 
-RUN wget -q http://downloads.jboss.org/infinispan/${infinispan_version}/infinispan-server-${infinispan_version}-bin.zip && \
+RUN cd /opt && \
+    wget -q http://downloads.jboss.org/infinispan/${infinispan_version}/infinispan-server-${infinispan_version}-bin.zip && \
     unzip infinispan-server-${infinispan_version}-bin.zip && \
     mv infinispan-server-${infinispan_version} infinispan-server && \
     chmod +x infinispan-server/bin/standalone.sh && \
