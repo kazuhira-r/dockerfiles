@@ -6,6 +6,8 @@ ARG kafka_home=/opt/apache-kafka
 
 ARG kafka_distribution_url=http://ftp.riken.jp/net/apache/kafka/${kafka_version}/kafka_${kafka_scala_major_version}-${kafka_version}.tgz
 
+ARG kafka_manager_version=1.3.3.6
+
 ARG trifecta_version=0.22.0rc8
 ARG trifecta_kafka_version=0.10.1.0
 ARG trifecta_distribution_url=https://github.com/ldaniels528/trifecta/releases/download/v${trifecta_version}-${trifecta_kafka_version}/trifecta-ui-${trifecta_version}b-${trifecta_kafka_version}.zip
@@ -30,6 +32,13 @@ RUN echo "Defaults:kafka !requiretty" >> /etc/sudoers.d/kafka && \
     echo "kafka ALL=(ALL)      NOPASSWD: ALL" >> /etc/sudoers.d/kafka && \
     chmod 440 /etc/sudoers.d/kafka
 
+WORKDIR /opt
+ADD kafka-manager-${kafka_manager_version}.zip kafka-manager-${kafka_manager_version}.zip
+RUN cd /opt && \
+    unzip kafka-manager-${kafka_manager_version}.zip && \
+    mv kafka-manager-${kafka_manager_version} kafka-manager && \
+    chown -R kafka.kafka kafka-manager-${kafka_manager_version}.zip kafka-manager
+
 RUN cd /opt && \
     wget -q ${kafka_distribution_url} && \
     tar -zxf kafka_${kafka_scala_major_version}-${kafka_version}.tgz && \
@@ -50,7 +59,7 @@ USER kafka
 
 # for Apache Kafka
 EXPOSE 2181 9092
-# for Trifecta
+# for kafka-manager/Trifecta
 EXPOSE 9000
 
 ENTRYPOINT ["/opt/apache-kafka/docker-entrypoint.sh"]
