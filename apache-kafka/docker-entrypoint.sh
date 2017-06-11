@@ -8,6 +8,6 @@ perl -wpi -e 's!^#listeners=PLAINTEXT://:9092!listeners=PLAINTEXT://'${SERVER_AD
 
 /opt/apache-kafka/bin/zookeeper-server-start.sh -daemon config/zookeeper.properties
 /opt/apache-kafka/bin/kafka-server-start.sh -daemon config/server.properties
-#/opt/trifecta-ui/bin/trifecta-ui &
-/opt/kafka-manager/bin/kafka-manager -Dkafka-manager.zkhosts=localhost:2181 &
+/opt/trifecta-ui/bin/trifecta-ui &
+#/opt/kafka-manager/bin/kafka-manager -Dkafka-manager.zkhosts=localhost:2181 &
 tail -f /opt/apache-kafka/logs/kafkaServer.out /opt/apache-kafka/logs/zookeeper.out
