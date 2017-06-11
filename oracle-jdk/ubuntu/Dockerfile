@@ -11,6 +11,7 @@ RUN echo oracle-java8-installer shared/accepted-oracle-license-v1-1 select true 
     apt-get install -y sudo \
                        wget \
                        curl \
+                       unzip \
                        vim && \
     apt-get clean
 #    apt-get clean && \
