@@ -1,7 +1,7 @@
 FROM ubuntu:latest
 
-ARG consul_version=0.7.5
-ARG consul_template_version=0.18.1
+ARG consul_version=0.8.4
+ARG consul_template_version=0.18.5
 
 ARG consul_home=/opt/consul
 ARG consul_lib_dir=/var/lib/consul
