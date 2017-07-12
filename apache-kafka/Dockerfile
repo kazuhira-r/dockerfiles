@@ -6,7 +6,7 @@ ARG kafka_home=/opt/apache-kafka
 
 ARG kafka_distribution_url=http://ftp.riken.jp/net/apache/kafka/${kafka_version}/kafka_${kafka_scala_major_version}-${kafka_version}.tgz
 
-ARG kafka_manager_version=1.3.3.6
+ARG kafka_manager_version=1.3.3.7
 
 ARG trifecta_version=0.22.0rc8
 ARG trifecta_kafka_version=0.10.1.0
