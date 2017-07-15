@@ -25,8 +25,6 @@ RUN cd /opt && \
 
 WORKDIR /opt/infinispan-server
 
-RUN perl -wpi -e 's/-Xms\d+[a-z]/-Xms1g/g; s/-Xmx\d+[a-z]/-Xmx1g/g' bin/standalone.conf*
-
 EXPOSE 8080 8181 9990 11211 11222
 
 ADD start-clustered-server.sh start-clustered-server.sh
