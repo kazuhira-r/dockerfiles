@@ -1,7 +1,7 @@
 FROM ubuntu:latest
 
 # see: http://www.rabbitmq.com/debian/pool/main/r/rabbitmq-server/
-ARG rabbitmq_version=3.6.6-1
+ARG rabbitmq_version=3.6.11-1
 
 EXPOSE 5672 25672
 
