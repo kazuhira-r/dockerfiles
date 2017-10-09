@@ -1,7 +1,7 @@
 FROM ubuntu:latest
 
 ARG nexus_major_version=3
-ARG nexus_version=3.4.0-02
+ARG nexus_version=3.6.0-02
 
 ENV JAVA_HOME /usr/lib/jvm/java-8-oracle
 
