@@ -1,20 +1,22 @@
 FROM ubuntu:latest
 
-ENV JAVA_HOME /usr/lib/jvm/java-8-oracle
+ENV JAVA_HOME /usr/lib/jvm/java-8-openjdk-amd64
 
-ARG geode_version=1.2.1
+ARG geode_version=1.3.0
 
-ARG geode_distribution_url=http://ftp.meisei-u.ac.jp/mirror/apache/dist/geode/${geode_version}/apache-geode-${geode_version}.tar.gz
+## since Apache Geode 1.3.0, tar.gz to tgz
+ARG geode_distribution_url=http://ftp.meisei-u.ac.jp/mirror/apache/dist/geode/${geode_version}/apache-geode-${geode_version}.tgz
+#ARG geode_distribution_url=https://archive.apache.org/dist/incubator/geode/${geode_version}/apache-geode-${geode_version}.tgz
+
+## until Apache Geode 1.2.1
+#ARG geode_distribution_url=http://ftp.meisei-u.ac.jp/mirror/apache/dist/geode/${geode_version}/apache-geode-${geode_version}.tar.gz
 #ARG geode_distribution_url=https://archive.apache.org/dist/incubator/geode/${geode_version}/apache-geode-${geode_version}.tar.gz
 
-RUN echo oracle-java8-installer shared/accepted-oracle-license-v1-1 select true | debconf-set-selections && \
-    apt-get update && \
-    apt-get install -y software-properties-common && \
-    add-apt-repository -y ppa:webupd8team/java && \
-    apt-get update && \
-    apt-get install -y oracle-java8-installer && \
+RUN apt-get update && \
+    apt-get install -y openjdk-8-jdk && \
     apt-get install -y sudo \
                        curl \
+                       wget \
                        vim && \
     apt-get clean
 
@@ -27,9 +29,11 @@ RUN echo "Defaults:geode !requiretty" >> /etc/sudoers.d/geode && \
 
 RUN cd /opt && \
     wget -q ${geode_distribution_url} && \
-    tar -zxf apache-geode-${geode_version}.tar.gz && \
+    tar -zxf apache-geode-${geode_version}.tgz && \
+    # tar -zxf apache-geode-${geode_version}.tar.gz && \
     mv apache-geode-${geode_version} apache-geode && \
-    chown -R geode.geode /opt/apache-geode apache-geode-${geode_version}.tar.gz
+    chown -R geode.geode /opt/apache-geode apache-geode-${geode_version}.tgz
+    # chown -R geode.geode /opt/apache-geode apache-geode-${geode_version}.tar.gz
 
 USER geode
 WORKDIR /opt/apache-geode
