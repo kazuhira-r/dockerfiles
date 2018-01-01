@@ -1,16 +1,12 @@
 FROM ubuntu:latest
 
-ENV JAVA_HOME /usr/lib/jvm/java-8-oracle
+ENV JAVA_HOME /usr/lib/jvm/java-8-openjdk-amd64
 
-ARG cassandra_version=3.10
-ARG cassandra_repository_version=310x
+ARG cassandra_version=3.11.1
+ARG cassandra_repository_version=311x
 
 RUN apt-get update && \
-    echo oracle-java8-installer shared/accepted-oracle-license-v1-1 select true | debconf-set-selections && \
-    apt-get install -y software-properties-common && \
-    add-apt-repository -y ppa:webupd8team/java && \
-    apt-get update && \
-    apt-get install -y oracle-java8-installer && \
+    apt-get install -y openjdk-8-jdk && \
     apt-get install -y sudo \
                        curl \
                        wget \
