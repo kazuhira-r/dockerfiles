@@ -12,12 +12,8 @@ ARG trifecta_version=0.22.0rc8
 ARG trifecta_kafka_version=0.10.1.0
 ARG trifecta_distribution_url=https://github.com/ldaniels528/trifecta/releases/download/v${trifecta_version}-${trifecta_kafka_version}/trifecta-ui-${trifecta_version}b-${trifecta_kafka_version}.zip
 
-RUN echo oracle-java8-installer shared/accepted-oracle-license-v1-1 select true | debconf-set-selections && \
-    apt-get update && \
-    apt-get install -y software-properties-common && \
-    add-apt-repository -y ppa:webupd8team/java && \
-    apt-get update && \
-    apt-get install -y oracle-java8-installer && \
+RUN apt-get update && \
+    apt-get install -y openjdk-8-jdk && \
     apt-get install -y sudo \
                        curl \
                        wget \
