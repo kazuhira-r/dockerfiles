@@ -1,6 +1,6 @@
 FROM java:8
 
-ARG wildfly_version=10.1.0.Final
+ARG wildfly_version=11.0.0.Final
 
 RUN apt-get update && \
     apt-get install -y sudo \
