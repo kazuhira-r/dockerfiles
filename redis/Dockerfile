@@ -1,6 +1,6 @@
 FROM ubuntu:latest
 
-ARG redis_version=4.0.6
+ARG redis_version=4.0.8
 ARG redis_home=/opt/redis
 
 RUN adduser --disabled-password --gecos '' redis
