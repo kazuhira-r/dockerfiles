@@ -1,7 +1,7 @@
 FROM java:8
 MAINTAINER kazuhira<kazuhira.m@gmail.com>
 
-ARG infinispan_version=9.2.0.Final
+ARG infinispan_version=9.2.1.Final
 
 RUN apt-get update && \
     apt-get install -y sudo \
