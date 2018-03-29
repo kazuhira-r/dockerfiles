@@ -1,12 +1,12 @@
 FROM ubuntu:latest
 
-ARG kafka_version=1.0.1
+ARG kafka_version=1.1.0
 ARG kafka_scala_major_version=2.12
 ARG kafka_home=/opt/apache-kafka
 
 ARG kafka_distribution_url=http://ftp.riken.jp/net/apache/kafka/${kafka_version}/kafka_${kafka_scala_major_version}-${kafka_version}.tgz
 
-ARG kafka_manager_version=1.3.3.16
+ARG kafka_manager_version=1.3.3.17
 
 ARG trifecta_version=0.22.0rc8
 ARG trifecta_kafka_version=0.10.1.0
