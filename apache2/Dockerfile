@@ -8,4 +8,4 @@ RUN apt-get update && \
 
 EXPOSE 80 443
 
-ENTRYPOINT service apache2 start && tail -f /dev/null
+ENTRYPOINT service apache2 start && tail -f /var/log/apache2/*.log
