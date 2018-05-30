@@ -1,6 +1,6 @@
 FROM ubuntu:latest
 
-ARG zookeeper_version=3.4.11
+ARG zookeeper_version=3.4.12
 ARG zookeeper_home=/opt/apache-zookeeper
 
 ARG zookeeper_data_dir=/var/lib/apache-zookeeper
