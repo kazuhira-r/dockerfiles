@@ -2,7 +2,7 @@ FROM ubuntu:latest
 
 ENV JAVA_HOME /usr/lib/jvm/java-8-openjdk-amd64
 
-ARG ignite_version=2.4.0
+ARG ignite_version=2.5.0
 
 ARG ignite_distribution_url=http://ftp.meisei-u.ac.jp/mirror/apache/dist//ignite/${ignite_version}/apache-ignite-fabric-${ignite_version}-bin.zip
 
