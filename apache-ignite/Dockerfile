@@ -28,9 +28,13 @@ RUN cd /opt && \
     mv apache-ignite-fabric-${ignite_version}-bin apache-ignite-fabric-bin && \
     chown -R ignite.ignite /opt/apache-ignite-fabric-bin apache-ignite-fabric-${ignite_version}-bin.zip
 
+ADD docker-entrypoint.sh /opt/apache-ignite-fabric-bin/docker-entrypoint.sh
+RUN chmod a+x /opt/apache-ignite-fabric-bin/docker-entrypoint.sh && \
+           chown ignite.ignite /opt/apache-ignite-fabric-bin/docker-entrypoint.sh
+
 USER ignite
 WORKDIR /opt/apache-ignite-fabric-bin
 
 EXPOSE 10800 11211 33153 35434 47100 47500 49112
 
-ENTRYPOINT ["bin/ignite.sh"]
+ENTRYPOINT ["/opt/apache-ignite-fabric-bin/docker-entrypoint.sh"]
