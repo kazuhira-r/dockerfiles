@@ -2,7 +2,7 @@ FROM ubuntu:latest
 
 ENV JAVA_HOME /usr/lib/jvm/java-8-openjdk-amd64
 
-ARG cassandra_version=3.11.1
+ARG cassandra_version=3.11.2
 ARG cassandra_repository_version=311x
 
 RUN apt-get update && \
@@ -10,6 +10,8 @@ RUN apt-get update && \
     apt-get install -y sudo \
                        curl \
                        wget \
+                       gnupg \
+                       tzdata \
                        vim && \
     echo "deb http://www.apache.org/dist/cassandra/debian ${cassandra_repository_version} main" | tee -a /etc/apt/sources.list.d/cassandra.sources.list && \
     curl https://www.apache.org/dist/cassandra/KEYS | sudo apt-key add - && \
