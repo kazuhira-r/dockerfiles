@@ -1,6 +1,6 @@
 FROM ubuntu:latest
 
-ARG alluxio_version=1.7.0
+ARG alluxio_version=1.7.1
 ARG alluxio_home=/opt/alluxio
 
 RUN apt-get update && \
@@ -24,7 +24,7 @@ WORKDIR /opt
 RUN cd /opt && \
            wget -q http://downloads.alluxio.org/downloads/files/${alluxio_version}/alluxio-${alluxio_version}-bin.tar.gz && \
            tar -xf alluxio-${alluxio_version}-bin.tar.gz && \
-           mv alluxio-${alluxio_version} alluxio && \
+           find alluxio-${alluxio_version}* -maxdepth 0 -type d | xargs -I {} mv {} alluxio && \
            chown -R alluxio.alluxio alluxio
 
 WORKDIR ${alluxio_home}
