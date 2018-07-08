@@ -1,6 +1,6 @@
 FROM java:8
 
-ARG keycloak_version=4.0.0.Final
+ARG keycloak_version=4.1.0.Final
 
 RUN apt-get update && \
            apt-get install -y sudo \
