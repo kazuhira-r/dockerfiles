@@ -1,7 +1,7 @@
 FROM java:8
 MAINTAINER kazuhira<kazuhira.m@gmail.com>
 
-ARG infinispan_version=9.2.5.Final
+ARG infinispan_version=9.3.0.Final
 
 RUN apt-get update && \
     apt-get install -y sudo \
@@ -17,11 +17,16 @@ RUN echo "Defaults:ispn !requiretty" >> /etc/sudoers.d/ispn && \
     chmod 440 /etc/sudoers.d/ispn
 
 RUN cd /opt && \
-    wget -q http://downloads.jboss.org/infinispan/${infinispan_version}/infinispan-server-${infinispan_version}-bin.zip && \
-    unzip infinispan-server-${infinispan_version}-bin.zip && \
+    wget -q http://downloads.jboss.org/infinispan/${infinispan_version}/infinispan-server-${infinispan_version}.zip && \
+    unzip infinispan-server-${infinispan_version}.zip && \
+    # until 9.2.x...
+    # wget -q http://downloads.jboss.org/infinispan/${infinispan_version}/infinispan-server-${infinispan_version}-bin.zip && \
+    # unzip infinispan-server-${infinispan_version}-bin.zip && \
     mv infinispan-server-${infinispan_version} infinispan-server && \
     chmod +x infinispan-server/bin/standalone.sh && \
-    rm infinispan-server-${infinispan_version}-bin.zip
+    rm infinispan-server-${infinispan_version}.zip
+    # until 9.2.x...
+    # rm infinispan-server-${infinispan_version}-bin.zip
 
 WORKDIR /opt/infinispan-server
 
