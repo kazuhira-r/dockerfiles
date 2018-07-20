@@ -18,12 +18,15 @@ log-error    = /var/log/mysql/error.log
 
 port = 3306
 bind-address = 0.0.0.0
+# skip-name-resolve
 # datadir = /data
 # tmpdir = /tmp
 character-set-server = utf8mb4
 collation_server = utf8mb4_ja_0900_as_cs_ks
 # collation_server = utf8mb4_ja_0900_as_cs
 transaction-isolation = READ-COMMITTED
+
+# default_password_lifetime = 0
 
 ## https://dev.mysql.com/doc/refman/8.0/en/sql-mode.html
 
@@ -35,10 +38,18 @@ enforce_gtid_consistency = on
 log-bin = mysql-bin
 sync_binlog = 1
 binlog_expire_logs_seconds = 864000
+binlog_checksum=NONE
 
 ## replication
 server_id = 1
-log_slave_updates
 #read_only = on
 
-# default_password_lifetime = 0
+## group replication
+transaction_write_set_extraction = XXHASH64
+loose-group_replication_group_name = "5f0e506a-58f3-4256-ba8b-78101b3b3b39"
+loose-group_replication_start_on_boot = off
+loose-group_replication_local_address = "127.0.0.1:24901"
+loose-group_replication_group_seeds = "127.0.0.1:24901"
+loose-group_replication_bootstrap_group = off
+loose-group_replication_single_primary_mode = on
+report-host = "127.0.0.1"

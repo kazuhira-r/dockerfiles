@@ -40,4 +40,10 @@ RUN chmod a+x setup-master.sh
 ADD setup-slave.sh setup-slave.sh
 RUN chmod a+x setup-slave.sh
 
+ADD setup-group-replication-initial-host.sh setup-group-replication-initial-host.sh
+RUN chmod a+x setup-group-replication-initial-host.sh
+
+ADD setup-group-replication-add-host.sh setup-group-replication-add-host.sh
+RUN chmod a+x setup-group-replication-add-host.sh
+
 ENTRYPOINT service mysql start && tail -f /dev/null 
