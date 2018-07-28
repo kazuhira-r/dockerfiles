@@ -1,8 +1,8 @@
 FROM ubuntu:latest
 
 RUN apt-get update -y && \
-#    apt-get install -y openjdk-8-jdk && \
-    apt-get install -y openjdk-9-jdk-headless && \
+    apt-get install -y openjdk-8-jdk && \
+#    apt-get install -y openjdk-9-jdk-headless && \
     apt-get install -y sudo \
                        wget \
                        curl \
