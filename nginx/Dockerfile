@@ -1,11 +1,12 @@
 FROM ubuntu:latest
 
-ARG ubuntu_version_name=xenial
+ARG ubuntu_version_name=bionic
 
 RUN apt-get update && \
     apt-get install -y curl \
                        wget \
-                       vim && \
+                       vim \
+                       gnupg && \
     ## apt-get install -y software-properties-common && \
     ## add-apt-repository -y ppa:nginx/stable && \
     wget -qO - https://nginx.org/keys/nginx_signing.key | apt-key add - && \
