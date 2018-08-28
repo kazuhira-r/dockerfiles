@@ -1,5 +1,5 @@
 FROM java:8
-MAINTAINER kazuhira<kazuhira.m@gmail.com>
+LABEL maintainer="kazuhira<kazuhira.m@gmail.com>"
 
 ARG infinispan_version=9.3.1.Final
 
