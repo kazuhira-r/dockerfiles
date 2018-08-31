@@ -1,4 +1,4 @@
-FROM java:8
+FROM openjdk:8
 
 ARG keycloak_version=4.3.0.Final
 
