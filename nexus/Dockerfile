@@ -1,20 +1,16 @@
 FROM ubuntu:latest
 
 ARG nexus_major_version=3
-ARG nexus_version=3.6.0-02
+ARG nexus_version=3.13.0-01
 
-ENV JAVA_HOME /usr/lib/jvm/java-8-oracle
+ENV JAVA_HOME /usr/lib/jvm/java-8-openjdk-amd64
 
 EXPOSE 8081
 EXPOSE 8443
 
-RUN echo oracle-java8-installer shared/accepted-oracle-license-v1-1 select true | debconf-set-selections && \
-    apt-get update && \
-    apt-get install -y software-properties-common && \
-    add-apt-repository -y ppa:webupd8team/java && \
-    apt-get update && \
-    apt-get install -y oracle-java8-installer && \
-    apt-get install -y sudo \
+RUN apt-get update && \
+    apt-get install -y openjdk-8-jdk \
+                       sudo \
                        zip \
                        unzip \
                        wget \
