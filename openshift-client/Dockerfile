@@ -9,6 +9,8 @@ RUN apt-get update -y && \
            apt-get install -y sudo \
                                               vim \
                                               wget \
+                                              git \
+                                              bash-completion \
                                               && \
            apt-get clean
 
