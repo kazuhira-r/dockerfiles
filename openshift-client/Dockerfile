@@ -33,4 +33,4 @@ USER openshift-user
 
 ENV PATH /opt/openshift-client:${PATH}
 
-CMD bash
+CMD echo "###### setup bash completion ######\n \$ source <(oc completion bash)\n\n###################################\n" && bash
