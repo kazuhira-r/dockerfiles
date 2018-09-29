@@ -2,6 +2,7 @@ FROM ubuntu:latest
 
 RUN apt-get update -y && \
            apt-get install -y python \
+                                              groff \
                                               curl \
                                               wget \
                                               sudo \
