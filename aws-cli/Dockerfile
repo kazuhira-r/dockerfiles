@@ -27,4 +27,4 @@ RUN pip install awscli --upgrade --user
 
 ENV PATH=~/.local/bin:$PATH
 
-CMD ["bash"]
+CMD echo "#####    AWS CLI upgrade command   #####\n  $ pip install awscli --upgrade --user\n\n    see: https://docs.aws.amazon.com/ja_jp/cli/latest/userguide/installing.html\n########################################\n" && bash
