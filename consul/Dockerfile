@@ -29,7 +29,7 @@ RUN echo "local0.*			${consul_log_dir}/consul.log" >> /etc/rsyslog.d/consul.conf
     perl -wpi -e 's!^(\*\.\*\S+)(.+)!$1,local0.none$2!' /etc/rsyslog.d/50-default.conf
 
 
-RUN adduser --disabled-password --gecos '' consul && \
+RUN adduser --disabled-login --gecos '' consul && \
     usermod -G sudo consul
 
 RUN echo "Defaults:consul !requiretty" >> /etc/sudoers.d/consul && \

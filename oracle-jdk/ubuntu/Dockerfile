@@ -18,7 +18,7 @@ RUN echo oracle-java9-installer shared/accepted-oracle-license-v1-1 select true 
 #    rm -rf /var/lib/apt/lists && \
 #    rm -rf /var/cache/oracle-jdk*-installer
 
-RUN adduser --disabled-password --gecos '' jdk-user && \
+RUN adduser --disabled-login --gecos '' jdk-user && \
     usermod -G sudo jdk-user
 
 RUN echo "Defaults:jdk-user !requiretty" >> /etc/sudoers.d/jdk-user && \

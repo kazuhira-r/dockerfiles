@@ -9,7 +9,7 @@ RUN apt-get update -y && \
                        vim && \
     apt-get clean
 
-RUN adduser --disabled-password --gecos '' jdk-user && \
+RUN adduser --disabled-login --gecos '' jdk-user && \
     usermod -G sudo jdk-user
 
 RUN echo "Defaults:jdk-user !requiretty" >> /etc/sudoers.d/jdk-user && \

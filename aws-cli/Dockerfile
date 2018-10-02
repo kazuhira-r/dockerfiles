@@ -11,7 +11,7 @@ RUN apt-get update -y && \
                                               && \
            apt-get clean
 
-RUN adduser --disabled-password --gecos '' aws-cli && \
+RUN adduser --disabled-login --gecos '' aws-cli && \
           usermod -G sudo aws-cli
 
 RUN echo "Defaults:aws-cli !requiretty" >> /etc/sudoers.d/aws-cli && \

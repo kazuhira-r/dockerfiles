@@ -19,7 +19,7 @@ RUN echo oracle-java8-installer shared/accepted-oracle-license-v1-1 select true 
 #    rm -rf /var/lib/apt/lists && \
 #    rm -rf /var/cache/oracle-jdk*-installer
 
-RUN adduser --disabled-password --gecos '' groovy-user && \
+RUN adduser --disabled-login --gecos '' groovy-user && \
     usermod -G sudo groovy-user
 
 RUN echo "Defaults:groovy-user !requiretty" >> /etc/sudoers.d/groovy-user && \

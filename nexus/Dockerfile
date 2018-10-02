@@ -18,7 +18,7 @@ RUN apt-get update && \
                        vim && \
     apt-get clean
 
-RUN adduser --disabled-password --gecos '' nexus && \
+RUN adduser --disabled-login --gecos '' nexus && \
     usermod -G sudo nexus
 
 RUN echo "Defaults:nexus !requiretty" >> /etc/sudoers.d/nexus && \

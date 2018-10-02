@@ -21,7 +21,7 @@ RUN apt-get update && \
                        vim && \
     apt-get clean
 
-RUN adduser --disabled-password --gecos '' kafka && \
+RUN adduser --disabled-login --gecos '' kafka && \
     usermod -G sudo kafka
 
 RUN echo "Defaults:kafka !requiretty" >> /etc/sudoers.d/kafka && \

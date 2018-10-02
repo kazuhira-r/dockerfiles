@@ -9,7 +9,7 @@ RUN apt-get update -y && \
                        vim && \
     apt-get clean
 
-RUN adduser --disabled-password --gecos '' jgroups && \
+RUN adduser --disabled-login --gecos '' jgroups && \
     usermod -G sudo jgroups
 
 RUN echo "Defaults:jgroups !requiretty" >> /etc/sudoers.d/jgroups && \

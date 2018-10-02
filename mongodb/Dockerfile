@@ -9,7 +9,7 @@ RUN apt-get -y update && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists
 
-RUN adduser --disabled-password --gecos '' mongodb
+RUN adduser --disabled-login --gecos '' mongodb
 
 RUN cd /opt && \
     wget -q https://fastdl.mongodb.org/linux/mongodb-linux-x86_64-${mongodb_version}.tgz && \

@@ -9,7 +9,7 @@ RUN apt-get update && \
                        && \
     apt-get clean
 
-RUN adduser --disabled-password --gecos '' ispn && \
+RUN adduser --disabled-login --gecos '' ispn && \
     usermod -G sudo ispn
 
 RUN echo "Defaults:ispn !requiretty" >> /etc/sudoers.d/ispn && \

@@ -19,7 +19,7 @@ RUN apt-get update && \
                        vim && \
     apt-get clean
 
-RUN adduser --disabled-password --gecos '' zookeeper && \
+RUN adduser --disabled-login --gecos '' zookeeper && \
     usermod -G sudo zookeeper
 
 RUN echo "Defaults:zookeeper !requiretty" >> /etc/sudoers.d/zookeeper && \

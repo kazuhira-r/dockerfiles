@@ -14,7 +14,7 @@ RUN apt-get update -y && \
                                               && \
            apt-get clean
 
-RUN adduser --disabled-password --gecos '' openshift-user && \
+RUN adduser --disabled-login --gecos '' openshift-user && \
     usermod -G sudo openshift-user
 
 RUN echo "Defaults:openshift-user !requiretty" >> /etc/sudoers.d/openshift-user && \

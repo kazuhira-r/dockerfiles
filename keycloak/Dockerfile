@@ -8,7 +8,7 @@ RUN apt-get update && \
                                               && \
            apt-get clean
 
-RUN adduser --disabled-password --gecos '' keycloak && \
+RUN adduser --disabled-login --gecos '' keycloak && \
           usermod -G sudo keycloak
 
 RUN echo "Defaults:keycloak !requiretty" >> /etc/sudoers.d/keycloak && \

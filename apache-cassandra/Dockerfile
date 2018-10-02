@@ -20,7 +20,7 @@ RUN apt-get update && \
     sudo -u cassandra touch /var/log/cassandra/system.log && \
     apt-get clean
 
-RUN adduser --disabled-password --gecos '' cassandra-user && \
+RUN adduser --disabled-login --gecos '' cassandra-user && \
     usermod -G sudo cassandra-user
 
 RUN echo "Defaults:cassandra-user !requiretty" >> /etc/sudoers.d/cassandra-user && \

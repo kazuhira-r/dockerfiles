@@ -20,7 +20,7 @@ RUN apt-get update && \
                        vim && \
     apt-get clean
 
-RUN adduser --disabled-password --gecos '' geode && \
+RUN adduser --disabled-login --gecos '' geode && \
     usermod -G sudo geode
 
 RUN echo "Defaults:geode !requiretty" >> /etc/sudoers.d/geode && \

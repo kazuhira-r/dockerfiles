@@ -8,7 +8,7 @@ RUN apt-get update && \
                        && \
     apt-get clean
 
-RUN adduser --disabled-password --gecos '' wildfly && \
+RUN adduser --disabled-login --gecos '' wildfly && \
     usermod -G sudo wildfly
 
 RUN echo "Defaults:wildfly !requiretty" >> /etc/sudoers.d/wildfly && \

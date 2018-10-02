@@ -15,7 +15,7 @@ RUN apt-get update && \
                        unzip && \
     apt-get clean
 
-RUN adduser --disabled-password --gecos '' ignite && \
+RUN adduser --disabled-login --gecos '' ignite && \
     usermod -G sudo ignite
 
 RUN echo "Defaults:ignite !requiretty" >> /etc/sudoers.d/ignite && \

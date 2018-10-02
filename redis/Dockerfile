@@ -3,7 +3,7 @@ FROM ubuntu:latest
 ARG redis_version=4.0.11
 ARG redis_home=/opt/redis
 
-RUN adduser --disabled-password --gecos '' redis
+RUN adduser --disabled-login --gecos '' redis
 
 WORKDIR ${redis_home}
 

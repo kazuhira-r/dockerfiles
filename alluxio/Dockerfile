@@ -12,7 +12,7 @@ RUN apt-get update && \
                                               vim && \
            apt-get clean
 
-RUN adduser --disabled-password --gecos '' alluxio && \
+RUN adduser --disabled-login --gecos '' alluxio && \
     usermod -G sudo alluxio
 
 RUN echo "Defaults:alluxio !requiretty" >> /etc/sudoers.d/alluxio && \
