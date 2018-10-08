@@ -9,27 +9,25 @@ WORKDIR ${redis_home}
 
 RUN mkdir -p ${redis_home}
 
-RUN apt-get update
-
 RUN cd /opt && \
-    apt-get install -y \
-     wget \
-     gcc \
-     make && \
-    apt-get clean && \
-    wget -q http://download.redis.io/releases/redis-${redis_version}.tar.gz && \
-    tar -zxvf redis-${redis_version}.tar.gz && \
-    mv redis-${redis_version} redis-src && \
-    cd redis-src && \
-    make && \
-    make PREFIX=${redis_home} install
+          apt-get update -y && \
+          apt-get install -y wget \
+                                             gcc \
+                                             make && \
+          apt-get clean && \
+          wget -q http://download.redis.io/releases/redis-${redis_version}.tar.gz && \
+           tar -zxvf redis-${redis_version}.tar.gz && \
+           mv redis-${redis_version} redis-src && \
+           cd redis-src && \
+           make && \
+           make PREFIX=${redis_home} install
 
 RUN chown -R redis.redis ${redis_home} && \
-    chown -R redis.redis /opt/redis-src
+           chown -R redis.redis /opt/redis-src
 
 ADD docker-entrypoint.sh docker-entrypoint.sh
 RUN chown -R redis.redis docker-entrypoint.sh && \
-    chmod a+x docker-entrypoint.sh
+           chmod a+x docker-entrypoint.sh
 
 USER redis
 
