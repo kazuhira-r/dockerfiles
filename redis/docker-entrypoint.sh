@@ -2,4 +2,4 @@
 
 ## use
 # --protected-mode no
-bin/redis-server --bind `hostname -i` --requirepass redispass "$@"
+bin/redis-server --bind '0.0.0.0' --requirepass redispass "$@"
