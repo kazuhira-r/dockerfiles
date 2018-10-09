@@ -10,9 +10,6 @@ RUN mkdir -p ${redis_home}
 RUN apt-get update
 
 RUN apt-get update -y && \
-           apt-get install -y apt-file && \
-           apt-file update && \
-           apt-file search add-apt-repository && \
            apt-get install -y software-properties-common \
                                                wget \
                                                gcc \
