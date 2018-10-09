@@ -1,7 +1,7 @@
 FROM openjdk:8
 LABEL maintainer="kazuhira<kazuhira.m@gmail.com>"
 
-ARG infinispan_version=9.3.3.Final
+ARG infinispan_version=9.4.0.Final
 
 RUN apt-get update && \
     apt-get install -y sudo \
