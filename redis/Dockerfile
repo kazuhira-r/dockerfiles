@@ -27,8 +27,8 @@ RUN adduser --disabled-login --gecos '' redis && \
     usermod -G sudo redis
 
 RUN echo "Defaults:redis !requiretty" >> /etc/sudoers.d/redis && \
-    echo "redis ALL=(ALL)      NOPASSWD: ALL" >> /etc/sudoers.d/redis && \
-    chmod 440 /etc/sudoers.d/redis
+           echo "redis ALL=(ALL)      NOPASSWD: ALL" >> /etc/sudoers.d/redis && \
+           chmod 440 /etc/sudoers.d/redis
 
 RUN chown -R redis.redis ${redis_home} && \
            chown -R redis.redis /opt/redis-src
