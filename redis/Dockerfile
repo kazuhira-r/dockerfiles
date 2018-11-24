@@ -3,15 +3,16 @@ FROM ubuntu:latest
 ARG redis_version=5.0.2
 ARG redis_home=/opt/redis
 
-RUN adduser --disabled-login --gecos '' redis
-
 WORKDIR ${redis_home}
 
 RUN mkdir -p ${redis_home}
 
 RUN cd /opt && \
           apt-get update -y && \
-          apt-get install -y wget \
+          apt-get install -y vim \
+                                             sudo \
+                                             wget \
+                                             curl \
                                              gcc \
                                              make && \
           apt-get clean && \
@@ -21,6 +22,13 @@ RUN cd /opt && \
            cd redis-src && \
            make && \
            make PREFIX=${redis_home} install
+
+RUN adduser --disabled-login --gecos '' redis && \
+    usermod -G sudo redis
+
+RUN echo "Defaults:redis !requiretty" >> /etc/sudoers.d/redis && \
+    echo "redis ALL=(ALL)      NOPASSWD: ALL" >> /etc/sudoers.d/redis && \
+    chmod 440 /etc/sudoers.d/redis
 
 RUN chown -R redis.redis ${redis_home} && \
            chown -R redis.redis /opt/redis-src
