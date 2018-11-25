@@ -44,6 +44,6 @@ RUN chmod a+x docker-entrypoint.sh
 
 USER redis
 
-EXPOSE 6379
+EXPOSE 6379 16379
 
 ENTRYPOINT ["/opt/redis/docker-entrypoint.sh"]
