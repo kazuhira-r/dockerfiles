@@ -1,5 +1,7 @@
 FROM ubuntu:latest
 
+ARG prometheus_version=2.5.0
+
 RUN apt-get update -y && \
            apt-get install -y sudo \
                                               curl \
@@ -8,22 +10,23 @@ RUN apt-get update -y && \
                                               vim && \
            apt-get clean
 
-RUN adduser --disabled-login --gecos '' prometheus-user && \
-    usermod -G sudo prometheus-user
+RUN adduser --disabled-login --gecos '' prometheus && \
+           usermod -G sudo prometheus
 
-RUN echo "Defaults:prometheus-user !requiretty" >> /etc/sudoers.d/prometheus-user && \
-    echo "prometheus-user ALL=(ALL)      NOPASSWD: ALL" >> /etc/sudoers.d/prometheus-user && \
-    chmod 440 /etc/sudoers.d/prometheus-user
+RUN echo "Defaults:prometheus !requiretty" >> /etc/sudoers.d/prometheus && \
+          echo "prometheus ALL=(ALL)      NOPASSWD: ALL" >> /etc/sudoers.d/prometheus && \
+          chmod 440 /etc/sudoers.d/prometheus
 
-RUN curl -fsSL https://s3-eu-west-1.amazonaws.com/deb.robustperception.io/41EFC99D.gpg | apt-key add - && \
-           apt-get update -y && \
-           apt-get install -y prometheus \
-                                              prometheus-node-exporter \
-                                              prometheus-pushgateway \
-                                              prometheus-alertmanager
+RUN cd /opt && \
+           wget -q https://github.com/prometheus/prometheus/releases/download/v${prometheus_version}/prometheus-${prometheus_version}.linux-amd64.tar.gz && \
+           tar xf prometheus-${prometheus_version}.linux-amd64.tar.gz && \
+           mv prometheus-${prometheus_version}.linux-amd64 prometheus && \
+           chown -R prometheus.prometheus prometheus
+           
+WORKDIR /opt/prometheus
 
 EXPOSE 9090
 
-USER prometheus-user
+USER prometheus
 
-ENTRYPOINT sudo service prometheus start && sudo -u prometheus touch /var/log/prometheus/prometheus.log && tail -f /var/log/prometheus/prometheus.log
+ENTRYPOINT ./prometheus && tail -f /dev/null
