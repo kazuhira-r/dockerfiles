@@ -32,9 +32,6 @@ WORKDIR /opt/infinispan-server
 
 EXPOSE 8080 8181 9990 11211 11222
 
-ADD start-clustered-server.sh start-clustered-server.sh
-RUN chmod a+x start-clustered-server.sh
-
 ADD docker-entrypoint.sh docker-entrypoint.sh
 RUN chmod a+x docker-entrypoint.sh
 
@@ -42,3 +39,4 @@ RUN chown -R ispn.ispn /opt/infinispan-server
 USER ispn
 
 ENTRYPOINT ["./docker-entrypoint.sh"]
+CMD ["-c", "clustered.xml"]
