@@ -1,7 +1,7 @@
 FROM ubuntu:latest
 
 ## see, https://dev.mysql.com/downloads/repo/apt/
-ARG mysql_apt_version=0.8.10-1
+ARG mysql_apt_version=0.8.11-1
 
 EXPOSE 3306
 
@@ -46,4 +46,9 @@ RUN chmod a+x setup-group-replication-initial-host.sh
 ADD setup-group-replication-add-host.sh setup-group-replication-add-host.sh
 RUN chmod a+x setup-group-replication-add-host.sh
 
-ENTRYPOINT service mysql start && tail -f /dev/null 
+ADD docker-entrypoint.sh docker-entrypoint.sh
+RUN chmod a+x docker-entrypoint.sh
+
+#ENTRYPOINT service mysql start && tail -f /dev/null 
+#ENTRYPOINT ["/usr/sbin/mysqld"]
+ENTRYPOINT ["./docker-entrypoint.sh"]
