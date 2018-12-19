@@ -1,6 +1,6 @@
 FROM ubuntu:latest
 
-ARG grafana_version=5.3.4
+ARG grafana_version=5.4.2
 
 RUN apt-get update -y && \
            apt-get install -y sudo \
