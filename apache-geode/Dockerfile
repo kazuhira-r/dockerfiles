@@ -2,10 +2,10 @@ FROM ubuntu:latest
 
 ENV JAVA_HOME /usr/lib/jvm/java-8-openjdk-amd64
 
-ARG geode_version=1.3.0
+ARG geode_version=1.8.0
 
 ## since Apache Geode 1.3.0, tar.gz to tgz
-ARG geode_distribution_url=http://ftp.meisei-u.ac.jp/mirror/apache/dist/geode/${geode_version}/apache-geode-${geode_version}.tgz
+ARG geode_distribution_url=https://www-us.apache.org/dist/geode/${geode_version}/apache-geode-${geode_version}.tgz
 #ARG geode_distribution_url=https://archive.apache.org/dist/incubator/geode/${geode_version}/apache-geode-${geode_version}.tgz
 
 ## until Apache Geode 1.2.1
