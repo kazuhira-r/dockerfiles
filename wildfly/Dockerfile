@@ -1,6 +1,6 @@
 FROM openjdk:8
 
-ARG wildfly_version=14.0.0.Final
+ARG wildfly_version=15.0.0.Final
 
 RUN apt-get update && \
     apt-get install -y sudo \
