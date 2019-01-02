@@ -1,7 +1,7 @@
 FROM ubuntu:latest
 
-# see: http://www.rabbitmq.com/debian/pool/main/r/rabbitmq-server/
-ARG rabbitmq_version=3.6.11-1
+# see: https://dl.bintray.com/rabbitmq/debian/pool/rabbitmq-server/
+ARG rabbitmq_version=3.7.9-1
 
 EXPOSE 5672 25672
 
@@ -9,16 +9,19 @@ RUN apt-get update && \
     apt-get install -y wget \
                        curl \
                        vim \
-                       sudo
+                       sudo \
+                       gnupg
 
-RUN echo 'deb http://www.rabbitmq.com/debian/ testing main' | \
-    tee /etc/apt/sources.list.d/rabbitmq.list && \
-    wget -O- https://www.rabbitmq.com/rabbitmq-signing-key-public.asc | \
-    apt-key add -
+RUN apt-key adv --keyserver "hkps.pool.sks-keyservers.net" --recv-keys '0x6B73A36E6026DFCA'
+RUN wget -O - "https://github.com/rabbitmq/signing-keys/releases/download/2.0/rabbitmq-release-signing-key.asc" | apt-key add -  && \
+    echo "deb http://dl.bintray.com/rabbitmq-erlang/debian bionic erlang" | tee /etc/apt/sources.list.d/bintray.erlang.list && \
+    echo "deb https://dl.bintray.com/rabbitmq/debian bionic main" | tee /etc/apt/sources.list.d/bintray.rabbitmq.list
 
 RUN apt-get update && \
-    apt-get install -y --allow-unauthenticated rabbitmq-server=${rabbitmq_version}
-    # apt-get install -y rabbitmq-server=${rabbitmq_version}
+    apt-get install -y erlang-nox rabbitmq-server=${rabbitmq_version} && \
+    apt-get clean
+
+RUN rabbitmq-plugins enable rabbitmq_management
 
 ADD add-user.sh add-user.sh
 RUN chmod a+x add-user.sh
