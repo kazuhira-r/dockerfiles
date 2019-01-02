@@ -3,25 +3,25 @@ FROM ubuntu:latest
 ARG prometheus_version=2.6.0
 
 RUN apt-get update -y && \
-           apt-get install -y sudo \
-                                              curl \
-                                              wget \
-                                              gnupg \
-                                              vim && \
+    apt-get install -y sudo \
+                       curl \
+                       wget \
+                       gnupg \
+                       vim && \
            apt-get clean
 
 RUN adduser --disabled-login --gecos '' prometheus && \
-           usermod -G sudo prometheus
+    usermod -G sudo prometheus
 
 RUN echo "Defaults:prometheus !requiretty" >> /etc/sudoers.d/prometheus && \
-          echo "prometheus ALL=(ALL)      NOPASSWD: ALL" >> /etc/sudoers.d/prometheus && \
-          chmod 440 /etc/sudoers.d/prometheus
+    echo "prometheus ALL=(ALL)      NOPASSWD: ALL" >> /etc/sudoers.d/prometheus && \
+    chmod 440 /etc/sudoers.d/prometheus
 
 RUN cd /opt && \
-           wget -q https://github.com/prometheus/prometheus/releases/download/v${prometheus_version}/prometheus-${prometheus_version}.linux-amd64.tar.gz && \
-           tar xf prometheus-${prometheus_version}.linux-amd64.tar.gz && \
-           mv prometheus-${prometheus_version}.linux-amd64 prometheus && \
-           chown -R prometheus.prometheus prometheus
+    wget -q https://github.com/prometheus/prometheus/releases/download/v${prometheus_version}/prometheus-${prometheus_version}.linux-amd64.tar.gz && \
+    tar xf prometheus-${prometheus_version}.linux-amd64.tar.gz && \
+    mv prometheus-${prometheus_version}.linux-amd64 prometheus && \
+    chown -R prometheus.prometheus prometheus
            
 WORKDIR /opt/prometheus
 

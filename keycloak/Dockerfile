@@ -3,24 +3,24 @@ FROM openjdk:8
 ARG keycloak_version=4.8.1.Final
 
 RUN apt-get update && \
-           apt-get install -y sudo \
-                                              vim \
-                                              && \
-           apt-get clean
+    apt-get install -y sudo \
+                       vim \
+                       && \
+    apt-get clean
 
 RUN adduser --disabled-login --gecos '' keycloak && \
-          usermod -G sudo keycloak
+    usermod -G sudo keycloak
 
 RUN echo "Defaults:keycloak !requiretty" >> /etc/sudoers.d/keycloak && \
-          echo "keycloak ALL=(ALL)      NOPASSWD: ALL" >> /etc/sudoers.d/keycloak && \
-          chmod 440 /etc/sudoers.d/keycloak
+    echo "keycloak ALL=(ALL)      NOPASSWD: ALL" >> /etc/sudoers.d/keycloak && \
+    chmod 440 /etc/sudoers.d/keycloak
 
 RUN cd /opt && \
-          wget -q https://downloads.jboss.org/keycloak/${keycloak_version}/keycloak-${keycloak_version}.zip && \
-          unzip keycloak-${keycloak_version}.zip && \
-          mv keycloak-${keycloak_version} keycloak && \
-          chmod +x keycloak/bin/standalone.sh && \
-          rm keycloak-${keycloak_version}.zip
+    wget -q https://downloads.jboss.org/keycloak/${keycloak_version}/keycloak-${keycloak_version}.zip && \
+    unzip keycloak-${keycloak_version}.zip && \
+    mv keycloak-${keycloak_version} keycloak && \
+    chmod +x keycloak/bin/standalone.sh && \
+    rm keycloak-${keycloak_version}.zip
 
 WORKDIR /opt/keycloak
 
