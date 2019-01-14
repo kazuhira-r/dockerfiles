@@ -1,7 +1,7 @@
 FROM ubuntu:latest
 
 ARG nexus_major_version=3
-ARG nexus_version=3.13.0-01
+ARG nexus_version=3.15.0-01
 
 ENV JAVA_HOME /usr/lib/jvm/java-8-openjdk-amd64
 
