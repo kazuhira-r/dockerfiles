@@ -1,6 +1,6 @@
 FROM openjdk:8
 
-ARG keycloak_version=4.8.1.Final
+ARG keycloak_version=4.8.2.Final
 
 RUN apt-get update && \
     apt-get install -y sudo \
