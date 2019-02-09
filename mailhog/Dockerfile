@@ -24,5 +24,6 @@ RUN mkdir /opt/mailhog && \
 
 USER mailhog
 WORKDIR /opt/mailhog
+EXPOSE 1025 8025
 
 ENTRYPOINT [ "/opt/mailhog/MailHog_linux_386" ]
