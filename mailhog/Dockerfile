@@ -18,12 +18,12 @@ RUN echo "Defaults:mailhog !requiretty" >> /etc/sudoers.d/mailhog && \
 
 RUN mkdir /opt/mailhog && \
     cd /opt/mailhog && \
-    wget -q https://github.com/mailhog/MailHog/releases/download/${mailhog_version}/MailHog_linux_386 && \
+    wget -q https://github.com/mailhog/MailHog/releases/download/${mailhog_version}/MailHog_linux_amd64 && \
     chown -R mailhog.mailhog /opt/mailhog && \
-    chmod a+x MailHog_linux_386
+    chmod a+x MailHog_linux_amd64
 
 USER mailhog
 WORKDIR /opt/mailhog
 EXPOSE 1025 8025
 
-ENTRYPOINT [ "/opt/mailhog/MailHog_linux_386" ]
+ENTRYPOINT [ "/opt/mailhog/MailHog_linux_amd64" ]
