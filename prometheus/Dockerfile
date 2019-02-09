@@ -6,7 +6,6 @@ RUN apt-get update -y && \
     apt-get install -y sudo \
                        curl \
                        wget \
-                       gnupg \
                        vim && \
            apt-get clean
 
