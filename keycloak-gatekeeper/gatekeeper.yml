@@ -1,0 +1,16 @@
+client-id: <CLIENT_ID>
+client-secret: <CLIENT_SECRET>
+discovery-url: https://<KEYCLOAK_HOST_PORT>/auth/realms/<REAL_NAME>
+listen: 0.0.0.0:3000
+enable-refresh-tokens: true
+redirection-url: http://0.0.0.0:3000
+encryption-key: 3lKvZzSmAq8DoMYGPRkVfSQrF27GKCPF
+upstream-url: http://<BACKEND_HOST_PORT>
+scopes:
+#  - foo:bar
+resources:
+  - uri:
+    methods:
+#      - GET
+    roles:
+#      - 
