@@ -1,6 +1,6 @@
 #!/bin/bash
 
-KAFKA_MANAGER_VERSION=1.3.3.18
+KAFKA_MANAGER_VERSION=1.3.3.22
 
 wget -q https://github.com/yahoo/kafka-manager/archive/${KAFKA_MANAGER_VERSION}.tar.gz
 tar -zxf ${KAFKA_MANAGER_VERSION}.tar.gz
