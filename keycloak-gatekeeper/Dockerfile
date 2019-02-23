@@ -27,5 +27,6 @@ WORKDIR /opt/keycloak
 EXPOSE 3000
 
 ADD gatekeeper.yml gatekeeper.yml
+RUN sudo chown keycloak.keycloak gatekeeper.yml && sudo chmod ug+w gatekeeper.yml
 
 CMD ["bash"]
