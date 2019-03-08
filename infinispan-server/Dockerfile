@@ -1,11 +1,13 @@
-FROM openjdk:8
+FROM openjdk:8-jdk-slim
 LABEL maintainer="kazuhira<kazuhira.m@gmail.com>"
 
-ARG infinispan_version=9.4.8.Final
+ARG infinispan_version=9.4.9.Final
 
 RUN apt-get update && \
     apt-get install -y sudo \
                        vim \
+                       wget \
+                       curl \
                        && \
     apt-get clean
 
