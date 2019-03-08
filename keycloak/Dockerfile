@@ -1,10 +1,12 @@
-FROM openjdk:8
+FROM openjdk:8-jdk-slim
 
-ARG keycloak_version=4.8.3.Final
+ARG keycloak_version=5.0.0
 
 RUN apt-get update && \
     apt-get install -y sudo \
                        vim \
+                       wget \
+                       curl \
                        && \
     apt-get clean
 
