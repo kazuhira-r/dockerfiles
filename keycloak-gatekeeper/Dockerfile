@@ -1,6 +1,6 @@
 FROM ubuntu:latest
 
-ARG keycloak_version=4.8.3.Final
+ARG keycloak_version=5.0.0
 
 RUN apt-get update -y && \
     apt-get install -y \
