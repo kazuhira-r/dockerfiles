@@ -1,6 +1,4 @@
-FROM ubuntu:latest
-
-ENV JAVA_HOME /usr/lib/jvm/java-8-openjdk-amd64
+FROM openjdk:8-jdk-slim
 
 ARG geode_version=1.8.0
 
@@ -13,7 +11,6 @@ ARG geode_distribution_url=https://www-us.apache.org/dist/geode/${geode_version}
 #ARG geode_distribution_url=https://archive.apache.org/dist/incubator/geode/${geode_version}/apache-geode-${geode_version}.tar.gz
 
 RUN apt-get update && \
-    apt-get install -y openjdk-8-jdk && \
     apt-get install -y sudo \
                        curl \
                        wget \
