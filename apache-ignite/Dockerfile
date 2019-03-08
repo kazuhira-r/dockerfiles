@@ -1,4 +1,4 @@
-FROM ubuntu:latest
+FROM openjdk:8-jdk-slim
 
 ENV JAVA_HOME /usr/lib/jvm/java-8-openjdk-amd64
 
@@ -7,8 +7,7 @@ ARG ignite_version=2.7.0
 ARG ignite_distribution_url=http://ftp.meisei-u.ac.jp/mirror/apache/dist//ignite/${ignite_version}/apache-ignite-${ignite_version}-bin.zip
 
 RUN apt-get update && \
-    apt-get install -y openjdk-8-jdk \
-                       sudo \
+    apt-get install -y sudo \
                        curl \
                        wget \
                        vim \
