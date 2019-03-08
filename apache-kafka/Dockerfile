@@ -1,4 +1,4 @@
-FROM ubuntu:latest
+FROM openjdk:8-jdk-slim
 
 ARG kafka_version=2.1.1
 ARG kafka_scala_major_version=2.12
@@ -13,8 +13,7 @@ ARG trifecta_kafka_version=0.10.1.0
 ARG trifecta_distribution_url=https://github.com/ldaniels528/trifecta/releases/download/v${trifecta_version}-${trifecta_kafka_version}/trifecta-ui-${trifecta_version}b-${trifecta_kafka_version}.zip
 
 RUN apt-get update && \
-    apt-get install -y openjdk-8-jdk \
-                       sudo \
+    apt-get install -y sudo \
                        curl \
                        wget \
                        unzip \
