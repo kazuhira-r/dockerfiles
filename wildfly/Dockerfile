@@ -1,10 +1,12 @@
-FROM openjdk:8
+FROM openjdk:8-jdk-slim
 
-ARG wildfly_version=15.0.0.Final
+ARG wildfly_version=16.0.0.Final
 
 RUN apt-get update && \
     apt-get install -y sudo \
                        vim \
+                       wget \
+                       curl \
                        && \
     apt-get clean
 
