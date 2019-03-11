@@ -1,6 +1,6 @@
 FROM ubuntu:latest
 
-ARG prometheus_version=2.7.1
+ARG prometheus_version=2.7.2
 
 RUN apt-get update -y && \
     apt-get install -y sudo \
