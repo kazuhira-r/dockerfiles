@@ -32,7 +32,7 @@ RUN cd /opt && \
 
 WORKDIR /opt/infinispan-server
 
-EXPOSE 8080 8181 9990 11211 11222
+EXPOSE 8080 8181 9779 9990 11211 11222
 
 ADD docker-entrypoint.sh docker-entrypoint.sh
 RUN chmod a+x docker-entrypoint.sh
