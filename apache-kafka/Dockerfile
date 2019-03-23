@@ -1,6 +1,6 @@
 FROM openjdk:8-jdk-slim
 
-ARG kafka_version=2.1.1
+ARG kafka_version=2.2.0
 ARG kafka_scala_major_version=2.12
 ARG kafka_home=/opt/apache-kafka
 
