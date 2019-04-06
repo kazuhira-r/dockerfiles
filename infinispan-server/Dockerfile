@@ -1,7 +1,7 @@
 FROM openjdk:8-jdk-slim
 LABEL maintainer="kazuhira<kazuhira.m@gmail.com>"
 
-ARG infinispan_version=9.4.11.Final
+ARG infinispan_version=9.4.12.Final
 
 RUN apt-get update && \
     apt-get install -y sudo \
