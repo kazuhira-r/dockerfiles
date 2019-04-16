@@ -1,7 +1,7 @@
 FROM ubuntu:latest
 
 RUN apt-get update -y && \
-    apt-get install -y python \
+    apt-get install -y python3-pip \
                        groff \
                        curl \
                        wget \
@@ -18,13 +18,10 @@ RUN echo "Defaults:aws-cli !requiretty" >> /etc/sudoers.d/aws-cli && \
     echo "aws-cli ALL=(ALL)      NOPASSWD: ALL" >> /etc/sudoers.d/aws-cli && \
     chmod 440 /etc/sudoers.d/aws-cli
 
-RUN curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py && \
-    python get-pip.py && \
-    rm get-pip.py
-
 USER aws-cli
 
-RUN pip install awscli --upgrade --user
+RUN pip3 install awscli --upgrade --user
+RUN pip3 install awslogs
 
 ENV PATH=~/.local/bin:$PATH
 
