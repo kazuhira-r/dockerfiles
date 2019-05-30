@@ -1,11 +1,12 @@
 FROM openjdk:11-jdk-slim
 LABEL maintainer="kazuhira<kazuhira.m@gmail.com>"
 
-ARG infinispan_version=9.4.13.Final
+ARG infinispan_version=9.4.14.Final
 
 RUN apt-get update && \
     apt-get install -y sudo \
                        vim \
+                       unzip \
                        wget \
                        curl \
                        && \
