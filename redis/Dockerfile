@@ -1,6 +1,6 @@
 FROM ubuntu:latest
 
-ARG redis_version=5.0.4
+ARG redis_version=5.0.5
 ARG redis_home=/opt/redis
 
 WORKDIR ${redis_home}
