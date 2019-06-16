@@ -1,6 +1,6 @@
 FROM ubuntu:latest
 
-ARG mailcatcher_version=0.6.5
+ARG mailcatcher_version=0.7.0
 
 RUN apt-get update -y && \
     apt-get install -y \
