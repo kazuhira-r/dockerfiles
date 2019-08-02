@@ -9,4 +9,4 @@ PID=$!
 
 echo "'`mysql --version`' started."
 
-wait $PID
+tail -f /var/log/mysql/error.log

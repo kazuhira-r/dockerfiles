@@ -45,7 +45,6 @@ server_id = 1
 #read_only = on
 
 ## group replication
-transaction_write_set_extraction = XXHASH64
 loose-group_replication_group_name = "5f0e506a-58f3-4256-ba8b-78101b3b3b39"
 loose-group_replication_start_on_boot = off
 loose-group_replication_local_address = "127.0.0.1:24901"

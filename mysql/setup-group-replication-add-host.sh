@@ -26,9 +26,11 @@ pgrep mysqld | xargs kill
 
 sleep 10
 
-service mysql restart
+/usr/sbin/mysqld &
 
-SQL=$(cat <<EOF
+sleep 3
+
+SQL_INITIAL=$(cat <<EOS
 SET SQL_LOG_BIN=0;
 CREATE USER ${USER_NAME}@'${CONNECT_FROM}' IDENTIFIED BY '${PASSWORD}';
 GRANT REPLICATION SLAVE ON *.* TO ${USER_NAME}@'${CONNECT_FROM}';
@@ -37,9 +39,24 @@ SET SQL_LOG_BIN=1;
 CHANGE MASTER TO MASTER_USER='${USER_NAME}', MASTER_PASSWORD='${PASSWORD}' FOR CHANNEL 'group_replication_recovery';
 INSTALL PLUGIN group_replication SONAME 'group_replication.so';
 SHOW PLUGINS;
-START GROUP_REPLICATION;
-SELECT * FROM performance_schema.replication_group_members;
-EOF
+EOS
 )
 
-mysql -uroot -e "${SQL}"
+mysql -uroot -e "${SQL_INITIAL}"
+mysql -u${USER_NAME} -p${PASSWORD} -e 'exit'  # must?
+
+SQL_START_REPLICATION=$(cat <<EOS
+START GROUP_REPLICATION;
+EOS
+)
+
+mysql -uroot -e "${SQL_START_REPLICATION}"
+
+sleep 3
+
+SQL_CONFIRM_MEMBERS=$(cat <<EOS
+SELECT * FROM performance_schema.replication_group_members;
+EOS
+)
+
+mysql -uroot -e "${SQL_CONFIRM_MEMBERS}"
