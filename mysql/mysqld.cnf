@@ -18,7 +18,7 @@ log-error    = /var/log/mysql/error.log
 
 port = 3306
 bind-address = 0.0.0.0
-# skip-name-resolve
+skip-name-resolve
 # datadir = /data
 # tmpdir = /tmp
 character-set-server = utf8mb4
