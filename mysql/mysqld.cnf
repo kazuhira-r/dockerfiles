@@ -45,10 +45,10 @@ server_id = 1
 #read_only = on
 
 ## group replication
-loose-group_replication_group_name = "5f0e506a-58f3-4256-ba8b-78101b3b3b39"
-loose-group_replication_start_on_boot = off
-loose-group_replication_local_address = "127.0.0.1:24901"
-loose-group_replication_group_seeds = "127.0.0.1:24901"
-loose-group_replication_bootstrap_group = off
-loose-group_replication_single_primary_mode = on
+#loose-group_replication_group_name = "5f0e506a-58f3-4256-ba8b-78101b3b3b39"
+#loose-group_replication_start_on_boot = off
+#loose-group_replication_local_address = "127.0.0.1:24901"
+#loose-group_replication_group_seeds = "127.0.0.1:24901"
+#loose-group_replication_bootstrap_group = off
+#loose-group_replication_single_primary_mode = on
 report-host = "127.0.0.1"
