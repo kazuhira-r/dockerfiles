@@ -1,7 +1,7 @@
 FROM ubuntu:latest
 
 # see: https://dl.bintray.com/rabbitmq/debian/pool/rabbitmq-server/
-ARG rabbitmq_version=3.7.9-1
+ARG rabbitmq_version=3.7.17-1
 
 EXPOSE 5672 25672
 
@@ -12,8 +12,8 @@ RUN apt-get update && \
                        sudo \
                        gnupg
 
-RUN apt-key adv --keyserver "hkps.pool.sks-keyservers.net" --recv-keys '0x6B73A36E6026DFCA'
-RUN wget -O - "https://github.com/rabbitmq/signing-keys/releases/download/2.0/rabbitmq-release-signing-key.asc" | apt-key add -  && \
+RUN curl -fsSL https://github.com/rabbitmq/signing-keys/releases/download/2.0/rabbitmq-release-signing-key.asc | apt-key add - && \
+    apt-key adv --keyserver "hkps.pool.sks-keyservers.net" --recv-keys "0x6B73A36E6026DFCA" && \
     echo "deb http://dl.bintray.com/rabbitmq-erlang/debian bionic erlang" | tee /etc/apt/sources.list.d/bintray.erlang.list && \
     echo "deb https://dl.bintray.com/rabbitmq/debian bionic main" | tee /etc/apt/sources.list.d/bintray.rabbitmq.list
 
