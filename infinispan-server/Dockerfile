@@ -1,7 +1,7 @@
 FROM openjdk:11-jdk-slim
 LABEL maintainer="kazuhira<kazuhira.m@gmail.com>"
 
-ARG infinispan_version=10.0.0.Beta3
+ARG infinispan_version=10.0.0.CR2
 
 RUN apt-get update && \
     apt-get install -y sudo \
@@ -26,7 +26,6 @@ RUN cd /opt && \
     # wget -q http://downloads.jboss.org/infinispan/${infinispan_version}/infinispan-server-${infinispan_version}-bin.zip && \
     # unzip infinispan-server-${infinispan_version}-bin.zip && \
     mv infinispan-server-${infinispan_version} infinispan-server && \
-    chmod +x infinispan-server/bin/standalone.sh && \
     rm infinispan-server-${infinispan_version}.zip
     # until 9.2.x...
     # rm infinispan-server-${infinispan_version}-bin.zip
@@ -42,4 +41,3 @@ RUN chown -R ispn.ispn /opt/infinispan-server
 USER ispn
 
 ENTRYPOINT ["./docker-entrypoint.sh"]
-CMD ["-c", "clustered.xml"]
