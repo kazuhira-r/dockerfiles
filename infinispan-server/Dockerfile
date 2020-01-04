@@ -1,13 +1,12 @@
 FROM openjdk:11-jdk-slim
 LABEL maintainer="kazuhira<kazuhira.m@gmail.com>"
 
-ARG infinispan_version=10.0.0.CR2
+ARG infinispan_version=10.1.0.Final
 
 RUN apt-get update && \
     apt-get install -y sudo \
                        vim \
                        unzip \
-                       wget \
                        curl \
                        && \
     apt-get clean
@@ -20,10 +19,10 @@ RUN echo "Defaults:ispn !requiretty" >> /etc/sudoers.d/ispn && \
     chmod 440 /etc/sudoers.d/ispn
 
 RUN cd /opt && \
-    wget -q http://downloads.jboss.org/infinispan/${infinispan_version}/infinispan-server-${infinispan_version}.zip && \
+    curl -L -O -s http://downloads.jboss.org/infinispan/${infinispan_version}/infinispan-server-${infinispan_version}.zip && \
     unzip infinispan-server-${infinispan_version}.zip && \
     # until 9.2.x...
-    # wget -q http://downloads.jboss.org/infinispan/${infinispan_version}/infinispan-server-${infinispan_version}-bin.zip && \
+    # curl -L -O -s http://downloads.jboss.org/infinispan/${infinispan_version}/infinispan-server-${infinispan_version}-bin.zip && \
     # unzip infinispan-server-${infinispan_version}-bin.zip && \
     mv infinispan-server-${infinispan_version} infinispan-server && \
     rm infinispan-server-${infinispan_version}.zip
@@ -32,7 +31,7 @@ RUN cd /opt && \
 
 WORKDIR /opt/infinispan-server
 
-EXPOSE 8080 8181 9779 9990 11211 11222
+EXPOSE 7800 8080 11222
 
 ADD docker-entrypoint.sh docker-entrypoint.sh
 RUN chmod a+x docker-entrypoint.sh
