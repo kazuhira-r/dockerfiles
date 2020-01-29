@@ -1,7 +1,7 @@
 FROM openjdk:11-jdk-slim
 LABEL maintainer="kazuhira<kazuhira.m@gmail.com>"
 
-ARG infinispan_version=10.1.0.Final
+ARG infinispan_version=10.1.1.Final
 
 RUN apt-get update && \
     apt-get install -y sudo \
