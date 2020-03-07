@@ -1,26 +1,40 @@
 FROM ubuntu:latest
 
-ARG mongodb_version=3.2.10
+ARG mongodb_major_version=4.2
+ARG mongodb_version=4.2.3
 
 EXPOSE 27017
 
 RUN apt-get -y update && \
-    apt-get install -y wget && \
-    apt-get clean && \
-    rm -rf /var/lib/apt/lists
+    apt-get install -y sudo \
+                       wget \
+                       vim \
+                       curl \
+                       gnupg \
+                       && \
+    apt-get clean
 
-RUN adduser --disabled-login --gecos '' mongodb
+RUN adduser --disabled-login --gecos '' mongo-user && \
+    usermod -G sudo mongo-user
 
-RUN cd /opt && \
-    wget -q https://fastdl.mongodb.org/linux/mongodb-linux-x86_64-${mongodb_version}.tgz && \
-    tar -zxf mongodb-linux-x86_64-${mongodb_version}.tgz && \
-    rm mongodb-linux-x86_64-${mongodb_version}.tgz && \
-    mv mongodb-linux-x86_64-${mongodb_version} mongodb && \
-    mkdir -p /data/db && \
-    chown -R mongodb.mongodb /opt/mongodb /data
+RUN echo "Defaults:mongo-user !requiretty" >> /etc/sudoers.d/mongo-user && \
+    echo "mongo-user ALL=(ALL)      NOPASSWD: ALL" >> /etc/sudoers.d/mongo-user && \
+    chmod 440 /etc/sudoers.d/mongo-user
 
-USER mongodb
+RUN wget -qO - https://www.mongodb.org/static/pgp/server-${mongodb_major_version}.asc | apt-key add - && \
+    echo "deb [ arch=amd64,arm64 ] https://repo.mongodb.org/apt/ubuntu bionic/mongodb-org/${mongodb_major_version} multiverse" | sudo tee /etc/apt/sources.list.d/mongodb-org-${mongodb_major_version}.list && \
+    apt-get update -y && \
+    apt-get install -y mongodb-org-server=${mongodb_version} \
+                       mongodb-org-shell=${mongodb_version} \
+                       mongodb-org-tools=${mongodb_version} \
+                       mongodb-org-mongos=${mongodb_version} \
+                       && \
+    apt-get clean
 
-WORKDIR /opt/mongodb
+ADD docker-entrypoint.sh docker-entrypoint.sh
 
-ENTRYPOINT bin/mongod
+RUN chmod a+x docker-entrypoint.sh
+
+USER mongo-user
+
+ENTRYPOINT ["./docker-entrypoint.sh"] 
