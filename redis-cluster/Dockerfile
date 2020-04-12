@@ -11,13 +11,12 @@ RUN cd /opt && \
     apt-get update -y && \
     apt-get install -y vim \
                        sudo \
-                       wget \
                        curl \
                        gcc \
                        make && \
     apt-get clean && \
-    curl -OL http://download.redis.io/releases/redis-${redis_version}.tar.gz && \
-    tar -zxvf redis-${redis_version}.tar.gz && \
+    curl -OL -s http://download.redis.io/releases/redis-${redis_version}.tar.gz && \
+    tar -xf redis-${redis_version}.tar.gz && \
     mv redis-${redis_version} redis-src && \
     cd redis-src && \
     make && \
