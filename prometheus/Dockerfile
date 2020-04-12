@@ -1,11 +1,10 @@
 FROM ubuntu:latest
 
-ARG prometheus_version=2.10.0
+ARG prometheus_version=2.17.1
 
 RUN apt-get update -y && \
     apt-get install -y sudo \
                        curl \
-                       wget \
                        vim && \
            apt-get clean
 
@@ -17,7 +16,7 @@ RUN echo "Defaults:prometheus !requiretty" >> /etc/sudoers.d/prometheus && \
     chmod 440 /etc/sudoers.d/prometheus
 
 RUN cd /opt && \
-    wget -q https://github.com/prometheus/prometheus/releases/download/v${prometheus_version}/prometheus-${prometheus_version}.linux-amd64.tar.gz && \
+    curl -LO -s https://github.com/prometheus/prometheus/releases/download/v${prometheus_version}/prometheus-${prometheus_version}.linux-amd64.tar.gz && \
     tar xf prometheus-${prometheus_version}.linux-amd64.tar.gz && \
     mv prometheus-${prometheus_version}.linux-amd64 prometheus && \
     chown -R prometheus.prometheus prometheus
