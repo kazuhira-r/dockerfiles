@@ -1,6 +1,6 @@
 FROM ubuntu:latest
 
-ARG redis_version=5.0.5
+ARG redis_version=5.0.8
 ARG redis_home=/opt/redis
 
 WORKDIR ${redis_home}
@@ -16,7 +16,7 @@ RUN cd /opt && \
                        gcc \
                        make && \
     apt-get clean && \
-    wget -q http://download.redis.io/releases/redis-${redis_version}.tar.gz && \
+    curl -OL http://download.redis.io/releases/redis-${redis_version}.tar.gz && \
     tar -zxvf redis-${redis_version}.tar.gz && \
     mv redis-${redis_version} redis-src && \
     cd redis-src && \
