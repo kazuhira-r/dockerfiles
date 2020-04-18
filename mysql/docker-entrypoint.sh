@@ -4,6 +4,7 @@ PID=0
 
 trap "kill $PID" INT
 
+mkdir /run/mysqld && chown mysql.mysql /run/mysqld
 rm -f /var/lib/mysql/auto.cnf
 
 SERVER_ID=`hostname --ip-address | perl -wp -e 's!.+\.(\d+)!$1!'`
@@ -15,7 +16,7 @@ perl -wpi -e 's!report-host = ".+"!report-host = "'${SERVER_ADDRESS}'"!' /etc/my
 /usr/sbin/mysqld &
 PID=$!
 
-sleep 10
+sleep 5
 
 echo "'`mysql --version`' started."
 

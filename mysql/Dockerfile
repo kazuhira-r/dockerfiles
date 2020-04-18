@@ -1,19 +1,19 @@
 FROM ubuntu:latest
 
 ## see, https://dev.mysql.com/downloads/repo/apt/
-ARG mysql_apt_version=0.8.13-1
+ARG mysql_apt_version=0.8.15-1
 
 EXPOSE 3306
 
 RUN apt-get update && \
-    apt-get install -y wget \
-                       curl \
+    apt-get install -y curl \
+                       wget \
                        vim \
                        sudo \
                        gnupg \
                        lsb-release
 
-RUN wget https://dev.mysql.com/get/mysql-apt-config_${mysql_apt_version}_all.deb && \
+RUN curl -s -LO https://dev.mysql.com/get/mysql-apt-config_${mysql_apt_version}_all.deb && \
     echo 4 | dpkg -i mysql-apt-config_${mysql_apt_version}_all.deb
 
 RUN sudo apt-get update && \
