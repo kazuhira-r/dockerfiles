@@ -1,7 +1,7 @@
 FROM ubuntu:latest
 
-ARG consul_version=0.8.4
-ARG consul_template_version=0.18.5
+ARG consul_version=1.7.2
+ARG consul_template_version=0.24.1
 
 ARG consul_home=/opt/consul
 ARG consul_lib_dir=/var/lib/consul
@@ -13,15 +13,14 @@ RUN apt-get update && \
     apt-get install -y sudo \
                        vim \
                        curl \
-                       wget \
                        unzip \
                        rsyslog && \
     apt-get clean && \
     mkdir -p ${consul_home} ${consul_data_dir} ${consul_log_dir} ${consul_config_dir} && \
     touch ${consul_log_dir}/consul.log && \
     cd ${consul_home} && \
-    wget -q https://releases.hashicorp.com/consul/${consul_version}/consul_${consul_version}_linux_amd64.zip && \
-    wget -q https://releases.hashicorp.com/consul-template/${consul_template_version}/consul-template_${consul_template_version}_linux_amd64.zip && \
+    curl -s -LO https://releases.hashicorp.com/consul/${consul_version}/consul_${consul_version}_linux_amd64.zip && \
+    curl -s -LO https://releases.hashicorp.com/consul-template/${consul_template_version}/consul-template_${consul_template_version}_linux_amd64.zip && \
     unzip consul_${consul_version}_linux_amd64.zip && \
     unzip consul-template_${consul_template_version}_linux_amd64.zip
 
@@ -44,5 +43,10 @@ RUN chown -R consul.consul ${consul_home} ${consul_lib_dir} ${consul_config_dir}
 USER consul
 WORKDIR ${consul_home}
 
+COPY docker-entrypoint.sh /docker-entrypoint.sh
+RUN sudo chmod a+x /docker-entrypoint.sh && sudo chown consul.consul /docker-entrypoint.sh
+
 #ENTRYPOINT service rsyslog start && tail -f ${consul_log_dir}/consul.log
-ENTRYPOINT sudo service rsyslog start && bash
+ENTRYPOINT ["/docker-entrypoint.sh"]
+
+CMD ["-server", "-ui", "-client", "0.0.0.0", "-bootstrap", "-data-dir", "/var/lib/consul/data"]
