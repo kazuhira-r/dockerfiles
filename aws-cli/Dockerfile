@@ -1,13 +1,11 @@
 FROM ubuntu:latest
 
 RUN apt-get update -y && \
-    apt-get install -y python3-pip \
-                       groff \
+    apt-get install -y unzip \
                        curl \
-                       wget \
                        sudo \
                        vim \
-                       unzip \
+                       less \
                        && \
     apt-get clean
 
@@ -18,12 +16,13 @@ RUN echo "Defaults:aws-cli !requiretty" >> /etc/sudoers.d/aws-cli && \
     echo "aws-cli ALL=(ALL)      NOPASSWD: ALL" >> /etc/sudoers.d/aws-cli && \
     chmod 440 /etc/sudoers.d/aws-cli
 
+RUN curl -s "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip" && \
+    unzip -u awscliv2.zip && \
+    aws/install
+
+RUN curl -s "https://s3.amazonaws.com/session-manager-downloads/plugin/latest/ubuntu_64bit/session-manager-plugin.deb" -o "session-manager-plugin.deb" && \
+    dpkg -i session-manager-plugin.deb
+
 USER aws-cli
 
-RUN pip3 install awscli --upgrade --user
-RUN pip3 install awslogs
-
-ENV PATH=~/.local/bin:$PATH
-
-CMD echo "#####    AWS CLI upgrade command   #####\n  $ pip install awscli --upgrade --user\n\n    see: https://docs.aws.amazon.com/ja_jp/cli/latest/userguide/installing.html\n########################################\n" && bash
-
+CMD bash
