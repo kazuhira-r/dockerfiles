@@ -23,6 +23,11 @@ RUN curl -s "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscl
 RUN curl -s "https://s3.amazonaws.com/session-manager-downloads/plugin/latest/ubuntu_64bit/session-manager-plugin.deb" -o "session-manager-plugin.deb" && \
     dpkg -i session-manager-plugin.deb
 
+COPY docker-entrypoint.sh docker-entrypoint.sh
+
+RUN chown aws-cli.aws-cli docker-entrypoint.sh && \
+    chmod a+x docker-entrypoint.sh
+
 USER aws-cli
 
-CMD bash
+CMD ["./docker-entrypoint.sh"] 
