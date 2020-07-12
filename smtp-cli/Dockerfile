@@ -1,6 +1,6 @@
-FROM ubuntu:latest
+FROM ubuntu:18.04
 
-ARG smtp_cli_version=3.9
+ARG smtp_cli_version=3.10
 
 RUN apt-get update -y && \
     apt-get install -y sudo \
