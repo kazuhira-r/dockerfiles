@@ -1,14 +1,15 @@
-FROM openjdk:11-jdk-slim
+FROM adoptopenjdk:11-jdk-hotspot-bionic
 LABEL maintainer="kazuhira<kazuhira.m@gmail.com>"
 
-ARG infinispan_version=10.1.5.Final
+ARG infinispan_version=11.0.1.Final
 
 RUN apt-get update && \
-    apt-get install -y sudo \
-                       vim \
-                       unzip \
-                       curl \
-                       && \
+    apt-get install -y --no-install-recommends \
+                    sudo \
+                    unzip \
+                    vim \
+                    curl \
+                    && \
     apt-get clean
 
 RUN adduser --disabled-login --gecos '' ispn && \
@@ -31,7 +32,7 @@ RUN cd /opt && \
 
 WORKDIR /opt/infinispan-server
 
-EXPOSE 7800 8080 11222
+EXPOSE 7800 11222
 
 ADD docker-entrypoint.sh docker-entrypoint.sh
 RUN chmod a+x docker-entrypoint.sh
