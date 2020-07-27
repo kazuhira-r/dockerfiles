@@ -1,14 +1,14 @@
-FROM openjdk:8-jdk-slim
+FROM adoptopenjdk:8-jdk-hotspot-bionic
 
-ARG keycloak_version=7.0.1
+ARG keycloak_version=11.0.0
 
 RUN apt-get update && \
-    apt-get install -y sudo \
-                       unzip \
-                       vim \
-                       wget \
-                       curl \
-                       && \
+    apt-get install -y --no-install-recommends \
+                    sudo \
+                    unzip \
+                    vim \
+                    curl \
+                    && \
     apt-get clean
 
 RUN adduser --disabled-login --gecos '' keycloak && \
@@ -19,7 +19,7 @@ RUN echo "Defaults:keycloak !requiretty" >> /etc/sudoers.d/keycloak && \
     chmod 440 /etc/sudoers.d/keycloak
 
 RUN cd /opt && \
-    wget -q https://downloads.jboss.org/keycloak/${keycloak_version}/keycloak-${keycloak_version}.zip && \
+    curl -s -OL https://downloads.jboss.org/keycloak/${keycloak_version}/keycloak-${keycloak_version}.zip && \
     unzip keycloak-${keycloak_version}.zip && \
     mv keycloak-${keycloak_version} keycloak && \
     chmod +x keycloak/bin/standalone.sh && \
