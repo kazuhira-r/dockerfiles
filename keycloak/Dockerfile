@@ -8,6 +8,7 @@ RUN apt-get update && \
                     unzip \
                     vim \
                     curl \
+                    jq \
                     && \
     apt-get clean
 
