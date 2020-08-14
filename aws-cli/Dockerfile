@@ -1,12 +1,14 @@
-FROM ubuntu:latest
+FROM ubuntu:18.04
 
 RUN apt-get update -y && \
-    apt-get install -y unzip \
-                       curl \
-                       sudo \
-                       vim \
-                       less \
-                       && \
+    apt-get install -y --no-install-recommends \
+                    sudo \
+                    unzip \
+                    vim \
+                    curl \
+                    ca-certificates \
+                    less \
+                    && \
     apt-get clean
 
 RUN adduser --disabled-login --gecos '' aws-cli && \
