@@ -1,9 +1,11 @@
 #!/bin/bash
 
-sudo perl -wpi -e 's!bindIp: 127.0.0.1!bindIp: 0.0.0.0!g' /etc/mongod.conf
+perl -wpi -e 's!bindIp: 127.0.0.1!bindIp: 0.0.0.0!g' /opt/mongodb/conf/mongod.conf
+perl -wpi -e 's!/var/lib/mongodb!/opt/mongodb/data!g' /opt/mongodb/conf/mongod.conf
+perl -wpi -e 's!/var/log/mongodb!/opt/mongodb/log!g' /opt/mongodb/conf/mongod.conf
 
-sudo /usr/bin/mongod --config /etc/mongod.conf &
+/opt/mongodb/bin/mongod --config /opt/mongodb/conf/mongod.conf &
 
 sleep 3
 
-sudo tail -f /var/log/mongodb/mongod.log
+tail -f /opt/mongodb/log/mongod.log
