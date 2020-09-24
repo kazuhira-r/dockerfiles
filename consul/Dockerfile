@@ -1,7 +1,7 @@
-FROM ubuntu:18.04
+FROM ubuntu:20.04
 
-ARG consul_version=1.8.0
-ARG consul_template_version=0.25.0
+ARG consul_version=1.8.4
+ARG consul_template_version=0.25.1
 
 ARG consul_home=/opt/consul
 ARG consul_lib_dir=/var/lib/consul
@@ -9,12 +9,16 @@ ARG consul_data_dir=${consul_lib_dir}/data
 ARG consul_log_dir=/var/log/consul
 ARG consul_config_dir=/etc/consul.d
 
-RUN apt-get update && \
-    apt-get install -y sudo \
-                       vim \
-                       curl \
-                       unzip \
-                       rsyslog && \
+RUN apt-get update -y && \
+    apt-get install -y --no-install-recommends \
+                    sudo \
+                    unzip \
+                    vim \
+                    curl \
+                    ca-certificates \
+                    rsyslog \
+                    less \
+                    && \
     apt-get clean && \
     mkdir -p ${consul_home} ${consul_data_dir} ${consul_log_dir} ${consul_config_dir} && \
     touch ${consul_log_dir}/consul.log && \
