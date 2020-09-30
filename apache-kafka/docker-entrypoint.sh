@@ -7,7 +7,7 @@ ENABLE_KAFKA_SERVER=1
 ZOOKEEPER_CONNECT=localhost:2181
 
 ENABLE_TRIFECTA=0
-ENABLE_KAFKA_MANAGER=0
+ENABLE_CMAK=0
 
 while getopts c:mstz OPTION
 do
@@ -15,7 +15,7 @@ do
         c)
             ZOOKEEPER_CONNECT=${OPTARG};;
         m)
-            ENABLE_KAFKA_MANAGER=1;;
+            ENABLE_CMAK=1;;
         s)
             ENABLE_KAFKA_SERVER=0;;
         t)
@@ -63,8 +63,8 @@ if [ ${ENABLE_TRIFECTA} -eq 1 ]; then
     /opt/trifecta-ui/bin/trifecta-ui &
 fi
 
-if [ ${ENABLE_KAFKA_MANAGER} -eq 1 ]; then
-    /opt/kafka-manager/bin/kafka-manager -Dkafka-manager.zkhosts=${ZOOKEEPER_CONNECT} &
+if [ ${ENABLE_CMAK} -eq 1 ]; then
+    /opt/cmak/bin/cmak -Dcmak.zkhosts=${ZOOKEEPER_CONNECT} &
 fi
 
 tail -f ${TAIL_LOG}
