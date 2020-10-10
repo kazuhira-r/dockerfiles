@@ -1,12 +1,15 @@
-FROM ubuntu:latest
+FROM ubuntu:20.04
 
-ARG prometheus_version=2.17.1
+ARG prometheus_version=2.21.0
 
 RUN apt-get update -y && \
-    apt-get install -y sudo \
-                       curl \
-                       vim && \
-           apt-get clean
+    apt-get install -y --no-install-recommends \
+                    sudo \
+                    vim \
+                    curl \
+                    ca-certificates \
+                    && \
+    apt-get clean
 
 RUN adduser --disabled-login --gecos '' prometheus && \
     usermod -G sudo prometheus
