@@ -1,6 +1,6 @@
 FROM ubuntu:20.04
 
-ARG prometheus_version=2.21.0
+ARG prometheus_version=2.22.0
 
 RUN apt-get update -y && \
     apt-get install -y --no-install-recommends \
