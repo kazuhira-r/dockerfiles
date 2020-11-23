@@ -1,6 +1,6 @@
-FROM ubuntu:latest
+FROM ubuntu:20.04
 
-ARG redis_version=5.0.8
+ARG redis_version=6.0.9
 ARG redis_home=/opt/redis
 
 WORKDIR ${redis_home}
@@ -8,12 +8,15 @@ WORKDIR ${redis_home}
 RUN mkdir -p ${redis_home}
 
 RUN cd /opt && \
-    apt-get update -y && \
-    apt-get install -y vim \
-                       sudo \
-                       curl \
-                       gcc \
-                       make && \
+        apt-get update -y && \
+        apt-get install -y --no-install-recommends \
+                    sudo \
+                    vim \
+                    curl \
+                    gcc \
+                    g++ \
+                    make \
+                    && \
     apt-get clean && \
     curl -LO -s http://download.redis.io/releases/redis-${redis_version}.tar.gz && \
     tar -xf redis-${redis_version}.tar.gz && \
@@ -37,6 +40,8 @@ RUN chown -R redis.redis docker-entrypoint.sh && \
     chmod a+x docker-entrypoint.sh
 
 USER redis
+
+ENV REDIS_PASSWORD redispass
 
 EXPOSE 6379
 
