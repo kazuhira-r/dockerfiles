@@ -1,6 +1,6 @@
 FROM ubuntu:20.04
 
-ARG redis_version=6.0.9
+ARG redis_version=6.0.10
 ARG redis_home=/opt/redis
 
 WORKDIR ${redis_home}
@@ -8,7 +8,7 @@ WORKDIR ${redis_home}
 RUN mkdir -p ${redis_home}
 
 RUN cd /opt && \
-        apt-get update -y && \
+        apt-get update && \
         apt-get install -y --no-install-recommends \
                     sudo \
                     vim \

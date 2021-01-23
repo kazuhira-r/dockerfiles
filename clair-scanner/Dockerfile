@@ -12,7 +12,7 @@ FROM ubuntu:latest
 
 COPY --from=build /go/src/github.com/arminc/clair-scanner/clair-scanner /usr/local/bin
 
-RUN apt-get update -y && \
+RUN apt-get update && \
     apt-get install -y sudo \
                        vim \
                        git \

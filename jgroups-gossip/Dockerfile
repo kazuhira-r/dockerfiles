@@ -2,7 +2,7 @@ FROM java:8
 
 ARG jgroups_version=4.0.13.Final
 
-RUN apt-get update -y && \
+RUN apt-get update && \
     apt-get install -y sudo \
                        wget \
                        curl \

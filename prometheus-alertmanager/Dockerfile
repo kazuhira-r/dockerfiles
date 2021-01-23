@@ -2,7 +2,7 @@ FROM ubuntu:latest
 
 ARG prometheus_alertmanager_version=0.16.1
 
-RUN apt-get update -y && \
+RUN apt-get update && \
     apt-get install -y sudo \
                        curl \
                        wget \

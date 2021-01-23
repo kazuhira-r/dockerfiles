@@ -2,7 +2,7 @@ FROM ubuntu:20.04
 
 ARG prometheus_version=2.22.0
 
-RUN apt-get update -y && \
+RUN apt-get update && \
     apt-get install -y --no-install-recommends \
                     sudo \
                     vim \

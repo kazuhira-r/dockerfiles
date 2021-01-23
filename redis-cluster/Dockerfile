@@ -8,7 +8,7 @@ WORKDIR ${redis_home}
 RUN mkdir -p ${redis_home}
 
 RUN cd /opt && \
-    apt-get update -y && \
+    apt-get update && \
     apt-get install -y vim \
                        sudo \
                        curl \

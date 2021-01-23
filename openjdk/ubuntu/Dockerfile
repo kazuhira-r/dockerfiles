@@ -1,21 +1,22 @@
-FROM ubuntu:latest
+FROM ubuntu:20.04
 
-RUN apt-get update -y && \
-    apt-get install -y openjdk-8-jdk && \
-#    apt-get install -y openjdk-9-jdk-headless && \
-    apt-get install -y sudo \
-                       wget \
-                       curl \
-                       vim && \
+RUN apt-get update && \
+    apt-get install -y --no-install-recommends \
+                    openjdk-11-jdk-headless \
+                    sudo \
+                    curl \
+                    vim \
+                    && \
     apt-get clean
 
-RUN adduser --disabled-login --gecos '' jdk-user && \
-    usermod -G sudo jdk-user
+RUN adduser --disabled-login --gecos '' user && \
+    usermod -G sudo user
 
-RUN echo "Defaults:jdk-user !requiretty" >> /etc/sudoers.d/jdk-user && \
-    echo "jdk-user ALL=(ALL)      NOPASSWD: ALL" >> /etc/sudoers.d/jdk-user && \
-    chmod 440 /etc/sudoers.d/jdk-user
+RUN echo "Defaults:user !requiretty" >> /etc/sudoers.d/user && \
+    echo "user ALL=(ALL)      NOPASSWD: ALL" >> /etc/sudoers.d/user && \
+    chmod 440 /etc/sudoers.d/user
 
-USER jdk-user
+USER user
+WORKDIR /home/user
 
-CMD bash
+CMD ["bash"]

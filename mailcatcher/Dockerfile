@@ -2,7 +2,7 @@ FROM ubuntu:latest
 
 ARG mailcatcher_version=0.7.0
 
-RUN apt-get update -y && \
+RUN apt-get update && \
     apt-get install -y \
         sudo \
         vim \

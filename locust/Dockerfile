@@ -1,6 +1,6 @@
 FROM ubuntu:latest
 
-RUN apt-get update -y && \
+RUN apt-get update && \
     apt-get install -y vim \
                        sudo \
                        curl \

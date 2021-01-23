@@ -2,7 +2,7 @@ FROM ubuntu:latest
 
 ARG prometheus_pushgateway_version=0.8.0
 
-RUN apt-get update -y && \
+RUN apt-get update && \
     apt-get install -y sudo \
                        curl \
                        wget \

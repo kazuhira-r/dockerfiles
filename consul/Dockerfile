@@ -9,7 +9,7 @@ ARG consul_data_dir=${consul_lib_dir}/data
 ARG consul_log_dir=/var/log/consul
 ARG consul_config_dir=/etc/consul.d
 
-RUN apt-get update -y && \
+RUN apt-get update && \
     apt-get install -y --no-install-recommends \
                     sudo \
                     unzip \

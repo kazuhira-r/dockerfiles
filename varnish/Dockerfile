@@ -23,7 +23,7 @@ RUN echo "Defaults:user !requiretty" >> /etc/sudoers.d/user && \
 
 RUN curl -sL https://packagecloud.io/varnishcache/varnish60lts/gpgkey | sudo apt-key add - && \
     add-apt-repository "deb https://packagecloud.io/varnishcache/${varnish_version}/ubuntu/ ${ubuntu_code_name} main" && \
-    apt-get update -y && \
+    apt-get update && \
     apt-get install -y varnish
 
 EXPOSE 6081 42573

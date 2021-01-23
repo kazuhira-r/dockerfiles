@@ -2,7 +2,7 @@ FROM ubuntu:latest
 
 ARG terraform_version=0.11.13
 
-RUN apt-get update -y && \
+RUN apt-get update && \
     apt-get install -y sudo \
                        curl \
                        wget \

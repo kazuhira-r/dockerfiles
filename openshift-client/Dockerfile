@@ -5,7 +5,7 @@ ARG openshift_client_version=v3.11.0
 ARG openshift_client_distribution=openshift-origin-client-tools-${openshift_client_version}-0cbc58b-linux-64bit
 ARG openshift_client_distribution_filename=${openshift_client_distribution}.tar.gz
 
-RUN apt-get update -y && \
+RUN apt-get update && \
     apt-get install -y sudo \
                        vim \
                        wget \

@@ -2,7 +2,7 @@ FROM ubuntu:latest
 
 ARG keycloak_version=5.0.0
 
-RUN apt-get update -y && \
+RUN apt-get update && \
     apt-get install -y \
         sudo \
         vim \

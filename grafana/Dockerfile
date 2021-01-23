@@ -2,7 +2,7 @@ FROM ubuntu:latest
 
 ARG grafana_version=5.4.3
 
-RUN apt-get update -y && \
+RUN apt-get update && \
     apt-get install -y sudo \
                        curl \
                        wget \
@@ -17,7 +17,7 @@ RUN wget -q https://dl.grafana.com/oss/release/grafana_${grafana_version}_amd64.
 
 #RUN echo 'deb https://packagecloud.io/grafana/stable/debian/ stretch main' >> /etc/apt/sources.list && \
 #    curl https://packagecloud.io/gpg.key | apt-key add - && \
-#    apt-get update -y && \
+#    apt-get update && \
 #    apt-get install -y grafana
 
 RUN adduser --disabled-login --gecos '' grafana-user && \
