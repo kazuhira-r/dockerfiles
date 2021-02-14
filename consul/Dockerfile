@@ -1,6 +1,6 @@
 FROM ubuntu:20.04
 
-ARG consul_version=1.8.4
+ARG consul_version=1.9.3
 ARG consul_template_version=0.25.1
 
 ARG consul_home=/opt/consul
