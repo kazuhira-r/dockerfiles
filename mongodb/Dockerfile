@@ -1,7 +1,7 @@
-FROM ubuntu:18.04
+FROM ubuntu:20.04
 
 ARG mongodb_major_version=4.4
-ARG mongodb_version=4.4.0
+ARG mongodb_version=4.4.4
 
 EXPOSE 27017
 
