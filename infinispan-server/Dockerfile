@@ -1,7 +1,7 @@
-FROM adoptopenjdk:11-jdk-hotspot-bionic
+FROM adoptopenjdk:11-jdk-hotspot-focal
 LABEL maintainer="kazuhira<kazuhira.m@gmail.com>"
 
-ARG infinispan_version=11.0.4.Final
+ARG infinispan_version=12.0.2.Final
 
 RUN apt-get update && \
     apt-get install -y --no-install-recommends \
