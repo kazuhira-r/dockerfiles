@@ -63,6 +63,15 @@ RUN chmod a+x docker-entrypoint.sh
 
 USER user
 
+RUN echo '\n\
+echo "*******************************************************\n\
+login MySQL Server as root user.\n\
+\n\
+$ mysql -uroot -ppassword -h\`hostname -i\`\n\
+\n\
+*******************************************************\n\
+"' >> /home/user/.bashrc
+
 #ENTRYPOINT service mysql start && tail -f /dev/null 
 #ENTRYPOINT ["/usr/sbin/mysqld"]
 ENTRYPOINT ["sudo", "./docker-entrypoint.sh"]
