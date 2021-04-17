@@ -25,4 +25,4 @@ FLUSH PRIVILEGES;
 EOF
 )
 
-mysql -uroot -e "${SQL}"
+mysql -uroot -ppassword -h`hostname -i` -e "${SQL}"

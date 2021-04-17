@@ -15,8 +15,6 @@ perl -wpi -e 's!report-host = ".+"!report-host = "'${SERVER_ADDRESS}'"!' /etc/my
 /usr/sbin/mysqld &
 PID=$!
 
-sleep 5
-
 echo "'`mysql --version`' started."
 
 PASSWORD=password
@@ -29,6 +27,19 @@ RESET MASTER;
 EOS
 )
 
-mysql -uroot -e "${SQL_INSECURE_ROOT}"
+while true
+do
+    mysql -uroot -e "${SQL_INSECURE_ROOT}"
+
+    RET=$?
+
+    if [ $RET -eq 0 ]; then
+        echo 'registered, root user.'
+        break
+    fi
+
+    echo 'wait, wakeup MySQL Server...'
+    sleep 3
+done
 
 tail -f /var/log/mysql/error.log

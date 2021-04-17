@@ -17,6 +17,13 @@ RUN apt-get update && \
                     && \
     apt-get clean
 
+RUN adduser --disabled-login --gecos '' user && \
+    usermod -G sudo user
+
+RUN echo "Defaults:user !requiretty" >> /etc/sudoers.d/user && \
+    echo "user ALL=(ALL)      NOPASSWD: ALL" >> /etc/sudoers.d/user && \
+    chmod 440 /etc/sudoers.d/user
+
 RUN curl -s -LO https://dev.mysql.com/get/mysql-apt-config_${mysql_apt_version}_all.deb && \
     echo 4 | dpkg -i mysql-apt-config_${mysql_apt_version}_all.deb
 
@@ -54,6 +61,8 @@ RUN chmod a+x setup-group-replication-add-host.sh
 COPY docker-entrypoint.sh docker-entrypoint.sh
 RUN chmod a+x docker-entrypoint.sh
 
+USER user
+
 #ENTRYPOINT service mysql start && tail -f /dev/null 
 #ENTRYPOINT ["/usr/sbin/mysqld"]
-ENTRYPOINT ["./docker-entrypoint.sh"]
+ENTRYPOINT ["sudo", "./docker-entrypoint.sh"]
