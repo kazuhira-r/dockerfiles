@@ -1,17 +1,21 @@
-FROM ubuntu:latest
+FROM ubuntu:20.04
 
 ## see, https://dev.mysql.com/downloads/repo/apt/
-ARG mysql_apt_version=0.8.13-1
+ARG mysql_apt_version=0.8.16-1
 
 EXPOSE 3306
 
 RUN apt-get update && \
-    apt-get install -y wget \
-                       curl \
-                       vim \
-                       sudo \
-                       gnupg \
-                       lsb-release
+    apt-get install -y --no-install-recommends \
+                    curl \
+                    wget \
+                    vim \
+                    sudo \
+                    gnupg \
+                    lsb-release \
+                    ca-certificates \
+                    && \
+    apt-get clean
 
 RUN adduser --disabled-login --gecos '' user && \
     usermod -G sudo user
