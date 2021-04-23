@@ -43,25 +43,26 @@ RUN cp -p /etc/mysql/mysql.conf.d/mysqld.cnf /etc/mysql/mysql.conf.d/mysqld.cnf.
 COPY mysql.cnf /etc/mysql/mysql.cnf
 COPY mysqld.cnf /etc/mysql/mysql.conf.d/mysqld.cnf
 
-COPY create-database-and-user.sh create-database-and-user.sh
-RUN chmod a+x create-database-and-user.sh
+COPY create-database-and-user.sh /home/user/create-database-and-user.sh
+RUN chmod a+x /home/user/create-database-and-user.sh && chown user.user /home/user/create-database-and-user.sh
 
-COPY setup-master.sh setup-master.sh
-RUN chmod a+x setup-master.sh
+COPY setup-master.sh /home/user/setup-master.sh
+RUN chmod a+x /home/user/setup-master.sh && chown user.user /home/user/setup-master.sh
 
-COPY setup-slave.sh setup-slave.sh
-RUN chmod a+x setup-slave.sh
+COPY setup-slave.sh /home/user/setup-slave.sh
+RUN chmod a+x /home/user/setup-slave.sh && chown user.user /home/user/setup-slave.sh
 
-COPY setup-group-replication-initial-host.sh setup-group-replication-initial-host.sh
-RUN chmod a+x setup-group-replication-initial-host.sh
+COPY setup-group-replication-initial-host.sh /home/user/setup-group-replication-initial-host.sh
+RUN chmod a+x /home/user/setup-group-replication-initial-host.sh && chown user.user /home/user/setup-group-replication-initial-host.sh
 
-COPY setup-group-replication-add-host.sh setup-group-replication-add-host.sh
-RUN chmod a+x setup-group-replication-add-host.sh
+COPY setup-group-replication-add-host.sh /home/user/setup-group-replication-add-host.sh
+RUN chmod a+x /home/user/setup-group-replication-add-host.sh && chown user.user /home/user/setup-group-replication-add-host.sh
 
-COPY docker-entrypoint.sh docker-entrypoint.sh
-RUN chmod a+x docker-entrypoint.sh
+COPY docker-entrypoint.sh /home/user/docker-entrypoint.sh
+RUN chmod a+x /home/user/docker-entrypoint.sh && chown user.user /home/user/docker-entrypoint.sh
 
 USER user
+WORKDIR /home/user
 
 RUN echo '\n\
 echo "*******************************************************\n\
