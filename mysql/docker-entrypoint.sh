@@ -20,10 +20,10 @@ echo "'`mysql --version`' started."
 PASSWORD=password
 
 SQL_INSECURE_ROOT=$(cat <<EOS
-CREATE USER root@'%' IDENTIFIED BY '${PASSWORD}';
-GRANT ALL PRIVILEGES ON *.* TO root@'%' WITH GRANT OPTION;
-FLUSH PRIVILEGES;
-RESET MASTER;
+create user root@'%' identified by '${PASSWORD}';
+grant all privileges on *.* to root@'%' with grant option;
+flush privileges;
+reset master;
 EOS
 )
 
