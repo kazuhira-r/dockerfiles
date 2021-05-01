@@ -12,7 +12,7 @@ perl -wpi -e 's!server_id = .+!server_id = '${SERVER_ID}'!' /etc/mysql/mysql.con
 SERVER_ADDRESS=`hostname -i`
 perl -wpi -e 's!report-host = ".+"!report-host = "'${SERVER_ADDRESS}'"!' /etc/mysql/mysql.conf.d/mysqld.cnf
 
-/usr/sbin/mysqld &
+/usr/sbin/mysqld --daemonize
 PID=$!
 
 echo "'`mysql --version`' started."

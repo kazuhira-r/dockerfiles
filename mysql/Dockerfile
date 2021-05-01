@@ -61,8 +61,8 @@ RUN chmod a+x /home/user/setup-group-replication-add-host.sh && chown user.user 
 COPY docker-entrypoint.sh /home/user/docker-entrypoint.sh
 RUN chmod a+x /home/user/docker-entrypoint.sh && chown user.user /home/user/docker-entrypoint.sh
 
-COPY start-mysqld.sh /home/user/start-mysqld.sh
-RUN chmod a+x /home/user/start-mysqld.sh && chown user.user /home/user/start-mysqld.sh
+COPY restart-mysqld.sh /home/user/restart-mysqld.sh
+RUN chmod a+x /home/user/restart-mysqld.sh && chown user.user /home/user/restart-mysqld.sh
 
 COPY connect-mysql-as-root.sh /home/user/connect-mysql-as-root.sh
 RUN chmod a+x /home/user/connect-mysql-as-root.sh && chown user.user /home/user/connect-mysql-as-root.sh
