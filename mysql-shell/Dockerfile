@@ -5,6 +5,9 @@ ARG mysql_apt_version=0.8.16-1
 
 EXPOSE 3306
 
+ENV LANG ja_JP.UTF-8
+ENV LANGUAGE=ja_JP: 
+
 RUN apt-get update && \
     apt-get install -y --no-install-recommends \
                     curl \
@@ -14,6 +17,8 @@ RUN apt-get update && \
                     gnupg \
                     lsb-release \
                     ca-certificates \
+                    language-pack-ja \
+                    tzdata \
                     && \
     apt-get clean
 
@@ -24,11 +29,14 @@ RUN echo "Defaults:user !requiretty" >> /etc/sudoers.d/user && \
     echo "user ALL=(ALL)      NOPASSWD: ALL" >> /etc/sudoers.d/user && \
     chmod 440 /etc/sudoers.d/user
 
-RUN wget https://dev.mysql.com/get/mysql-apt-config_${mysql_apt_version}_all.deb && \
+RUN update-locale LANG=ja_JP.UTF-8 LANGUAGE=ja_JP:
+
+RUN curl -s -LO https://dev.mysql.com/get/mysql-apt-config_${mysql_apt_version}_all.deb && \
     echo 4 | dpkg -i mysql-apt-config_${mysql_apt_version}_all.deb
 
-RUN sudo apt-get update && \
-    apt-get install -y mysql-client mysql-shell
+RUN apt-get update && \
+    apt-get install -y mysql-client mysql-shell && \
+    apt-get clean
 
 USER user
 
