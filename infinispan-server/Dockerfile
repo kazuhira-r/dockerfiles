@@ -1,7 +1,7 @@
 FROM adoptopenjdk:11-jdk-hotspot-focal
 LABEL maintainer="kazuhira<kazuhira.m@gmail.com>"
 
-ARG infinispan_version=12.0.2.Final
+ARG infinispan_version=12.1.4.Final
 
 RUN apt-get update && \
     apt-get install -y --no-install-recommends \
@@ -34,7 +34,7 @@ WORKDIR /opt/infinispan-server
 
 EXPOSE 7800 11222
 
-ADD docker-entrypoint.sh docker-entrypoint.sh
+COPY docker-entrypoint.sh docker-entrypoint.sh
 RUN chmod a+x docker-entrypoint.sh
 
 RUN chown -R ispn.ispn /opt/infinispan-server
