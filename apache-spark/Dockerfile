@@ -1,12 +1,37 @@
-FROM java:8
+FROM adoptopenjdk:11-jdk-hotspot-focal
 
-ARG spark_version=1.5.2
-ARG hadoop_distribution=hadoop2.6
+ARG spark_version=3.1.2
+ARG hadoop_distribution=hadoop3.2
 
-RUN cd /tmp && \
-    wget -q http://d3kbcqa49mib13.cloudfront.net/spark-${spark_version}-bin-${hadoop_distribution}.tgz && \
-    tar -C /opt -zxvf spark-${spark_version}-bin-${hadoop_distribution}.tgz && \
-    cd /opt && \
-    mv spark-${spark_version}-bin-${hadoop_distribution} spark-bin
+RUN apt-get update && \
+    apt-get install -y --no-install-recommends \
+                    sudo \
+                    unzip \
+                    vim \
+                    curl \
+                    && \
+    apt-get clean
+
+RUN adduser --disabled-login --gecos '' spark && \
+    usermod -G sudo spark
+
+RUN echo "Defaults:spark !requiretty" >> /etc/sudoers.d/spark && \
+    echo "spark ALL=(ALL)      NOPASSWD: ALL" >> /etc/sudoers.d/spark && \
+    chmod 440 /etc/sudoers.d/spark
+
+RUN cd /opt && \
+    curl -OLs https://downloads.apache.org/spark/spark-${spark_version}/spark-${spark_version}-bin-${hadoop_distribution}.tgz && \
+    tar -xf spark-${spark_version}-bin-${hadoop_distribution}.tgz && \
+    mv spark-${spark_version}-bin-${hadoop_distribution} spark
+
+COPY docker-entrypoint.sh /opt/spark/docker-entrypoint.sh
+RUN chmod a+x /opt/spark/docker-entrypoint.sh && chown spark.spark /opt/spark/docker-entrypoint.sh
+
+WORKDIR /opt/spark
 
 EXPOSE 7077
+
+USER spark
+
+ENTRYPOINT ["/opt/spark/docker-entrypoint.sh"]
+CMD ["master"]
