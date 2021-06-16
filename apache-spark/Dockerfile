@@ -29,7 +29,7 @@ RUN chmod a+x /opt/spark/docker-entrypoint.sh && chown spark.spark /opt/spark/do
 
 WORKDIR /opt/spark
 
-EXPOSE 7077
+EXPOSE 7077 8080
 
 USER spark
 
