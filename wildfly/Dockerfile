@@ -1,11 +1,12 @@
-FROM openjdk:8-jdk-slim
+FROM adoptopenjdk:11-jdk-hotspot-focal
 
-ARG wildfly_version=16.0.0.Final
+ARG wildfly_version=23.0.2.Final
 
 RUN apt-get update && \
-    apt-get install -y sudo \
+    apt-get install -y --no-install-recommends \
+                       sudo \
+                       unzip \
                        vim \
-                       wget \
                        curl \
                        && \
     apt-get clean
@@ -18,7 +19,7 @@ RUN echo "Defaults:wildfly !requiretty" >> /etc/sudoers.d/wildfly && \
     chmod 440 /etc/sudoers.d/wildfly
 
 RUN cd /opt && \
-    wget -q http://download.jboss.org/wildfly/${wildfly_version}/wildfly-${wildfly_version}.zip && \
+    curl -OLs http://download.jboss.org/wildfly/${wildfly_version}/wildfly-${wildfly_version}.zip && \
     unzip wildfly-${wildfly_version}.zip && \
     mv wildfly-${wildfly_version} wildfly && \
     chmod +x wildfly/bin/standalone.sh && \
@@ -28,10 +29,10 @@ WORKDIR /opt/wildfly
 
 EXPOSE 8080 9990
 
-ADD start-server.sh start-server.sh
+COPY start-server.sh start-server.sh
 RUN chmod a+x start-server.sh
 
-ADD docker-entrypoint.sh docker-entrypoint.sh
+COPY docker-entrypoint.sh docker-entrypoint.sh
 RUN chmod a+x docker-entrypoint.sh
 
 RUN chown -R wildfly.wildfly /opt/wildfly
