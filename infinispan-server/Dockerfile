@@ -37,6 +37,9 @@ EXPOSE 7800 11222
 COPY docker-entrypoint.sh docker-entrypoint.sh
 RUN chmod a+x docker-entrypoint.sh
 
+COPY restart.sh restart.sh
+RUN chmod a+x restart.sh
+
 RUN chown -R ispn.ispn /opt/infinispan-server
 USER ispn
 
