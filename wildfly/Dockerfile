@@ -1,6 +1,6 @@
 FROM adoptopenjdk:11-jdk-hotspot-focal
 
-ARG wildfly_version=23.0.2.Final
+ARG wildfly_version=24.0.0.Final
 
 RUN apt-get update && \
     apt-get install -y --no-install-recommends \
