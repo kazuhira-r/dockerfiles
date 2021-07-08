@@ -1,7 +1,7 @@
 FROM adoptopenjdk:11-jdk-hotspot-focal
 LABEL maintainer="kazuhira<kazuhira.m@gmail.com>"
 
-ARG infinispan_version=12.1.4.Final
+ARG infinispan_version=12.1.6.Final
 
 RUN apt-get update && \
     apt-get install -y --no-install-recommends \
