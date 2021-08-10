@@ -1,6 +1,6 @@
 FROM ubuntu:20.04
 
-ARG cockroachdb_version=v21.1.6
+ARG cockroachdb_version=v21.1.7
 
 RUN apt-get update && \
     apt-get install -y --no-install-recommends \
@@ -33,6 +33,8 @@ RUN chown cockroach:cockroach /home/cockroach/docker-entrypoint.sh && \
 
 USER cockroach
 WORKDIR /home/cockroach
+
+ENV PATH=/opt/cockroach:${PATH}
 
 EXPOSE 8080 26257
 
