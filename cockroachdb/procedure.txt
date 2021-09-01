@@ -1,0 +1,5 @@
+$ . set-certs-dir
+$ ./init-cluster.sh
+$ ./create-user.sh
+$ . login-cluster
+$ ./call-api.sh [api-path]

@@ -1,0 +1,5 @@
+#!/bin/bash
+
+export CERTS_DIR=/var/lib/cockroach/security/certs
+
+echo "\$CERTS_DIR=${CERTS_DIR}, setted"

@@ -1,0 +1,5 @@
+#!/bin/bash
+
+export SESSION_TOKEN=`curl -s -d 'username=myuser&password=password'   -H 'Content-Type: application/x-www-form-urlencoded'  --cacert $CERTS_DIR/ca.crt https://localhost:8080/api/v2/login/ | jq .session -r`
+
+echo "logined myuser, \$SESSION_TOKEN = $SESSION_TOKEN"

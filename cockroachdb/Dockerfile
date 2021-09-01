@@ -1,6 +1,6 @@
 FROM ubuntu:20.04
 
-ARG cockroachdb_version=v21.1.7
+ARG cockroachdb_version=v21.1.8
 
 RUN apt-get update && \
     apt-get install -y --no-install-recommends \
@@ -8,6 +8,7 @@ RUN apt-get update && \
                     vim \
                     sudo \
                     ca-certificates \
+                    jq \
                     && \
     apt-get clean
 
@@ -30,6 +31,19 @@ RUN cd /opt && \
 COPY docker-entrypoint.sh /home/cockroach/docker-entrypoint.sh
 RUN chown cockroach:cockroach /home/cockroach/docker-entrypoint.sh && \
     chmod a+x /home/cockroach/docker-entrypoint.sh
+
+COPY set-certs-dir /home/cockroach/set-certs-dir
+COPY login-cluster /home/cockroach/login-cluster
+COPY init-cluster.sh /home/cockroach/init-cluster.sh
+RUN chown cockroach:cockroach /home/cockroach/init-cluster.sh && \
+    chmod a+x /home/cockroach/init-cluster.sh
+COPY call-api.sh /home/cockroach/call-api.sh
+RUN chown cockroach:cockroach /home/cockroach/call-api.sh && \
+    chmod a+x /home/cockroach/call-api.sh
+COPY create-user.sh /home/cockroach/create-user.sh
+RUN chown cockroach:cockroach /home/cockroach/create-user.sh && \
+    chmod a+x /home/cockroach/create-user.sh
+COPY procedure.txt /home/cockroach/procedure.txt
 
 USER cockroach
 WORKDIR /home/cockroach
