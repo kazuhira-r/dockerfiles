@@ -1,6 +1,6 @@
 FROM node:14-bullseye
 
-ARG azurite_version 3.14.2
+ARG azurite_version=3.14.2
 
 RUN apt-get update && \
     apt-get install -y --no-install-recommends \
