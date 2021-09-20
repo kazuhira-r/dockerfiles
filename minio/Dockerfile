@@ -1,6 +1,6 @@
 FROM ubuntu:20.04
 
-ARG minio_server_version=20210909213707
+ARG minio_server_version=20210918180959
 ARG minio_client_version=20210902092127
 
 RUN apt-get update && \
