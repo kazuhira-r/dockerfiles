@@ -59,4 +59,4 @@ SELECT * FROM performance_schema.replication_group_members;
 EOS
 )
 
-mysql -uroot -e "${SQL_CONFIRM_MEMBERS}"
+mysql -uroot -p${ROOT_PASSWORD} -h`hostname -i` -e "${SQL_CONFIRM_MEMBERS}"

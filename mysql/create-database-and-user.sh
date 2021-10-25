@@ -9,19 +9,19 @@ WITH_OPTION=
 
 # example: WITH mysql_native_password
 if [ "${OPTION}" != "" ]; then
-    WITH_OPTION="WITH ${OPTION}"
+    WITH_OPTION="with ${OPTION}"
 fi
 
 SQL=$(cat <<EOF
-CREATE DATABASE IF NOT EXISTS ${DATABASE_NAME};
+create database if not exists ${DATABASE_NAME};
 
-CREATE USER ${USER_NAME}@localhost IDENTIFIED ${WITH_OPTION} BY '${PASSWORD}';
-CREATE USER ${USER_NAME}@'%' IDENTIFIED ${WITH_OPTION} BY '${PASSWORD}';
+create user ${USER_NAME}@localhost identified ${WITH_OPTION} by '${PASSWORD}';
+create user ${USER_NAME}@'%' identified ${WITH_OPTION} by '${PASSWORD}';
 
-GRANT ALL PRIVILEGES ON ${DATABASE_NAME}.* TO ${USER_NAME}@localhost;
-GRANT ALL PRIVILEGES ON ${DATABASE_NAME}.* TO ${USER_NAME}@'%';
+grant all privileges on ${DATABASE_NAME}.* to ${USER_NAME}@localhost;
+grant all privileges on ${DATABASE_NAME}.* to ${USER_NAME}@'%';
 
-FLUSH PRIVILEGES;
+flush privileges;
 EOF
 )
 

@@ -9,11 +9,11 @@ CONNECT_FROM=%
 # perl -wpi -e 's!#server_id = %id%!server_id = '${SERVER_ID}'!' /etc/mysql/mysql.conf.d/mysqld.cnf
 
 SQL=$(cat <<EOF
-CREATE USER '${USER_NAME}'@'${CONNECT_FROM}' IDENTIFIED BY '${PASSWORD}';
-GRANT REPLICATION SLAVE ON *.* TO '${USER_NAME}'@'${CONNECT_FROM}';
+create user '${USER_NAME}'@'${CONNECT_FROM}' identified by '${PASSWORD}';
+grant replication slave on *.* to '${USER_NAME}'@'${CONNECT_FROM}';
 EOF
 )
 
-mysql -uroot -e "${SQL}"
+mysql -uroot -p${ROOT_PASSWORD} -h`hostname -i` -e "${SQL}"
 
-service mysql restart
+./restart-mysqld.sh

@@ -6,7 +6,9 @@ ARG mysql_apt_version=0.8.19-1
 EXPOSE 3306
 
 ENV LANG ja_JP.UTF-8
-ENV LANGUAGE=ja_JP: 
+ENV LANGUAGE=ja_JP:
+
+ENV ROOT_PASSWORD=password
 
 RUN apt-get update && \
     apt-get install -y --no-install-recommends \
@@ -38,11 +40,11 @@ RUN apt-get update && \
     # !!root password is ''!!
     # https://dev.mysql.com/doc/mysql-apt-repo-quick-guide/en/#repo-qg-apt-repo-non-insteractive
     { \
-      echo mysql-community-server mysql-community-server/root-pass password ''; \
-      echo mysql-community-server mysql-community-server/re-root-pass password ''; \
+      echo mysql-community-server mysql-community-server/root-pass ${ROOT_PASSWORD} ''; \
+      echo mysql-community-server mysql-community-server/re-root-pass ${ROOT_PASSWORD} ''; \
     } | debconf-set-selections && \
     apt-get update && \
-    DEBIAN_FRONTEND=noninteractive apt-get install -y mysql-server && \
+    DEBIAN_FRONTEND=noninteractive apt-get install -y mysql-server mysql-shell && \
     apt-get clean
 
 RUN cp -p /etc/mysql/mysql.cnf /etc/mysql/mysql.cnf.org
@@ -53,11 +55,11 @@ COPY mysqld.cnf /etc/mysql/mysql.conf.d/mysqld.cnf
 COPY create-database-and-user.sh /home/user/create-database-and-user.sh
 RUN chmod a+x /home/user/create-database-and-user.sh && chown user.user /home/user/create-database-and-user.sh
 
-COPY setup-master.sh /home/user/setup-master.sh
-RUN chmod a+x /home/user/setup-master.sh && chown user.user /home/user/setup-master.sh
+COPY setup-source.sh /home/user/setup-source.sh
+RUN chmod a+x /home/user/setup-source.sh && chown user.user /home/user/setup-source.sh
 
-COPY setup-slave.sh /home/user/setup-slave.sh
-RUN chmod a+x /home/user/setup-slave.sh && chown user.user /home/user/setup-slave.sh
+COPY setup-replica.sh /home/user/setup-replica.sh
+RUN chmod a+x /home/user/setup-replica.sh && chown user.user /home/user/setup-replica.sh
 
 COPY setup-group-replication-initial-host.sh /home/user/setup-group-replication-initial-host.sh
 RUN chmod a+x /home/user/setup-group-replication-initial-host.sh && chown user.user /home/user/setup-group-replication-initial-host.sh
@@ -81,7 +83,7 @@ RUN echo '\n\
 echo "*******************************************************\n\
 login MySQL Server as root user.\n\
 \n\
-$ mysql -uroot -ppassword -h\`hostname -i\`\n\
+$ mysql -uroot -p${ROOT_PASSWORD} -h\`hostname -i\`\n\
 \n\
 *******************************************************\n\
 "' >> /home/user/.bashrc
