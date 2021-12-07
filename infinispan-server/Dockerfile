@@ -1,7 +1,7 @@
-FROM adoptopenjdk:11-jdk-hotspot-focal
+FROM eclipse-temurin:11-jdk-focal
 LABEL maintainer="kazuhira<kazuhira.m@gmail.com>"
 
-ARG infinispan_version=12.1.7.Final
+ARG infinispan_version=13.0.2.Final
 
 RUN apt-get update && \
     apt-get install -y --no-install-recommends \
