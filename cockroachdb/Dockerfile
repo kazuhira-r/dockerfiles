@@ -1,6 +1,6 @@
 FROM ubuntu:20.04
 
-ARG cockroachdb_version=v21.1.7
+ARG cockroachdb_version=v21.2.3
 
 RUN apt-get update && \
     apt-get install -y --no-install-recommends \
