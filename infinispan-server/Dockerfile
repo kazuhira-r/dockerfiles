@@ -1,7 +1,7 @@
-FROM eclipse-temurin:11-jdk-focal
+FROM eclipse-temurin:17-jdk-focal
 LABEL maintainer="kazuhira<kazuhira.m@gmail.com>"
 
-ARG infinispan_version=13.0.2.Final
+ARG infinispan_version=13.0.5.Final
 
 RUN apt-get update && \
     apt-get install -y --no-install-recommends \
