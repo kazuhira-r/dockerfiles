@@ -1,6 +1,6 @@
 FROM ubuntu:20.04
 
-ARG redis_version=6.2.5
+ARG redis_version=6.2.6
 ARG redis_home=/opt/redis
 
 WORKDIR ${redis_home}
