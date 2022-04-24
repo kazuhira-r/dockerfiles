@@ -22,9 +22,9 @@ skip-name-resolve
 # datadir = /data
 # tmpdir = /tmp
 character-set-server = utf8mb4
-# collation_server = utf8mb4_ja_0900_as_cs_ks
-collation_server = utf8mb4_0900_bin
-# collation_server = utf8mb4_ja_0900_as_cs
+# collation-server = utf8mb4_ja_0900_as_cs_ks
+collation-server = utf8mb4_0900_bin
+# collation-server = utf8mb4_ja_0900_as_cs
 transaction-isolation = READ-COMMITTED
 
 # default_password_lifetime = 0
