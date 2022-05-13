@@ -15,6 +15,8 @@ basedir    = /usr
 datadir    = /var/lib/mysql
 tmpdir   = /tmp
 log-error    = /var/log/mysql/error.log
+#general-log = ON                                                                                                                                                                    
+#general-log-file = /dev/stdout
 
 port = 3306
 bind-address = 0.0.0.0
