@@ -1,7 +1,6 @@
 #!/bin/bash
 
-./start-server.sh "$@" 2>&1 &
+echo 'start keycloak...'
+echo "\$ KEYCLOAK_ADMIN=${KEYCLOAK_ADMIN} KEYCLOAK_ADMIN_PASSWORD=${KEYCLOAK_ADMIN_PASSWORD} bin/kc.sh $@"
 
-test -d standalone/log || mkdir standalone/log && \
-touch standalone/log/server.log && \
-tail -f standalone/log/server.log
+KEYCLOAK_ADMIN=${KEYCLOAK_ADMIN} KEYCLOAK_ADMIN_PASSWORD=${KEYCLOAK_ADMIN_PASSWORD} bin/kc.sh "$@"
