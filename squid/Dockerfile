@@ -25,7 +25,7 @@ WORKDIR /home/user
 ADD start-proxy.sh start-proxy.sh
 ADD stop-proxy.sh stop-proxy.sh
 
-RUN sudo chown user.user start-proxy.sh stop-proxy.sh && \
+RUN sudo chown user:user start-proxy.sh stop-proxy.sh && \
     sudo chmod a+x start-proxy.sh stop-proxy.sh
 
 ENTRYPOINT sudo service squid start && sudo -u proxy touch /var/log/squid/access.log && sudo tail -f /var/log/squid/access.log

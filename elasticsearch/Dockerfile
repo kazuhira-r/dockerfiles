@@ -32,14 +32,14 @@ RUN echo oracle-java8-installer shared/accepted-oracle-license-v1-1 select true 
 
 RUN cp -p /etc/elasticsearch/elasticsearch.yml /etc/elasticsearch/elasticsearch.yml.default
 ADD elasticsearch.yml /etc/elasticsearch/elasticsearch.yml
-RUN chown root.elasticsearch /etc/elasticsearch/elasticsearch.yml
+RUN chown root:elasticsearch /etc/elasticsearch/elasticsearch.yml
 
 ## Elasticsearchプラグインインストール
 RUN /usr/share/elasticsearch/bin/elasticsearch-plugin install analysis-kuromoji
 
 ## プラグイン等向け設定ファイル
 RUN touch /etc/elasticsearch/userdict_ja.txt && \
-    chown root.elasticsearch /etc/elasticsearch/userdict_ja.txt
+    chown root:elasticsearch /etc/elasticsearch/userdict_ja.txt
 
 ENTRYPOINT service elasticsearch start && \
             sudo -u elasticsearch touch /var/log/elasticsearch/elasticsearch.log && \

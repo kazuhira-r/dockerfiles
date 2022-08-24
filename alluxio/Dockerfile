@@ -25,12 +25,12 @@ RUN cd /opt && \
     wget -q http://downloads.alluxio.org/downloads/files/${alluxio_version}/alluxio-${alluxio_version}-bin.tar.gz && \
     tar -xf alluxio-${alluxio_version}-bin.tar.gz && \
     find alluxio-${alluxio_version}* -maxdepth 0 -type d | xargs -I {} mv {} alluxio && \
-    chown -R alluxio.alluxio alluxio
+    chown -R alluxio:alluxio alluxio
 
 WORKDIR ${alluxio_home}
 
 ADD docker-entrypoint.sh docker-entrypoint.sh
-RUN chown  alluxio.alluxio docker-entrypoint.sh && \
+RUN chown  alluxio:alluxio docker-entrypoint.sh && \
     chmod a+x docker-entrypoint.sh
 
 USER alluxio

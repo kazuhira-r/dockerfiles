@@ -35,7 +35,7 @@ ENV KEYCLOAK_ADMIN_PASSWORD password
 ADD docker-entrypoint.sh docker-entrypoint.sh
 RUN chmod a+x docker-entrypoint.sh
 
-RUN chown -R keycloak.keycloak /opt/keycloak
+RUN chown -R keycloak:keycloak /opt/keycloak
 USER keycloak
 
 ENTRYPOINT ["./docker-entrypoint.sh"]

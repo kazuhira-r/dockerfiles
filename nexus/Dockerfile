@@ -32,7 +32,7 @@ RUN cd /opt && \
     tar -zxf nexus-${nexus_version}-unix.tar.gz && \
     mv nexus-${nexus_version} nexus && \
     mkdir /opt/sonatype/sonatype-work/nexus3/etc && \
-    chown -R nexus.nexus /opt/sonatype
+    chown -R nexus:nexus /opt/sonatype
 
 
 USER nexus

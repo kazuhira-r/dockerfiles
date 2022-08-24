@@ -25,11 +25,11 @@ RUN cd /opt && \
     wget -q ${ignite_distribution_url} && \
     unzip apache-ignite-${ignite_version}-bin.zip && \
     mv apache-ignite-${ignite_version}-bin apache-ignite-bin && \
-    chown -R ignite.ignite /opt/apache-ignite-bin apache-ignite-${ignite_version}-bin.zip
+    chown -R ignite:ignite /opt/apache-ignite-bin apache-ignite-${ignite_version}-bin.zip
 
 ADD docker-entrypoint.sh /opt/apache-ignite-bin/docker-entrypoint.sh
 RUN chmod a+x /opt/apache-ignite-bin/docker-entrypoint.sh && \
-           chown ignite.ignite /opt/apache-ignite-bin/docker-entrypoint.sh
+           chown ignite:ignite /opt/apache-ignite-bin/docker-entrypoint.sh
 
 USER ignite
 WORKDIR /opt/apache-ignite-bin

@@ -27,7 +27,7 @@ RUN curl -s "https://s3.amazonaws.com/session-manager-downloads/plugin/latest/ub
 
 COPY docker-entrypoint.sh docker-entrypoint.sh
 
-RUN chown aws-cli.aws-cli docker-entrypoint.sh && \
+RUN chown aws-cli:aws-cli docker-entrypoint.sh && \
     chmod a+x docker-entrypoint.sh
 
 USER aws-cli

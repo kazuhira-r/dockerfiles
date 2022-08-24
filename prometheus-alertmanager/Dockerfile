@@ -20,7 +20,7 @@ RUN cd /opt && \
     wget -q https://github.com/prometheus/alertmanager/releases/download/v${prometheus_alertmanager_version}/alertmanager-${prometheus_alertmanager_version}.linux-amd64.tar.gz && \
     tar xf alertmanager-${prometheus_alertmanager_version}.linux-amd64.tar.gz && \
     mv alertmanager-${prometheus_alertmanager_version}.linux-amd64 alertmanager && \
-    chown -R alertmanager.alertmanager alertmanager
+    chown -R alertmanager:alertmanager alertmanager
            
 WORKDIR /opt/alertmanager
 

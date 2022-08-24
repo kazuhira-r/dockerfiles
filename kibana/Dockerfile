@@ -21,7 +21,7 @@ RUN apt-get update && \
     rm -rf /var/lib/apt/lists
 
 RUN cp -p /etc/kibana/kibana.yml /etc/kibana/kibana.yml.default
-# RUN chown -R kibana.root /opt/kibana/installedPlugins /opt/kibana/optimize
+# RUN chown -R kibana:root /opt/kibana/installedPlugins /opt/kibana/optimize
 
 ADD start_kibana.sh start_kibana.sh
 RUN chmod a+x start_kibana.sh

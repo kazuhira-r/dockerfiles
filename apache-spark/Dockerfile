@@ -28,7 +28,7 @@ RUN cd /opt && \
     mv spark-${spark_version}-bin-${hadoop_distribution} spark
 
 COPY docker-entrypoint.sh /opt/spark/docker-entrypoint.sh
-RUN chmod a+x /opt/spark/docker-entrypoint.sh && chown spark.spark /opt/spark/docker-entrypoint.sh
+RUN chmod a+x /opt/spark/docker-entrypoint.sh && chown spark:spark /opt/spark/docker-entrypoint.sh
 
 WORKDIR /opt/spark
 

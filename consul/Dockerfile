@@ -39,8 +39,8 @@ RUN echo "Defaults:consul !requiretty" >> /etc/sudoers.d/consul && \
     echo "consul ALL=(ALL)      NOPASSWD: ALL" >> /etc/sudoers.d/consul && \
     chmod 440 /etc/sudoers.d/consul
 
-RUN chown -R consul.consul ${consul_home} ${consul_lib_dir} ${consul_config_dir} && \
-    chown -R syslog.syslog ${consul_log_dir} && \
+RUN chown -R consul:consul ${consul_home} ${consul_lib_dir} ${consul_config_dir} && \
+    chown -R syslog:syslog ${consul_log_dir} && \
     chmod 755 ${consul_log_dir}
 
 
@@ -48,7 +48,7 @@ USER consul
 WORKDIR ${consul_home}
 
 COPY docker-entrypoint.sh /docker-entrypoint.sh
-RUN sudo chmod a+x /docker-entrypoint.sh && sudo chown consul.consul /docker-entrypoint.sh
+RUN sudo chmod a+x /docker-entrypoint.sh && sudo chown consul:consul /docker-entrypoint.sh
 
 #ENTRYPOINT service rsyslog start && tail -f ${consul_log_dir}/consul.log
 ENTRYPOINT ["/docker-entrypoint.sh"]

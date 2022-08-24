@@ -32,13 +32,13 @@ RUN cp -Rp /etc/hadoop/conf.empty /etc/hadoop/conf.mine && \
     alternatives --install /etc/hadoop/conf hadoop-conf /etc/hadoop/conf.mine 50 && \
     alternatives --set hadoop-conf /etc/hadoop/conf.mine && \
     mkdir -p /var/lib/hadoop-hdfs/cache/hdfs/name && \
-    chown -R hdfs.hdfs /var/lib/hadoop-hdfs/cache/hdfs/name && \
+    chown -R hdfs:hdfs /var/lib/hadoop-hdfs/cache/hdfs/name && \
     chmod 775 /var/lib/hadoop-hdfs/cache/hdfs/name && \
     mkdir -p /var/lib/hadoop-hdfs/cache/hdfs/dfs && \
-    chown -R hdfs.hdfs /var/lib/hadoop-hdfs/cache/hdfs/dfs && \
+    chown -R hdfs:hdfs /var/lib/hadoop-hdfs/cache/hdfs/dfs && \
     chmod 775 /var/lib/hadoop-hdfs/cache/hdfs/dfs && \
     mkdir -p /var/lib/hadoop-hdfs/cache/hdfs/tmp && \
-    chown -R hdfs.hdfs /var/lib/hadoop-hdfs/cache/hdfs/dfs && \
+    chown -R hdfs:hdfs /var/lib/hadoop-hdfs/cache/hdfs/dfs && \
     chmod 775 /var/lib/hadoop-hdfs/cache/hdfs/dfs
 
 ADD core-site.xml /etc/hadoop/conf.mine/core-site.xml

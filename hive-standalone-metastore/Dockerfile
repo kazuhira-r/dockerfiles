@@ -24,13 +24,13 @@ RUN cd /opt && \
     curl -s -LO https://dlcdn.apache.org/hive/hive-standalone-metastore-${hive_standalone_metastore_version}/hive-standalone-metastore-${hive_standalone_metastore_version}-bin.tar.gz && \
     tar xf hive-standalone-metastore-${hive_standalone_metastore_version}-bin.tar.gz && \
     mv apache-hive-metastore-${hive_standalone_metastore_version}-bin apache-hive-metastore-bin && \
-    chown -R hive.hive apache-hive-metastore-bin
+    chown -R hive:hive apache-hive-metastore-bin
 
 RUN cd /opt && \
     curl -s -LO https://dlcdn.apache.org/hadoop/common/hadoop-${hadoop_version}/hadoop-${hadoop_version}.tar.gz && \
     tar xf hadoop-${hadoop_version}.tar.gz && \
     mv hadoop-${hadoop_version} hadoop && \
-    chown -R hive.hive hadoop
+    chown -R hive:hive hadoop
 
 EXPOSE 9083
 

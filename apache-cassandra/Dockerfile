@@ -38,6 +38,6 @@ WORKDIR /home/cassandra-user
 USER cassandra-user
 
 ADD start-cassandra.sh start-cassandra.sh
-RUN sudo chown cassandra-user.cassandra-user start-cassandra.sh && \
+RUN sudo chown cassandra-user:cassandra-user start-cassandra.sh && \
     chmod a+x start-cassandra.sh
 ENTRYPOINT ["./start-cassandra.sh"]

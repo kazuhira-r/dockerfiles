@@ -53,28 +53,28 @@ COPY mysql.cnf /etc/mysql/mysql.cnf
 COPY mysqld.cnf /etc/mysql/mysql.conf.d/mysqld.cnf
 
 COPY create-database-and-user.sh /home/user/create-database-and-user.sh
-RUN chmod a+x /home/user/create-database-and-user.sh && chown user.user /home/user/create-database-and-user.sh
+RUN chmod a+x /home/user/create-database-and-user.sh && chown user:user /home/user/create-database-and-user.sh
 
 COPY setup-source.sh /home/user/setup-source.sh
-RUN chmod a+x /home/user/setup-source.sh && chown user.user /home/user/setup-source.sh
+RUN chmod a+x /home/user/setup-source.sh && chown user:user /home/user/setup-source.sh
 
 COPY setup-replica.sh /home/user/setup-replica.sh
-RUN chmod a+x /home/user/setup-replica.sh && chown user.user /home/user/setup-replica.sh
+RUN chmod a+x /home/user/setup-replica.sh && chown user:user /home/user/setup-replica.sh
 
 COPY setup-group-replication-initial-host.sh /home/user/setup-group-replication-initial-host.sh
-RUN chmod a+x /home/user/setup-group-replication-initial-host.sh && chown user.user /home/user/setup-group-replication-initial-host.sh
+RUN chmod a+x /home/user/setup-group-replication-initial-host.sh && chown user:user /home/user/setup-group-replication-initial-host.sh
 
 COPY setup-group-replication-add-host.sh /home/user/setup-group-replication-add-host.sh
-RUN chmod a+x /home/user/setup-group-replication-add-host.sh && chown user.user /home/user/setup-group-replication-add-host.sh
+RUN chmod a+x /home/user/setup-group-replication-add-host.sh && chown user:user /home/user/setup-group-replication-add-host.sh
 
 COPY docker-entrypoint.sh /home/user/docker-entrypoint.sh
-RUN chmod a+x /home/user/docker-entrypoint.sh && chown user.user /home/user/docker-entrypoint.sh
+RUN chmod a+x /home/user/docker-entrypoint.sh && chown user:user /home/user/docker-entrypoint.sh
 
 COPY restart-mysqld.sh /home/user/restart-mysqld.sh
-RUN chmod a+x /home/user/restart-mysqld.sh && chown user.user /home/user/restart-mysqld.sh
+RUN chmod a+x /home/user/restart-mysqld.sh && chown user:user /home/user/restart-mysqld.sh
 
 COPY connect-mysql-as-root.sh /home/user/connect-mysql-as-root.sh
-RUN chmod a+x /home/user/connect-mysql-as-root.sh && chown user.user /home/user/connect-mysql-as-root.sh
+RUN chmod a+x /home/user/connect-mysql-as-root.sh && chown user:user /home/user/connect-mysql-as-root.sh
 
 USER user
 WORKDIR /home/user

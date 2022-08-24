@@ -40,7 +40,7 @@ RUN chmod a+x docker-entrypoint.sh
 COPY restart.sh restart.sh
 RUN chmod a+x restart.sh
 
-RUN chown -R ispn.ispn /opt/infinispan-server
+RUN chown -R ispn:ispn /opt/infinispan-server
 USER ispn
 
 ENTRYPOINT ["./docker-entrypoint.sh"]

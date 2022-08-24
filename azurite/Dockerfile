@@ -19,7 +19,7 @@ RUN echo "Defaults:azurite !requiretty" >> /etc/sudoers.d/azurite && \
     chmod 440 /etc/sudoers.d/azurite
 
 RUN mkdir -p /opt/azurite/data && \
-    chown -R azurite.azurite /opt/azurite && \
+    chown -R azurite:azurite /opt/azurite && \
     cd /opt/azurite && \
     sudo -u azurite npm i azurite@${azurite_version}
 

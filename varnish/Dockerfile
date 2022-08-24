@@ -34,7 +34,7 @@ WORKDIR /home/user
 ADD start-varnish.sh start-varnish.sh
 ADD stop-varnish.sh stop-varnish.sh
 
-RUN sudo chown user.user start-varnish.sh stop-varnish.sh && \
+RUN sudo chown user:user start-varnish.sh stop-varnish.sh && \
     sudo chmod a+x start-varnish.sh stop-varnish.sh
 
 ENTRYPOINT /home/user/start-varnish.sh && sudo -u varnish varnishncsa -F '%h %l %u %t "%r" %s %b "%{Referer}i" "%{User-agent}i" %{Varnish:hitmiss}x %{Varnish:handling}x'

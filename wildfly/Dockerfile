@@ -35,7 +35,7 @@ RUN chmod a+x start-server.sh
 COPY docker-entrypoint.sh docker-entrypoint.sh
 RUN chmod a+x docker-entrypoint.sh
 
-RUN chown -R wildfly.wildfly /opt/wildfly
+RUN chown -R wildfly:wildfly /opt/wildfly
 USER wildfly
 
 ENTRYPOINT ["./docker-entrypoint.sh"]

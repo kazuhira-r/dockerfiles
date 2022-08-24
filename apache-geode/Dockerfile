@@ -29,8 +29,8 @@ RUN cd /opt && \
     tar -zxf apache-geode-${geode_version}.tgz && \
     # tar -zxf apache-geode-${geode_version}.tar.gz && \
     mv apache-geode-${geode_version} apache-geode && \
-    chown -R geode.geode /opt/apache-geode apache-geode-${geode_version}.tgz
-    # chown -R geode.geode /opt/apache-geode apache-geode-${geode_version}.tar.gz
+    chown -R geode:geode /opt/apache-geode apache-geode-${geode_version}.tgz
+    # chown -R geode:geode /opt/apache-geode apache-geode-${geode_version}.tar.gz
 
 USER geode
 WORKDIR /opt/apache-geode

@@ -29,14 +29,14 @@ RUN echo "Defaults:redis !requiretty" >> /etc/sudoers.d/redis && \
     echo "redis ALL=(ALL)      NOPASSWD: ALL" >> /etc/sudoers.d/redis && \
     chmod 440 /etc/sudoers.d/redis
 
-RUN chown -R redis.redis ${redis_home} && \
-    chown -R redis.redis /opt/redis-src
+RUN chown -R redis:redis ${redis_home} && \
+    chown -R redis:redis /opt/redis-src
 
 RUN mkdir conf
 
 ADD redis.conf.template conf/redis.conf.template
 ADD docker-entrypoint.sh docker-entrypoint.sh
-RUN chown -R redis.redis docker-entrypoint.sh conf conf/redis.conf.template && \
+RUN chown -R redis:redis docker-entrypoint.sh conf conf/redis.conf.template && \
     chmod a+x docker-entrypoint.sh
 
 RUN chmod a+x docker-entrypoint.sh

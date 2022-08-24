@@ -20,7 +20,7 @@ RUN mkdir /opt/keycloak && \
     cd /opt/keycloak && \
     wget -q https://downloads.jboss.org/keycloak/${keycloak_version}/gatekeeper/keycloak-gatekeeper-linux-amd64.tar.gz && \
     tar xf keycloak-gatekeeper-linux-amd64.tar.gz && \
-    chown -R keycloak.keycloak /opt/keycloak
+    chown -R keycloak:keycloak /opt/keycloak
 
 USER keycloak
 WORKDIR /opt/keycloak

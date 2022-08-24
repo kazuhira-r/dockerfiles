@@ -34,7 +34,7 @@ USER user
 WORKDIR /home/user
 
 ADD add-user.sh add-user.sh
-RUN sudo chown user.user add-user.sh && \
+RUN sudo chown user:user add-user.sh && \
     chmod a+x add-user.sh
 
 ENTRYPOINT sudo service rabbitmq-server start && tail -f /dev/null

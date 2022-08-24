@@ -30,7 +30,7 @@ RUN curl -sL https://fastdl.mongodb.org/linux/mongodb-linux-x86_64-ubuntu1804-${
     curl -sL https://github.com/mongodb/mongo/raw/r${mongodb_version}/debian/mongod.conf -o /opt/mongodb/conf/mongod.conf && \
     mkdir /opt/mongodb/data && \
     mkdir /opt/mongodb/log && \
-    chown -R mongo-user.mongo-user /opt/mongodb /opt/mongodb-linux-x86_64-ubuntu1804-${mongodb_version}.tgz
+    chown -R mongo-user:mongo-user /opt/mongodb /opt/mongodb-linux-x86_64-ubuntu1804-${mongodb_version}.tgz
 
 ADD docker-entrypoint.sh docker-entrypoint.sh
 

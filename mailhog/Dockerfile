@@ -19,7 +19,7 @@ RUN echo "Defaults:mailhog !requiretty" >> /etc/sudoers.d/mailhog && \
 RUN mkdir /opt/mailhog && \
     cd /opt/mailhog && \
     wget -q https://github.com/mailhog/MailHog/releases/download/${mailhog_version}/MailHog_linux_amd64 && \
-    chown -R mailhog.mailhog /opt/mailhog && \
+    chown -R mailhog:mailhog /opt/mailhog && \
     chmod a+x MailHog_linux_amd64
 
 USER mailhog

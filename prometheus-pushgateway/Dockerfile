@@ -20,7 +20,7 @@ RUN cd /opt && \
     wget -q https://github.com/prometheus/pushgateway/releases/download/v${prometheus_pushgateway_version}/pushgateway-${prometheus_pushgateway_version}.linux-amd64.tar.gz && \
     tar xf pushgateway-${prometheus_pushgateway_version}.linux-amd64.tar.gz && \
     mv pushgateway-${prometheus_pushgateway_version}.linux-amd64 pushgateway && \
-    chown -R pushgateway.pushgateway pushgateway
+    chown -R pushgateway:pushgateway pushgateway
            
 WORKDIR /opt/pushgateway
 
