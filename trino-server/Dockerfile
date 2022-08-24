@@ -44,7 +44,7 @@ COPY etc/config.properties etc/config.properties
 RUN chown -R trino:trino etc
 
 COPY docker-entrypoint.sh docker-entrypoint.sh
-RUN chmod a+x docker-entrypoint.sh
+RUN chmod a+x docker-entrypoint.sh && chown trino:trino docker-entrypoint.sh
 
 USER trino
 
