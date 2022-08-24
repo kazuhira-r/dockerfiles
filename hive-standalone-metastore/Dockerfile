@@ -37,7 +37,7 @@ EXPOSE 9083
 WORKDIR /opt/apache-hive-metastore-bin
 
 COPY docker-entrypoint.sh docker-entrypoint.sh
-RUN chmod a+x docker-entrypoint.sh
+RUN chmod a+x docker-entrypoint.sh && chown hive:hive docker-entrypoint.sh
 
 USER hive
 
