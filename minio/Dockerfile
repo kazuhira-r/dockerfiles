@@ -1,7 +1,7 @@
 FROM ubuntu:20.04
 
-ARG minio_server_version=20220813215444
-ARG minio_client_version=20220811003048
+ARG minio_server_version=20220907222502
+ARG minio_client_version=20220828200811
 
 RUN apt-get update && \
     apt-get install -y --no-install-recommends \
