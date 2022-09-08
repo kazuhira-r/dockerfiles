@@ -1,6 +1,6 @@
 FROM eclipse-temurin:17-jdk-focal
 
-ARG trino_version=393
+ARG trino_version=395
 
 RUN apt-get update && \
     apt-get install -y --no-install-recommends \
