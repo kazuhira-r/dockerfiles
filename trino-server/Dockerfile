@@ -9,6 +9,7 @@ RUN apt-get update && \
                     curl \
                     unzip \
                     ca-certificates \
+                    less \
                     python \
                     && \
     apt-get clean
