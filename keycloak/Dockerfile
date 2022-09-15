@@ -1,6 +1,6 @@
 FROM eclipse-temurin:17-jdk-focal
 
-ARG keycloak_version=19.0.1
+ARG keycloak_version=19.0.2
 
 RUN apt-get update && \
     apt-get install -y --no-install-recommends \
