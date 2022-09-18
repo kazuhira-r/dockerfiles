@@ -9,6 +9,7 @@ RUN apt-get update && \
                     vim \
                     curl \
                     jq \
+                    less \
                     && \
     apt-get clean
 
