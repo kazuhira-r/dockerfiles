@@ -1,6 +1,6 @@
-FROM adoptopenjdk:11-jdk-hotspot-focal
+FROM eclipse-temurin:17-jdk-focal
 
-ARG wildfly_version=24.0.0.Final
+ARG wildfly_version=26.1.2.Final
 
 RUN apt-get update && \
     apt-get install -y --no-install-recommends \
@@ -19,7 +19,7 @@ RUN echo "Defaults:wildfly !requiretty" >> /etc/sudoers.d/wildfly && \
     chmod 440 /etc/sudoers.d/wildfly
 
 RUN cd /opt && \
-    curl -OLs http://download.jboss.org/wildfly/${wildfly_version}/wildfly-${wildfly_version}.zip && \
+    curl -OLs https://github.com/wildfly/wildfly/releases/download/${wildfly_version}/wildfly-${wildfly_version}.zip && \
     unzip wildfly-${wildfly_version}.zip && \
     mv wildfly-${wildfly_version} wildfly && \
     chmod +x wildfly/bin/standalone.sh && \
