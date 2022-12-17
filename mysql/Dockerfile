@@ -10,8 +10,8 @@ ENV LANGUAGE=ja_JP:
 
 ENV ROOT_PASSWORD=password
 
-RUN apt-get update && \
-    apt-get install -y --no-install-recommends \
+RUN apt-get update \
+    && apt-get install -y --no-install-recommends \
                     curl \
                     wget \
                     vim \
@@ -21,31 +21,30 @@ RUN apt-get update && \
                     ca-certificates \
                     language-pack-ja \
                     tzdata \
-                    && \
-    apt-get clean
+    && apt-get clean
 
-RUN adduser --disabled-login --gecos '' user && \
-    usermod -G sudo user
+RUN adduser --disabled-login --gecos '' user \
+    && usermod -G sudo user
 
-RUN echo "Defaults:user !requiretty" >> /etc/sudoers.d/user && \
-    echo "user ALL=(ALL)      NOPASSWD: ALL" >> /etc/sudoers.d/user && \
-    chmod 440 /etc/sudoers.d/user
+RUN echo "Defaults:user !requiretty" >> /etc/sudoers.d/user \
+    && echo "user ALL=(ALL)      NOPASSWD: ALL" >> /etc/sudoers.d/user \
+    && chmod 440 /etc/sudoers.d/user
 
 RUN update-locale LANG=ja_JP.UTF-8 LANGUAGE=ja_JP:
 
-RUN curl -s -LO https://dev.mysql.com/get/mysql-apt-config_${mysql_apt_version}_all.deb && \
-    echo 4 | dpkg -i mysql-apt-config_${mysql_apt_version}_all.deb
+RUN curl -s -LO https://dev.mysql.com/get/mysql-apt-config_${mysql_apt_version}_all.deb \
+    && echo 4 | dpkg -i mysql-apt-config_${mysql_apt_version}_all.deb
 
-RUN apt-get update && \
+RUN apt-get update \
     # !!root password is ''!!
     # https://dev.mysql.com/doc/mysql-apt-repo-quick-guide/en/#repo-qg-apt-repo-non-insteractive
-    { \
+    && { \
       echo mysql-community-server mysql-community-server/root-pass ${ROOT_PASSWORD} ''; \
       echo mysql-community-server mysql-community-server/re-root-pass ${ROOT_PASSWORD} ''; \
-    } | debconf-set-selections && \
-    apt-get update && \
-    DEBIAN_FRONTEND=noninteractive apt-get install -y mysql-server mysql-shell && \
-    apt-get clean
+    } | debconf-set-selections \
+    && apt-get update \
+    && DEBIAN_FRONTEND=noninteractive apt-get install -y mysql-server mysql-shell \
+    && apt-get clean
 
 RUN cp -p /etc/mysql/mysql.cnf /etc/mysql/mysql.cnf.org
 RUN cp -p /etc/mysql/mysql.conf.d/mysqld.cnf /etc/mysql/mysql.conf.d/mysqld.cnf.org

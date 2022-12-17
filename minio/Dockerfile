@@ -3,35 +3,34 @@ FROM ubuntu:20.04
 ARG minio_server_version=20220907222502
 ARG minio_client_version=20220828200811
 
-RUN apt-get update && \
-    apt-get install -y --no-install-recommends \
+RUN apt-get update \
+    && apt-get install -y --no-install-recommends \
                     sudo \
                     vim \
                     curl \
                     unzip \
                     ca-certificates \
-                    && \
-    apt-get clean
+    && apt-get clean
 
-RUN adduser --disabled-login --gecos '' minio-user && \
-    usermod -G sudo minio-user
+RUN adduser --disabled-login --gecos '' minio-user \
+    && usermod -G sudo minio-user
 
-RUN echo "Defaults:minio-user !requiretty" >> /etc/sudoers.d/minio-user && \
-    echo "minio-user ALL=(ALL)      NOPASSWD: ALL" >> /etc/sudoers.d/minio-user && \
-    chmod 440 /etc/sudoers.d/minio-user
+RUN echo "Defaults:minio-user !requiretty" >> /etc/sudoers.d/minio-user \
+    && echo "minio-user ALL=(ALL)      NOPASSWD: ALL" >> /etc/sudoers.d/minio-user \
+    && chmod 440 /etc/sudoers.d/minio-user
 
-RUN  mkdir -p /var/lib/minio/data && \
-    chown -R minio-user:minio-user /var/lib/minio && \
-    curl -s -OL https://dl.min.io/server/minio/release/linux-amd64/minio_${minio_server_version}.0.0_amd64.deb && \
-    dpkg -i minio_${minio_server_version}.0.0_amd64.deb && \
-    rm minio_${minio_server_version}.0.0_amd64.deb && \
-    curl -s -OL "https://dl.min.io/client/mc/release/linux-amd64/mcli_${minio_client_version}.0.0_amd64.deb" && \
-    dpkg -i mcli_${minio_client_version}.0.0_amd64.deb && \
-    rm mcli_${minio_client_version}.0.0_amd64.deb && \
-    curl -s "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip" && \
-    unzip awscliv2.zip && \
-    sudo ./aws/install && \
-    rm -rf awscliv2.zip aws
+RUN  mkdir -p /var/lib/minio/data \
+    && chown -R minio-user:minio-user /var/lib/minio \
+    && curl -s -OL https://dl.min.io/server/minio/release/linux-amd64/minio_${minio_server_version}.0.0_amd64.deb \
+    && dpkg -i minio_${minio_server_version}.0.0_amd64.deb \
+    && rm minio_${minio_server_version}.0.0_amd64.deb \
+    && curl -s -OL "https://dl.min.io/client/mc/release/linux-amd64/mcli_${minio_client_version}.0.0_amd64.deb" \
+    && dpkg -i mcli_${minio_client_version}.0.0_amd64.deb \
+    && rm mcli_${minio_client_version}.0.0_amd64.deb \
+    && curl -s "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip" \
+    && unzip awscliv2.zip \
+    && sudo ./aws/install \
+    && rm -rf awscliv2.zip aws
 
 EXPOSE 9000 9001
 

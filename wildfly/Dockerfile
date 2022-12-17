@@ -2,28 +2,27 @@ FROM eclipse-temurin:17-jdk-focal
 
 ARG wildfly_version=26.1.2.Final
 
-RUN apt-get update && \
-    apt-get install -y --no-install-recommends \
+RUN apt-get update \
+    && apt-get install -y --no-install-recommends \
                        sudo \
                        unzip \
                        vim \
                        curl \
-                       && \
-    apt-get clean
+    && apt-get clean
 
-RUN adduser --disabled-login --gecos '' wildfly && \
-    usermod -G sudo wildfly
+RUN adduser --disabled-login --gecos '' wildfly \
+    && usermod -G sudo wildfly
 
-RUN echo "Defaults:wildfly !requiretty" >> /etc/sudoers.d/wildfly && \
-    echo "wildfly ALL=(ALL)      NOPASSWD: ALL" >> /etc/sudoers.d/wildfly && \
-    chmod 440 /etc/sudoers.d/wildfly
+RUN echo "Defaults:wildfly !requiretty" >> /etc/sudoers.d/wildfly \
+    && echo "wildfly ALL=(ALL)      NOPASSWD: ALL" >> /etc/sudoers.d/wildfly \
+    && chmod 440 /etc/sudoers.d/wildfly
 
-RUN cd /opt && \
-    curl -OLs https://github.com/wildfly/wildfly/releases/download/${wildfly_version}/wildfly-${wildfly_version}.zip && \
-    unzip wildfly-${wildfly_version}.zip && \
-    mv wildfly-${wildfly_version} wildfly && \
-    chmod +x wildfly/bin/standalone.sh && \
-    rm wildfly-${wildfly_version}.zip
+RUN cd /opt \
+    && curl -OLs https://github.com/wildfly/wildfly/releases/download/${wildfly_version}/wildfly-${wildfly_version}.zip \
+    && unzip wildfly-${wildfly_version}.zip \
+    && mv wildfly-${wildfly_version} wildfly \
+    && chmod +x wildfly/bin/standalone.sh \
+    && rm wildfly-${wildfly_version}.zip
 
 WORKDIR /opt/wildfly
 

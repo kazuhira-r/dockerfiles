@@ -9,8 +9,8 @@ ARG consul_data_dir=${consul_lib_dir}/data
 ARG consul_log_dir=/var/log/consul
 ARG consul_config_dir=/etc/consul.d
 
-RUN apt-get update && \
-    apt-get install -y --no-install-recommends \
+RUN apt-get update \
+    && apt-get install -y --no-install-recommends \
                     sudo \
                     unzip \
                     vim \
@@ -18,30 +18,29 @@ RUN apt-get update && \
                     ca-certificates \
                     rsyslog \
                     less \
-                    && \
-    apt-get clean && \
-    mkdir -p ${consul_home} ${consul_data_dir} ${consul_log_dir} ${consul_config_dir} && \
-    touch ${consul_log_dir}/consul.log && \
-    cd ${consul_home} && \
-    curl -s -LO https://releases.hashicorp.com/consul/${consul_version}/consul_${consul_version}_linux_amd64.zip && \
-    curl -s -LO https://releases.hashicorp.com/consul-template/${consul_template_version}/consul-template_${consul_template_version}_linux_amd64.zip && \
-    unzip consul_${consul_version}_linux_amd64.zip && \
-    unzip consul-template_${consul_template_version}_linux_amd64.zip
+    && apt-get clean \
+    && mkdir -p ${consul_home} ${consul_data_dir} ${consul_log_dir} ${consul_config_dir} \
+    && touch ${consul_log_dir}/consul.log \
+    && cd ${consul_home} \
+    && curl -s -LO https://releases.hashicorp.com/consul/${consul_version}/consul_${consul_version}_linux_amd64.zip \
+    && curl -s -LO https://releases.hashicorp.com/consul-template/${consul_template_version}/consul-template_${consul_template_version}_linux_amd64.zip \
+    && unzip consul_${consul_version}_linux_amd64.zip \
+    && unzip consul-template_${consul_template_version}_linux_amd64.zip
 
-RUN echo "local0.*			${consul_log_dir}/consul.log" >> /etc/rsyslog.d/consul.conf && \
-    perl -wpi -e 's!^(\*\.\*\S+)(.+)!$1,local0.none$2!' /etc/rsyslog.d/50-default.conf
+RUN echo "local0.*			${consul_log_dir}/consul.log" >> /etc/rsyslog.d/consul.conf \
+    && perl -wpi -e 's!^(\*\.\*\S+)(.+)!$1,local0.none$2!' /etc/rsyslog.d/50-default.conf
 
 
-RUN adduser --disabled-login --gecos '' consul && \
-    usermod -G sudo consul
+RUN adduser --disabled-login --gecos '' consul \
+    && usermod -G sudo consul
 
-RUN echo "Defaults:consul !requiretty" >> /etc/sudoers.d/consul && \
-    echo "consul ALL=(ALL)      NOPASSWD: ALL" >> /etc/sudoers.d/consul && \
-    chmod 440 /etc/sudoers.d/consul
+RUN echo "Defaults:consul !requiretty" >> /etc/sudoers.d/consul \
+    && echo "consul ALL=(ALL)      NOPASSWD: ALL" >> /etc/sudoers.d/consul \
+    && chmod 440 /etc/sudoers.d/consul
 
-RUN chown -R consul:consul ${consul_home} ${consul_lib_dir} ${consul_config_dir} && \
-    chown -R syslog:syslog ${consul_log_dir} && \
-    chmod 755 ${consul_log_dir}
+RUN chown -R consul:consul ${consul_home} ${consul_lib_dir} ${consul_config_dir} \
+    && chown -R syslog:syslog ${consul_log_dir} \
+    && chmod 755 ${consul_log_dir}
 
 
 USER consul

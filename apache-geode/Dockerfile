@@ -10,27 +10,27 @@ ARG geode_distribution_url=https://www-us.apache.org/dist/geode/${geode_version}
 #ARG geode_distribution_url=http://ftp.meisei-u.ac.jp/mirror/apache/dist/geode/${geode_version}/apache-geode-${geode_version}.tar.gz
 #ARG geode_distribution_url=https://archive.apache.org/dist/incubator/geode/${geode_version}/apache-geode-${geode_version}.tar.gz
 
-RUN apt-get update && \
-    apt-get install -y sudo \
+RUN apt-get update \
+    && apt-get install -y sudo \
                        curl \
                        wget \
-                       vim && \
-    apt-get clean
+                       vim \
+    && apt-get clean
 
-RUN adduser --disabled-login --gecos '' geode && \
-    usermod -G sudo geode
+RUN adduser --disabled-login --gecos '' geode \
+    && usermod -G sudo geode
 
-RUN echo "Defaults:geode !requiretty" >> /etc/sudoers.d/geode && \
-    echo "geode ALL=(ALL)      NOPASSWD: ALL" >> /etc/sudoers.d/geode && \
-    chmod 440 /etc/sudoers.d/geode
+RUN echo "Defaults:geode !requiretty" >> /etc/sudoers.d/geode \
+    && echo "geode ALL=(ALL)      NOPASSWD: ALL" >> /etc/sudoers.d/geode \
+    && chmod 440 /etc/sudoers.d/geode
 
-RUN cd /opt && \
-    wget -q ${geode_distribution_url} && \
-    tar -zxf apache-geode-${geode_version}.tgz && \
-    # tar -zxf apache-geode-${geode_version}.tar.gz && \
-    mv apache-geode-${geode_version} apache-geode && \
-    chown -R geode:geode /opt/apache-geode apache-geode-${geode_version}.tgz
-    # chown -R geode:geode /opt/apache-geode apache-geode-${geode_version}.tar.gz
+RUN cd /opt \
+    && wget -q ${geode_distribution_url} \
+    && tar -zxf apache-geode-${geode_version}.tgz \
+    # && tar -zxf apache-geode-${geode_version}.tar.gz \
+    && mv apache-geode-${geode_version} apache-geode \
+    && chown -R geode:geode /opt/apache-geode apache-geode-${geode_version}.tgz
+    # && chown -R geode:geode /opt/apache-geode apache-geode-${geode_version}.tar.gz
 
 USER geode
 WORKDIR /opt/apache-geode
