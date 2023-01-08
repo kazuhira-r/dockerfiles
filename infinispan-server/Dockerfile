@@ -28,7 +28,7 @@ RUN curl -L -O -s http://downloads.jboss.org/infinispan/${infinispan_version}/in
     && mv infinispan-server-${infinispan_version} infinispan-server \
     && rm infinispan-server-${infinispan_version}.zip \
     # until 9.2.x...
-    # && rm infinispan-server-${infinispan_version}-bin.zip
+    # && rm infinispan-server-${infinispan_version}-bin.zip \
     && chown -R ispn:ispn /opt/infinispan-server
 
 WORKDIR /opt/infinispan-server
