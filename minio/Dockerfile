@@ -1,7 +1,7 @@
-FROM ubuntu:20.04
+FROM ubuntu:22.04
 
-ARG minio_server_version=20220907222502
-ARG minio_client_version=20220828200811
+ARG minio_server_version=20230125001954
+ARG minio_client_version=20230111031416
 
 RUN apt-get update \
     && apt-get install -y --no-install-recommends \
@@ -29,7 +29,7 @@ RUN  mkdir -p /var/lib/minio/data \
     && rm mcli_${minio_client_version}.0.0_amd64.deb \
     && curl -s "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip" \
     && unzip awscliv2.zip \
-    && sudo ./aws/install \
+    && ./aws/install \
     && rm -rf awscliv2.zip aws
 
 EXPOSE 9000 9001
