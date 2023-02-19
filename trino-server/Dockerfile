@@ -1,4 +1,4 @@
-FROM eclipse-temurin:17-jdk-focal
+FROM eclipse-temurin:17-jdk-jammy
 
 ARG trino_version=395
 
@@ -10,7 +10,8 @@ RUN apt-get update \
                     unzip \
                     ca-certificates \
                     less \
-                    python \
+                    python3 \
+                    python-is-python3 \
     && apt-get clean
 
 RUN adduser --disabled-login --gecos '' trino \

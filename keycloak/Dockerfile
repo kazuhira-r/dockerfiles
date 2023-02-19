@@ -1,4 +1,4 @@
-FROM eclipse-temurin:17-jdk-focal
+FROM eclipse-temurin:17-jdk-jammy
 
 ARG keycloak_version=19.0.2
 

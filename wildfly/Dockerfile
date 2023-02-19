@@ -1,4 +1,4 @@
-FROM eclipse-temurin:17-jdk-focal
+FROM eclipse-temurin:17-jdk-jammy
 
 ARG wildfly_version=27.0.1.Final
 

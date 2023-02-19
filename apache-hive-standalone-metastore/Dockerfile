@@ -1,4 +1,4 @@
-FROM eclipse-temurin:17-jdk-focal
+FROM eclipse-temurin:17-jdk-jammy
 
 ARG hive_standalone_metastore_version=3.0.0
 ARG hadoop_version=3.3.4

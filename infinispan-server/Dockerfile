@@ -1,4 +1,4 @@
-FROM eclipse-temurin:17-jdk-focal
+FROM eclipse-temurin:17-jdk-jammy
 LABEL maintainer="kazuhira<kazuhira.m@gmail.com>"
 
 ARG infinispan_version=14.0.6.Final
@@ -21,7 +21,7 @@ RUN echo "Defaults:ispn !requiretty" >> /etc/sudoers.d/ispn \
 WORKDIR /opt
 
 RUN curl -L -O -s http://downloads.jboss.org/infinispan/${infinispan_version}/infinispan-server-${infinispan_version}.zip \
-    && unzip infinispan-server-${infinispan_version}.zip \
+   && unzip infinispan-server-${infinispan_version}.zip \
     # until 9.2.x...
     # && curl -L -O -s http://downloads.jboss.org/infinispan/${infinispan_version}/infinispan-server-${infinispan_version}-bin.zip \
     # && unzip infinispan-server-${infinispan_version}-bin.zip \
