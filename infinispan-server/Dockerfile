@@ -1,7 +1,7 @@
 FROM eclipse-temurin:17-jdk-jammy
 LABEL maintainer="kazuhira<kazuhira.m@gmail.com>"
 
-ARG infinispan_version=14.0.6.Final
+ARG infinispan_version=14.0.7.Final
 
 RUN apt-get update \
     && apt-get install -y --no-install-recommends \
