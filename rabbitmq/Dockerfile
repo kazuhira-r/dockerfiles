@@ -1,7 +1,7 @@
 FROM ubuntu:22.04
 
 # see: https://packagecloud.io/rabbitmq/rabbitmq-server/
-ARG rabbitmq_version=3.11.12-1
+ARG rabbitmq_version=3.11.13-1
 
 EXPOSE 5672 25672
 
