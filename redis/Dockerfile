@@ -40,7 +40,7 @@ RUN chown -R redis:redis docker-entrypoint.sh \
 
 USER redis
 
-ENV REDIS_PASSWORD redispass
+ENV REDIS_PASSWORD defaultpassword
 
 EXPOSE 6379
 
