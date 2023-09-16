@@ -34,6 +34,9 @@ RUN echo "Defaults:redis !requiretty" >> /etc/sudoers.d/redis \
 RUN chown -R redis:redis ${redis_home} \
     && chown -R redis:redis /opt/redis-src
 
+COPY redis.conf conf/redis.conf
+RUN chown -R redis:redis conf/redis.conf
+
 COPY docker-entrypoint.sh docker-entrypoint.sh
 RUN chown -R redis:redis docker-entrypoint.sh \
     && chmod a+x docker-entrypoint.sh
