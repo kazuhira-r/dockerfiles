@@ -72,9 +72,6 @@ RUN chmod a+x /home/user/docker-entrypoint.sh && chown user:user /home/user/dock
 COPY restart-mysqld.sh /home/user/restart-mysqld.sh
 RUN chmod a+x /home/user/restart-mysqld.sh && chown user:user /home/user/restart-mysqld.sh
 
-COPY connect-mysql-as-root.sh /home/user/connect-mysql-as-root.sh
-RUN chmod a+x /home/user/connect-mysql-as-root.sh && chown user:user /home/user/connect-mysql-as-root.sh
-
 USER user
 WORKDIR /home/user
 

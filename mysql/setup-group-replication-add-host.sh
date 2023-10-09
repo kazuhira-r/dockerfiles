@@ -42,15 +42,15 @@ SHOW PLUGINS;
 EOS
 )
 
-mysql -uroot -e "${SQL_INITIAL}"
-mysql -u${USER_NAME} -p${PASSWORD} -e 'exit'  # must?
+mysqlsh root:${ROOT_PASSWORD}@localhost:3306 --sql -e "${SQL_INITIAL}"
+mysqlsh root:${ROOT_PASSWORD}@localhost:3306 --sql -e 'exit'
 
 SQL_START_REPLICATION=$(cat <<EOS
 START GROUP_REPLICATION;
 EOS
 )
 
-mysql -uroot -e "${SQL_START_REPLICATION}"
+mysqlsh root:${ROOT_PASSWORD}@localhost:3306 --sql -e "${SQL_START_REPLICATION}"
 
 sleep 3
 
@@ -59,4 +59,4 @@ SELECT * FROM performance_schema.replication_group_members;
 EOS
 )
 
-mysql -uroot -p${ROOT_PASSWORD} -h`hostname -i` -e "${SQL_CONFIRM_MEMBERS}"
+mysqlsh root:${ROOT_PASSWORD}@localhost:3306 --sql -e "${SQL_CONFIRM_MEMBERS}"

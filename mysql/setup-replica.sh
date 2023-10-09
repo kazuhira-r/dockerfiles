@@ -31,4 +31,4 @@ start replica user = '${USER_NAME}' password = '${PASSWORD}';
 EOF
 )
 
-mysql -uroot -p${ROOT_PASSWORD} -h`hostname -i` -e "${SQL}"
+mysqlsh root:${ROOT_PASSWORD}@localhost:3306 --sql -e "${SQL}"
