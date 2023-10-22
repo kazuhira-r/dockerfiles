@@ -1,6 +1,6 @@
 FROM ubuntu:22.04
 
-ARG jaeger_version=1.49.0
+ARG jaeger_version=1.50.0
 
 RUN apt-get update \
     && apt-get install -y --no-install-recommends \
