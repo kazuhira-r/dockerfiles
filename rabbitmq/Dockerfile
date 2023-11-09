@@ -1,7 +1,7 @@
 FROM ubuntu:22.04
 
 # see: https://www.rabbitmq.com/install-debian.html
-ARG rabbitmq_version=3.12.4-1
+ARG rabbitmq_version=3.12.8-1
 
 EXPOSE 5672 25672
 
