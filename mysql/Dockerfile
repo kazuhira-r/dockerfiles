@@ -1,7 +1,7 @@
 FROM ubuntu:22.04
 
 ## see, https://dev.mysql.com/downloads/repo/apt/
-ARG mysql_apt_version=0.8.28-1
+ARG mysql_apt_version=0.8.29-1
 
 EXPOSE 3306
 
