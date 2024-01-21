@@ -1,6 +1,6 @@
-FROM eclipse-temurin:17-jdk-jammy
+FROM eclipse-temurin:21-jdk-jammy
 
-ARG wildfly_version=30.0.0.Final
+ARG wildfly_version=30.0.1.Final
 
 RUN apt-get update \
     && apt-get install -y --no-install-recommends \
