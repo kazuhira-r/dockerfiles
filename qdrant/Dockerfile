@@ -1,11 +1,14 @@
 FROM ubuntu:22.04
 
 ARG qdrant_version=1.7.3
+ARG qdrant_web_ui_version=0.1.20
+# https://github.com/qdrant/qdrant-web-ui/releases
 
 RUN apt-get update \
     && apt-get install -y --no-install-recommends \
                     curl \
                     ca-certificates \
+                    unzip \
                     vim \
                     sudo \
     && apt-get clean
@@ -23,6 +26,13 @@ WORKDIR /opt/qdrant
 
 RUN curl -LO -s https://github.com/qdrant/qdrant/releases/download/v${qdrant_version}/qdrant-x86_64-unknown-linux-gnu.tar.gz \
     && tar xf qdrant-x86_64-unknown-linux-gnu.tar.gz \
+    && chown -R qdrant:qdrant /opt/qdrant
+
+RUN mkdir static \
+    && curl -LO -s https://github.com/qdrant/qdrant-web-ui/releases/download/v${qdrant_web_ui_version}/dist-qdrant.zip \
+    && unzip dist-qdrant.zip -d static \
+    && mv static/dist/* static \
+    && rmdir static/dist \
     && chown -R qdrant:qdrant /opt/qdrant
 
 USER qdrant
