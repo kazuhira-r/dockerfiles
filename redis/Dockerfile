@@ -1,6 +1,6 @@
 FROM ubuntu:22.04
 
-ARG redis_version=7.2.1
+ARG redis_version=7.2.4
 ARG redis_home=/opt/redis
 
 WORKDIR ${redis_home}
