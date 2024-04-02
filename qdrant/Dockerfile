@@ -1,6 +1,6 @@
 FROM ubuntu:22.04
 
-ARG qdrant_version=1.8.3
+ARG qdrant_version=1.8.4
 ARG qdrant_web_ui_version=0.1.23
 # https://github.com/qdrant/qdrant-web-ui/releases
 
