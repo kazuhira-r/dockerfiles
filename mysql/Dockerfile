@@ -1,7 +1,8 @@
 FROM ubuntu:22.04
 
 ## see, https://dev.mysql.com/downloads/repo/apt/
-ARG mysql_apt_version=0.8.29-1
+ARG mysql_apt_version=0.8.30-1
+ARG mysql_version=mysql-8.0
 
 EXPOSE 3306
 
@@ -33,15 +34,14 @@ RUN echo "Defaults:user !requiretty" >> /etc/sudoers.d/user \
 RUN update-locale LANG=ja_JP.UTF-8 LANGUAGE=ja_JP:
 
 RUN curl -s -LO https://dev.mysql.com/get/mysql-apt-config_${mysql_apt_version}_all.deb \
-    && echo 4 | dpkg -i mysql-apt-config_${mysql_apt_version}_all.deb
+    && echo "mysql-apt-config mysql-apt-config/select-server select ${mysql_version}" | debconf-set-selections \
+    && DEBIAN_FRONTEND=noninteractive dpkg -i mysql-apt-config_${mysql_apt_version}_all.deb
 
 RUN apt-get update \
     # !!root password is ''!!
     # https://dev.mysql.com/doc/mysql-apt-repo-quick-guide/en/#repo-qg-apt-repo-non-insteractive
-    && { \
-      echo mysql-community-server mysql-community-server/root-pass ${ROOT_PASSWORD} ''; \
-      echo mysql-community-server mysql-community-server/re-root-pass ${ROOT_PASSWORD} ''; \
-    } | debconf-set-selections \
+    echo "mysql-community-server mysql-community-server/root-pass password ${ROOT_PASSWORD}" | sudo debconf-set-selections \
+    && echo "mysql-community-server mysql-community-server/re-root-pass password ${ROOT_PASSWORD}" | sudo debconf-set-selections \
     && apt-get update \
     && DEBIAN_FRONTEND=noninteractive apt-get install -y mysql-server mysql-shell \
     && apt-get clean
