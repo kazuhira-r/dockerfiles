@@ -2,6 +2,7 @@ FROM ubuntu:22.04
 
 ## see, https://dev.mysql.com/downloads/repo/apt/
 ARG mysql_apt_version=0.8.30-1
+ARG mysql_version=mysql-8.0
 
 ENV LANG ja_JP.UTF-8
 ENV LANGUAGE=ja_JP:
@@ -31,10 +32,11 @@ RUN echo "Defaults:user !requiretty" >> /etc/sudoers.d/user \
 RUN update-locale LANG=ja_JP.UTF-8 LANGUAGE=ja_JP:
 
 RUN curl -s -LO https://dev.mysql.com/get/mysql-apt-config_${mysql_apt_version}_all.deb \
-    && echo 4 | dpkg -i mysql-apt-config_${mysql_apt_version}_all.deb
+    && echo "mysql-apt-config mysql-apt-config/select-server select ${mysql_version}" | debconf-set-selections \
+    && DEBIAN_FRONTEND=noninteractive dpkg -i mysql-apt-config_${mysql_apt_version}_all.deb
 
 RUN apt-get update \
-    && apt-get install -y mysql-client mysql-shell \
+    && DEBIAN_FRONTEND=noninteractive apt-get install -y mysql-client mysql-shell \
     && apt-get clean
 
 USER user
