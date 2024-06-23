@@ -25,4 +25,4 @@ flush privileges;
 EOF
 )
 
-mysqlsh root:password@localhost:3306 --sql -e "${SQL}"
+mysqlsh root:@localhost:4000 --sql -e "${SQL}"
