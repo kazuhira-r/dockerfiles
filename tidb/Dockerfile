@@ -39,6 +39,9 @@ RUN apt-get update \
     && DEBIAN_FRONTEND=noninteractive apt-get install -y mysql-client mysql-shell \
     && apt-get clean
 
+COPY create-database-and-user.sh /home/user/create-database-and-user.sh
+RUN chmod a+x /home/user/create-database-and-user.sh && chown user:user /home/user/create-database-and-user.sh
+
 USER user
 WORKDIR /home/user
 
