@@ -20,6 +20,7 @@ RUN apt-get update \
                     gnupg \
                     lsb-release \
                     ca-certificates \
+                    language-pack-en \
                     language-pack-ja \
                     tzdata \
     && apt-get clean
