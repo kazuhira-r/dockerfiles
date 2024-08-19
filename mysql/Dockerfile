@@ -2,14 +2,14 @@ FROM ubuntu:22.04
 
 ## see, https://dev.mysql.com/downloads/repo/apt/
 ARG mysql_apt_version=0.8.32-1
-ARG mysql_version=mysql-8.0
+ARG mysql_version=mysql-8.4-lts
+ARG root_password=password
 
 EXPOSE 3306
 
 ENV LANG=ja_JP.UTF-8
 ENV LANGUAGE=ja_JP:
 
-ENV ROOT_PASSWORD=password
 
 RUN apt-get update \
     && apt-get install -y --no-install-recommends \
@@ -41,15 +41,13 @@ RUN curl -s -LO https://dev.mysql.com/get/mysql-apt-config_${mysql_apt_version}_
 RUN apt-get update \
     # !!root password is ''!!
     # https://dev.mysql.com/doc/mysql-apt-repo-quick-guide/en/#repo-qg-apt-repo-non-insteractive
-    echo "mysql-community-server mysql-community-server/root-pass password ${ROOT_PASSWORD}" | sudo debconf-set-selections \
-    && echo "mysql-community-server mysql-community-server/re-root-pass password ${ROOT_PASSWORD}" | sudo debconf-set-selections \
+    && echo "mysql-community-server mysql-community-server/root-pass password ${root_password}" | sudo debconf-set-selections \
+    && echo "mysql-community-server mysql-community-server/re-root-pass password ${root_password}" | sudo debconf-set-selections \
     && apt-get update \
     && DEBIAN_FRONTEND=noninteractive apt-get install -y mysql-server mysql-shell \
     && apt-get clean
 
-RUN cp -p /etc/mysql/mysql.cnf /etc/mysql/mysql.cnf.org
 RUN cp -p /etc/mysql/mysql.conf.d/mysqld.cnf /etc/mysql/mysql.conf.d/mysqld.cnf.org
-COPY mysql.cnf /etc/mysql/mysql.cnf
 COPY mysqld.cnf /etc/mysql/mysql.conf.d/mysqld.cnf
 
 COPY create-database-and-user.sh /home/user/create-database-and-user.sh
@@ -80,7 +78,7 @@ RUN echo '\n\
 echo "*******************************************************\n\
 login MySQL Server as root user.\n\
 \n\
-$ mysql -uroot -p${ROOT_PASSWORD} -h\`hostname -i\`\n\
+$ mysqlsh root:${root_password}@localhost -S --sql\n\
 \n\
 *******************************************************\n\
 "' >> /home/user/.bashrc

@@ -23,13 +23,13 @@ SQL_INSECURE_ROOT=$(cat <<EOS
 create user root@'%' identified by '${PASSWORD}';
 grant all privileges on *.* to root@'%' with grant option;
 flush privileges;
-reset master;
+reset binary logs and gtids;
 EOS
 )
 
 while true
 do
-    mysql -uroot -e "${SQL_INSECURE_ROOT}"
+    mysqlsh root:${PASSWORD}@localhost -S -e "${SQL_INSECURE_ROOT}"
 
     RET=$?
 

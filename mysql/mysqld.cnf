@@ -1,47 +1,30 @@
 ## more infomations, see https://github.com/kamipo/etcfiles/blob/master/etc/my.cnf
 
-[mysqld_safe]
-## from apt-get package default
-pid-file = /var/run/mysqld/mysqld.pid
-socket = /var/run/mysqld/mysqld.sock
-
-
 [mysqld]
-## from apt-get package default
-user = mysql
-pid-file = /var/run/mysqld/mysqld.pid
-socket = /var/run/mysqld/mysqld.sock
-basedir    = /usr
-datadir    = /var/lib/mysql
-tmpdir   = /tmp
-log-error    = /var/log/mysql/error.log
-#general-log = ON                                                                                                                                                                    
+user               = mysql
+pid_file        = /var/run/mysqld/mysqld.pid
+socket          = /var/run/mysqld/mysqld.sock
+datadir         = /var/lib/mysql
+log_error       = /var/log/mysql/error.log
+#general_log      = ON
 #general-log-file = /dev/stdout
+#general_log_file = /var/log/mysql/server.log
 
-port = 3306
-bind-address = 0.0.0.0
-skip-name-resolve
-# datadir = /data
-# tmpdir = /tmp
-character-set-server = utf8mb4
-# collation-server = utf8mb4_ja_0900_as_cs_ks
-collation-server = utf8mb4_0900_bin
-# collation-server = utf8mb4_ja_0900_as_cs
-transaction-isolation = READ-COMMITTED
-
-# default_password_lifetime = 0
-
-## https://dev.mysql.com/doc/refman/8.0/en/sql-mode.html
+port            = 3306
+bind_address    = 0.0.0.0
+skip_name_resolve
+character_set_server = utf8mb4
+collation_server     = utf8mb4_0900_bin
+transaction_isolation = READ-COMMITTED
 
 ## gtid
 gtid_mode = on
 enforce_gtid_consistency = on
 
 ## binary log
-log-bin = mysql-bin
+log_bin = mysql-bin
 sync_binlog = 1
 binlog_expire_logs_seconds = 864000
-binlog_checksum=NONE
 
 ## replication
 server_id = 1
@@ -54,4 +37,4 @@ server_id = 1
 #loose-group_replication_group_seeds = "127.0.0.1:24901"
 #loose-group_replication_bootstrap_group = off
 #loose-group_replication_single_primary_mode = on
-report-host = "127.0.0.1"
+report_host = "127.0.0.1"
