@@ -1,6 +1,9 @@
-FROM eclipse-temurin:17-jdk-jammy
+FROM eclipse-temurin:21-jdk-jammy
 
-ARG keycloak_version=19.0.2
+ARG keycloak_version=25.0.4
+
+ENV KEYCLOAK_ADMIN admin
+ENV KEYCLOAK_ADMIN_PASSWORD password
 
 RUN apt-get update \
     && apt-get install -y --no-install-recommends \
@@ -23,19 +26,16 @@ RUN cd /opt \
     && curl -s -LO https://github.com/keycloak/keycloak/releases/download/${keycloak_version}/keycloak-${keycloak_version}.zip \
     && unzip keycloak-${keycloak_version}.zip \
     && mv keycloak-${keycloak_version} keycloak \
-    && rm keycloak-${keycloak_version}.zip
+    && rm keycloak-${keycloak_version}.zip \
+    && chown -R keycloak:keycloak /opt/keycloak
 
 WORKDIR /opt/keycloak
 
 EXPOSE 8080
 
-ENV KEYCLOAK_ADMIN admin
-ENV KEYCLOAK_ADMIN_PASSWORD password
-
-ADD docker-entrypoint.sh docker-entrypoint.sh
+COPY docker-entrypoint.sh docker-entrypoint.sh
 RUN chmod a+x docker-entrypoint.sh
 
-RUN chown -R keycloak:keycloak /opt/keycloak
 USER keycloak
 
 ENTRYPOINT ["./docker-entrypoint.sh"]
