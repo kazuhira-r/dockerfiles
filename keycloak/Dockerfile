@@ -26,15 +26,15 @@ RUN cd /opt \
     && curl -s -LO https://github.com/keycloak/keycloak/releases/download/${keycloak_version}/keycloak-${keycloak_version}.zip \
     && unzip keycloak-${keycloak_version}.zip \
     && mv keycloak-${keycloak_version} keycloak \
-    && rm keycloak-${keycloak_version}.zip \
-    && chown -R keycloak:keycloak /opt/keycloak
+    && rm keycloak-${keycloak_version}.zip
 
 WORKDIR /opt/keycloak
 
 EXPOSE 8080
 
 COPY docker-entrypoint.sh docker-entrypoint.sh
-RUN chmod a+x docker-entrypoint.sh
+RUN chmod a+x docker-entrypoint.sh \
+    && chown -R keycloak:keycloak /opt/keycloak
 
 USER keycloak
 
