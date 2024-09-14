@@ -33,6 +33,7 @@ WORKDIR /opt/keycloak
 EXPOSE 8080
 
 COPY docker-entrypoint.sh docker-entrypoint.sh
+COPY conf/quarkus.properties conf/quarkus.properties
 RUN chmod a+x docker-entrypoint.sh \
     && chown -R keycloak:keycloak /opt/keycloak
 
