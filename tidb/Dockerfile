@@ -1,7 +1,7 @@
-FROM ubuntu:22.04
+FROM ubuntu:24.04
 
 ## see, https://dev.mysql.com/downloads/repo/apt/
-ARG mysql_apt_version=0.8.32-1
+ARG mysql_apt_version=0.8.33-1
 ARG mysql_version=mysql-8.0
 
 ENV LANG=ja_JP.UTF-8
