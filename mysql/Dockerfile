@@ -1,4 +1,4 @@
-FROM ubuntu:22.04
+FROM ubuntu:24.04
 
 ## see, https://dev.mysql.com/downloads/repo/apt/
 ARG mysql_apt_version=0.8.33-1
