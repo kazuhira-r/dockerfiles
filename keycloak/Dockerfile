@@ -1,6 +1,6 @@
-FROM eclipse-temurin:21-jdk-jammy
+FROM eclipse-temurin:21-jdk-noble
 
-ARG keycloak_version=26.0.5
+ARG keycloak_version=26.0.7
 
 ENV KEYCLOAK_ADMIN admin
 ENV KEYCLOAK_ADMIN_PASSWORD password
