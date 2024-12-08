@@ -2,7 +2,7 @@ FROM eclipse-temurin:21-jdk-noble
 
 ARG keycloak_version=26.0.7
 
-ENV KEYCLOAK_ADMIN admin
+ENV KEYCLOAK_ADMIN keycloak-admin
 ENV KEYCLOAK_ADMIN_PASSWORD password
 
 RUN apt-get update \
