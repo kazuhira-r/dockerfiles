@@ -1,6 +1,6 @@
 FROM ubuntu:24.04
 
-ARG valkey_version=8.0.1
+ARG valkey_version=8.0.2
 ARG valkey_home=/opt/valkey
 
 WORKDIR ${valkey_home}
