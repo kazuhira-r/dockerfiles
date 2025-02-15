@@ -1,9 +1,12 @@
-FROM ubuntu:22.04
+FROM ubuntu:24.04
 
-arg DEBIAN_FRONTEND=noninteractive
+ARG DEBIAN_FRONTEND=noninteractive
 
 RUN apt-get update \
     && apt-get install -y --no-install-recommends \
+                    sudo \
+                    adduser \
+                    passwd \
                     vim \
                     ca-certificates \
                     sudo \
