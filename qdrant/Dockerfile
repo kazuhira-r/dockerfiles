@@ -1,11 +1,14 @@
-FROM ubuntu:22.04
+FROM ubuntu:24.04
 
-ARG qdrant_version=1.9.0
-ARG qdrant_web_ui_version=0.1.25
+ARG qdrant_version=1.13.3
+ARG qdrant_web_ui_version=0.1.37
 # https://github.com/qdrant/qdrant-web-ui/releases
 
 RUN apt-get update \
     && apt-get install -y --no-install-recommends \
+                    sudo \
+                    adduser \
+                    passwd \
                     curl \
                     ca-certificates \
                     unzip \
