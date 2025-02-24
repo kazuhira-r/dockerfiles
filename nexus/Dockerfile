@@ -1,9 +1,7 @@
-FROM eclipse-temurin:8-jdk-jammy
+FROM eclipse-temurin:17.0.14_7-jdk-noble
 
 ARG nexus_major_version=3
-ARG nexus_version=3.53.0-01
-
-ENV JAVA_HOME /usr/lib/jvm/java-8-openjdk-amd64
+ARG nexus_version=3.77.1-01
 
 EXPOSE 8081
 EXPOSE 8443
@@ -14,8 +12,8 @@ RUN apt-get update \
                        unzip \
                        curl \
                        vim \
-                       openjdk-8-jdk \
-    && apt-get clean
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/*
 
 RUN adduser --disabled-login --gecos '' nexus \
     && usermod -G sudo nexus
@@ -27,7 +25,7 @@ RUN echo "Defaults:nexus !requiretty" >> /etc/sudoers.d/nexus \
 RUN cd /opt \
     && mkdir sonatype \
     && cd sonatype \
-    && curl -LO https://download.sonatype.com/nexus/${nexus_major_version}/nexus-${nexus_version}-unix.tar.gz \
+    && curl -sLO https://download.sonatype.com/nexus/${nexus_major_version}/nexus-${nexus_version}-unix.tar.gz \
     && tar -zxf nexus-${nexus_version}-unix.tar.gz \
     && mv nexus-${nexus_version} nexus \
     && mkdir /opt/sonatype/sonatype-work/nexus3/etc \
