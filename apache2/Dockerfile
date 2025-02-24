@@ -13,6 +13,7 @@ RUN apt-get update \
                     apache2 \
                     ssl-cert \
     && apt-get clean \
+    && rm -rf /var/lib/apt/lists/* \
     && a2enmod ssl \
     && a2ensite default-ssl
 

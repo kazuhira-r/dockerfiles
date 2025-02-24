@@ -23,7 +23,8 @@ RUN apt-get update \
                     language-pack-en \
                     language-pack-ja \
                     tzdata \
-    && apt-get clean
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/*
 
 RUN adduser --disabled-login --gecos '' user \
     && usermod -G sudo user

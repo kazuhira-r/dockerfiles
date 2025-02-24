@@ -14,7 +14,8 @@ RUN apt-get update \
                     unzip \
                     vim \
                     sudo \
-    && apt-get clean
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/*
 
 RUN adduser --disabled-login --gecos '' qdrant \
     && usermod -G sudo qdrant

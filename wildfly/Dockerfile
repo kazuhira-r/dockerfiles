@@ -8,7 +8,8 @@ RUN apt-get update \
                        unzip \
                        vim \
                        curl \
-    && apt-get clean
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/*
 
 RUN adduser --disabled-login --gecos '' wildfly \
     && usermod -G sudo wildfly

@@ -13,7 +13,8 @@ RUN apt-get update \
                     curl \
                     jq \
                     less \
-    && apt-get clean
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/*
 
 RUN adduser --disabled-login --gecos '' keycloak \
     && usermod -G sudo keycloak

@@ -9,7 +9,8 @@ RUN apt-get update \
                     curl \
                     ca-certificates \
                     less \
-    && apt-get clean
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/*
 
 RUN adduser --disabled-login --gecos '' aws-cli \
     && usermod -G sudo aws-cli
