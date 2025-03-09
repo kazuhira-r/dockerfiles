@@ -24,9 +24,11 @@ RUN echo "Defaults:user !requiretty" >> /etc/sudoers.d/user \
     && echo "user ALL=(ALL)      NOPASSWD: ALL" >> /etc/sudoers.d/user \
     && chmod 440 /etc/sudoers.d/user
 
+RUN ln -sf /dev/stdout /var/log/apache2/access.log \
+    && ln -sf /dev/stderr  /var/log/apache2/error.log
 
 EXPOSE 80 443
 
 USER user
 
-ENTRYPOINT sudo service apache2 start && sudo tail -f /var/log/apache2/access.log /var/log/apache2/error.log
+ENTRYPOINT ["sudo", "/usr/sbin/apachectl", "-DFOREGROUND"]
