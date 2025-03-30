@@ -24,4 +24,18 @@ RUN apt-get update \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
-ENTRYPOINT service nginx start && tail -f /var/log/nginx/access.log /var/log/nginx/error.log
+RUN adduser --disabled-login --gecos '' user \
+    && usermod -G sudo user
+
+RUN echo "Defaults:user !requiretty" >> /etc/sudoers.d/user \
+    && echo "user ALL=(ALL)      NOPASSWD: ALL" >> /etc/sudoers.d/user \
+    && chmod 440 /etc/sudoers.d/user
+
+RUN ln -sf /dev/stdout /var/log/nginx/access.log \
+    && ln -sf /dev/stderr  /var/log/nginx/error.log
+
+EXPOSE 80 443
+
+USER user
+
+ENTRYPOINT ["sudo", "/usr/sbin/nginx", "-g", "daemon off;"]
