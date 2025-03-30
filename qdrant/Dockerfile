@@ -1,7 +1,7 @@
 FROM ubuntu:24.04
 
-ARG qdrant_version=1.13.4
-ARG qdrant_web_ui_version=0.1.37
+ARG qdrant_version=1.13.5
+ARG qdrant_web_ui_version=0.1.38
 # https://github.com/qdrant/qdrant-web-ui/releases
 
 RUN apt-get update \
