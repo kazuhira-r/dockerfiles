@@ -55,13 +55,15 @@ COPY create-database-and-user.sh /home/user/create-database-and-user.sh
 RUN chmod a+x /home/user/create-database-and-user.sh && chown user:user /home/user/create-database-and-user.sh
 
 COPY setup-source.sh /home/user/setup-source.sh
-RUN chmod a+x /home/user/setup-source.sh && chown user:user /home/user/setup-source.sh
+RUN chmod a+x /home/user/setup-source.sh && chown user:user /home/user/setup-source.sh \
+    && perl -wpi -e "s!%ROOT_PASSWORD%!${root_password}!" /home/user/setup-source.sh
 
 COPY setup-replica.sh /home/user/setup-replica.sh
-RUN chmod a+x /home/user/setup-replica.sh && chown user:user /home/user/setup-replica.sh
+RUN chmod a+x /home/user/setup-replica.sh && chown user:user /home/user/setup-replica.sh \
+    && perl -wpi -e "s!%ROOT_PASSWORD%!${root_password}!" /home/user/setup-replica.sh
 
 COPY setup-group-replication-initial-host.sh /home/user/setup-group-replication-initial-host.sh
-RUN chmod a+x /home/user/setup-group-replication-initial-host.sh && chown user:user /home/user/setup-group-replication-initial-host.sh
+RUN chmod +x /home/user/setup-group-replication-initial-host.sh && chown user:user /home/user/setup-group-replication-initial-host.sh
 
 COPY setup-group-replication-add-host.sh /home/user/setup-group-replication-add-host.sh
 RUN chmod a+x /home/user/setup-group-replication-add-host.sh && chown user:user /home/user/setup-group-replication-add-host.sh

@@ -29,6 +29,7 @@ binlog_expire_logs_seconds = 864000
 ## replication
 server_id = 1
 #read_only = on
+#relay_log = relay-binlog
 
 ## group replication
 #loose-group_replication_group_name = "5f0e506a-58f3-4256-ba8b-78101b3b3b39"

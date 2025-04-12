@@ -1,7 +1,7 @@
 #!/bin/bash
 
 SERVER_ID=1
-USER_NAME=repl
+USER_NAME=repl_user
 PASSWORD=password
 CONNECT_FROM=%
 #CONNECT_FROM=172.17.0.0/255.255.255.0
@@ -14,6 +14,6 @@ grant replication slave on *.* to '${USER_NAME}'@'${CONNECT_FROM}';
 EOF
 )
 
-mysqlsh root:${ROOT_PASSWORD}@localhost:3306 --sql -e "${SQL}"
+mysqlsh root:%ROOT_PASSWORD%@localhost --sql -e "${SQL}"
 
 ./restart-mysqld.sh
