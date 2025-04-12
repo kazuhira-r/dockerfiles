@@ -22,7 +22,7 @@ gtid_mode = on
 enforce_gtid_consistency = on
 
 ## binary log
-log_bin = mysql-bin
+log_bin = binlog
 sync_binlog = 1
 binlog_expire_logs_seconds = 864000
 
