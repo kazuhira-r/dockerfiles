@@ -1,24 +1,19 @@
-FROM ubuntu:20.04
+FROM ubuntu:24.04
 
-ARG grafana_version=5.4.3
+ARG grafana_version=12.0.2+security~01
 
 RUN apt-get update \
     && apt-get install -y sudo \
                        curl \
-                       wget \
-#                      gnupg \
-                       libfontconfig \
+                       adduser \
+                       libfontconfig1 \
+                       musl \
                        vim \
     && apt-get clean
 
-RUN wget -q https://dl.grafana.com/oss/release/grafana_${grafana_version}_amd64.deb \
+RUN curl -sLO https://dl.grafana.com/oss/release/grafana_${grafana_version}_amd64.deb \
     && dpkg -i grafana_${grafana_version}_amd64.deb \
     && rm grafana_${grafana_version}_amd64.deb
-
-#RUN echo 'deb https://packagecloud.io/grafana/stable/debian/ stretch main' >> /etc/apt/sources.list \
-#    && curl https://packagecloud.io/gpg.key | apt-key add - \
-#    && apt-get update \
-#    && apt-get install -y grafana
 
 RUN adduser --disabled-login --gecos '' grafana-user \
     && usermod -G sudo grafana-user \
@@ -30,6 +25,9 @@ RUN echo "Defaults:grafana-user !requiretty" >> /etc/sudoers.d/grafana-user \
 
 EXPOSE 3000
 
+COPY docker-entrypoint.sh docker-entrypoint.sh
+RUN chmod +x docker-entrypoint.sh
+
 USER grafana-user
 
-ENTRYPOINT sudo service grafana-server start && sudo tail -f /var/log/grafana/grafana.log
+ENTRYPOINT ["./docker-entrypoint.sh"]
