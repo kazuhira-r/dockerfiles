@@ -3,13 +3,16 @@ FROM ubuntu:24.04
 ARG grafana_version=12.0.2+security~01
 
 RUN apt-get update \
-    && apt-get install -y sudo \
+    && apt-get install -y --no-install-recommends \
+                       sudo \
                        curl \
                        adduser \
                        libfontconfig1 \
                        musl \
+                       ca-certificates \
                        vim \
-    && apt-get clean
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists*/
 
 RUN curl -sLO https://dl.grafana.com/oss/release/grafana_${grafana_version}_amd64.deb \
     && dpkg -i grafana_${grafana_version}_amd64.deb \
