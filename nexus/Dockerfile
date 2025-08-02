@@ -1,16 +1,15 @@
-FROM eclipse-temurin:17.0.14_7-jdk-noble
+FROM ubuntu:24.04
 
 ARG nexus_major_version=3
-ARG nexus_version=3.77.1-01
-
-EXPOSE 8081
-EXPOSE 8443
+ARG nexus_version=3.82.0-08
 
 RUN apt-get update \
     && apt-get install -y --no-install-recommends \
                        sudo \
+                       adduser \
                        unzip \
                        curl \
+                       ca-certificates \
                        vim \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
@@ -25,21 +24,31 @@ RUN echo "Defaults:nexus !requiretty" >> /etc/sudoers.d/nexus \
 RUN cd /opt \
     && mkdir sonatype \
     && cd sonatype \
-    && curl -sLO https://download.sonatype.com/nexus/${nexus_major_version}/nexus-${nexus_version}-unix.tar.gz \
-    && tar -zxf nexus-${nexus_version}-unix.tar.gz \
+    && curl -sLO https://download.sonatype.com/nexus/${nexus_major_version}/nexus-${nexus_version}-linux-x86_64.tar.gz \
+    && tar xz --keep-directory-symlink -f nexus-${nexus_version}-linux-x86_64.tar.gz \
     && mv nexus-${nexus_version} nexus \
-    && mkdir /opt/sonatype/sonatype-work/nexus3/etc \
-    && chown -R nexus:nexus /opt/sonatype
+    && rm nexus-${nexus_version}-linux-x86_64.tar.gz
+
+RUN cd /opt/sonatype/sonatype-work/nexus3 \
+  && mkdir -p etc/ssl \
+  && $(find ../../nexus/jdk -name keytool) -genkeypair \
+      -keystore etc/ssl/keystore.jks \
+      -storepass password \
+      -alias nexus.example.com \
+      -keyalg RSA \
+      -keysize 2048 \
+      -validity 3650 \
+      -dname 'CN=nexus.example.com, OU=Unit, O=Company, L=City, S=State, C=Country' \
+  && echo 'nexus-args=${jetty.etc}/jetty.xml,${jetty.etc}/jetty-http.xml,${jetty.etc}/jetty-https.xml,${jetty.etc}/jetty-requestlog.xml' >> etc/nexus.properties \
+  && echo 'application-port-ssl=8443' >> etc/nexus.properties \
+  && echo 'ssl.etc=${karaf.data}/etc/ssl' >> etc/nexus.properties
+
+RUN chown -R nexus:nexus /opt/sonatype
 
 USER nexus
 WORKDIR /opt/sonatype
 
-## keystore password => password
-## CN => my.nexus.repo.example.com
-COPY keystore.jks /opt/sonatype/nexus/etc/ssl/keystore.jks
-COPY nexus.properties /opt/sonatype/sonatype-work/nexus3/etc/nexus.properties
+EXPOSE 8081
+EXPOSE 8443
 
-RUN perl -wpi -e 's!<Set name="KeyStorePassword">.+</Set>!<Set name="KeyStorePassword">password</Set>!' /opt/sonatype/nexus/etc/jetty/jetty-https.xml \
-    && perl -wpi -e 's!<Set name="KeyManagerPassword">OBF:1v2j1uum1xtv1zej1zer1xtn1uvk1v1v</Set>!<Set name="KeyManagerPassword">password</Set>!' /opt/sonatype/nexus/etc/jetty/jetty-https.xml
-
-ENTRYPOINT ["nexus/bin/nexus", "run"]
+ENTRYPOINT ["bash", "nexus/bin/nexus", "run"]
