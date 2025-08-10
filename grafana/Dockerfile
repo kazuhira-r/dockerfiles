@@ -26,9 +26,10 @@ RUN curl -sLO https://dl.grafana.com/oss/release/grafana_${grafana_version}_amd6
     && rm grafana_${grafana_version}_amd64.deb
 
 EXPOSE 3000
+WORKDIR /home/user
 
 COPY docker-entrypoint.sh docker-entrypoint.sh
-RUN chmod +x docker-entrypoint.sh
+RUN chmod +x docker-entrypoint.sh && chown user:user docker-entrypoint.sh
 
 USER user
 
