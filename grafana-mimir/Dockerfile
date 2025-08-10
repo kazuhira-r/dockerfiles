@@ -1,0 +1,35 @@
+FROM ubuntu:24.04
+
+ARG mimir_version=2.16.1
+
+RUN apt-get update \
+    && apt-get install -y --no-install-recommends \
+                       sudo \
+                       adduser \
+                       curl \
+                       ca-certificates \
+                       vim \
+                       systemd \
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists*/
+
+RUN adduser --disabled-login --gecos '' user \
+    && usermod -G sudo user
+
+RUN echo "Defaults:user !requiretty" >> /etc/sudoers.d/user \
+    && echo "user ALL=(ALL)      NOPASSWD: ALL" >> /etc/sudoers.d/user \
+    && chmod 440 /etc/sudoers.d/user
+
+RUN curl -s -LO https://github.com/grafana/mimir/releases/download/mimir-${mimir_version}/mimir-${mimir_version}_amd64.deb \
+    && dpkg -i mimir-${mimir_version}_amd64.deb \
+    && rm mimir-${mimir_version}_amd64.deb
+
+EXPOSE 7946 8080 9095
+WORKDIR /home/user
+
+COPY docker-entrypoint.sh docker-entrypoint.sh
+RUN chmod +x docker-entrypoint.sh && chown user:user docker-entrypoint.sh
+
+USER user
+
+ENTRYPOINT ["./docker-entrypoint.sh"]
