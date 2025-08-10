@@ -1,14 +1,16 @@
-FROM ubuntu:22.04
+FROM ubuntu:24.04
 
-ARG prometheus_version=2.43.0
+ARG prometheus_version=3.5.0
 
 RUN apt-get update \
     && apt-get install -y --no-install-recommends \
                     sudo \
+                    adduser \
                     vim \
                     curl \
                     ca-certificates \
-    && apt-get clean
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/*
 
 RUN adduser --disabled-login --gecos '' prometheus \
     && usermod -G sudo prometheus
@@ -29,4 +31,4 @@ EXPOSE 9090
 
 USER prometheus
 
-ENTRYPOINT ./prometheus && tail -f /dev/null
+ENTRYPOINT ["./prometheus"]
