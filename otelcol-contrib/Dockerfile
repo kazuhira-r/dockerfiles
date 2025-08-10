@@ -24,4 +24,4 @@ RUN curl -s -LO https://github.com/open-telemetry/opentelemetry-collector-releas
 
 USER user
 
-ENTRYPOINT ["otelcol-contrib", "--config", "/etc/otelcol-contrib/config.yaml"]
+ENTRYPOINT ["sudo", "-u", "otelcol-contrib", "otelcol-contrib", "--config", "/etc/otelcol-contrib/config.yaml"]
