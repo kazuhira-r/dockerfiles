@@ -1,6 +1,6 @@
 FROM ubuntu:24.04
 
-ARG grafana_version=12.1.0
+ARG grafana_version=12.1.1
 
 RUN apt-get update \
     && apt-get install -y --no-install-recommends \
