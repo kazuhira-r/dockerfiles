@@ -23,10 +23,10 @@ RUN echo "Defaults:minio-user !requiretty" >> /etc/sudoers.d/minio-user \
 
 RUN  mkdir -p /var/lib/minio \
     && chown -R minio-user:minio-user /var/lib/minio \
-    && curl -s -LO https://dl.min.io/server/minio/release/linux-amd64/archive/minio_${minio_server_version}.0.0_amd64.deb \
+    && curl -fsSL -O https://dl.min.io/server/minio/release/linux-amd64/archive/minio_${minio_server_version}.0.0_amd64.deb \
     && dpkg -i minio_${minio_server_version}.0.0_amd64.deb \
     && rm minio_${minio_server_version}.0.0_amd64.deb \
-    && curl -s -LO https://dl.min.io/client/mc/release/linux-amd64/archive/mcli_${minio_client_version}.0.0_amd64.deb \
+    && curl -fsSL -O https://dl.min.io/client/mc/release/linux-amd64/archive/mcli_${minio_client_version}.0.0_amd64.deb \
     && dpkg -i mcli_${minio_client_version}.0.0_amd64.deb \
     && rm mcli_${minio_client_version}.0.0_amd64.deb \
     && curl -s "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip" \

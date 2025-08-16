@@ -19,7 +19,7 @@ RUN echo "Defaults:wildfly !requiretty" >> /etc/sudoers.d/wildfly \
     && chmod 440 /etc/sudoers.d/wildfly
 
 RUN cd /opt \
-    && curl -OLs https://github.com/wildfly/wildfly/releases/download/${wildfly_version}/wildfly-${wildfly_version}.zip \
+    && curl -fsSL -O https://github.com/wildfly/wildfly/releases/download/${wildfly_version}/wildfly-${wildfly_version}.zip \
     && unzip wildfly-${wildfly_version}.zip \
     && mv wildfly-${wildfly_version} wildfly \
     && chmod +x wildfly/bin/standalone.sh \

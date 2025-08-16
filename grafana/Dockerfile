@@ -21,7 +21,7 @@ RUN echo "Defaults:user !requiretty" >> /etc/sudoers.d/user \
     && echo "user ALL=(ALL)      NOPASSWD: ALL" >> /etc/sudoers.d/user \
     && chmod 440 /etc/sudoers.d/user
 
-RUN curl -sLO https://dl.grafana.com/oss/release/grafana_${grafana_version}_amd64.deb \
+RUN curl -fsSL -O https://dl.grafana.com/oss/release/grafana_${grafana_version}_amd64.deb \
     && dpkg -i grafana_${grafana_version}_amd64.deb \
     && rm grafana_${grafana_version}_amd64.deb
 

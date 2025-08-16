@@ -30,17 +30,17 @@ RUN echo "Defaults:kafka !requiretty" >> /etc/sudoers.d/kafka \
 
 WORKDIR /opt
 RUN cd /opt \
-    && curl -sLO https://github.com/yahoo/CMAK/releases/download/${cmak_version}/cmak-${cmak_version}.zip \
+    && curl -fsSL -O https://github.com/yahoo/CMAK/releases/download/${cmak_version}/cmak-${cmak_version}.zip \
     && unzip cmak-${cmak_version}.zip \
     && mv cmak-${cmak_version} cmak \
     && chown -R kafka:kafka cmak-${cmak_version}.zip cmak
 
 RUN cd /opt \
-    && curl -sOL ${kafka_distribution_url} \
+    && curl -fsSL -O ${kafka_distribution_url} \
     && tar -zxf kafka_${kafka_scala_major_version}-${kafka_version}.tgz \
     && mv kafka_${kafka_scala_major_version}-${kafka_version} apache-kafka \
     && chown -R kafka:kafka /opt/apache-kafka kafka_${kafka_scala_major_version}-${kafka_version}.tgz \
-    && curl -sOL ${trifecta_distribution_url} \
+    && curl -fsSL -O ${trifecta_distribution_url} \
     && unzip trifecta-ui-${trifecta_version}b-${trifecta_kafka_version}.zip \
     && mv trifecta-ui-${trifecta_version}b-${trifecta_kafka_version} trifecta-ui \
     && chown -R kafka:kafka trifecta-ui

@@ -24,7 +24,7 @@ RUN echo "Defaults:keycloak !requiretty" >> /etc/sudoers.d/keycloak \
     && chmod 440 /etc/sudoers.d/keycloak
 
 RUN cd /opt \
-    && curl -s -LO https://github.com/keycloak/keycloak/releases/download/${keycloak_version}/keycloak-${keycloak_version}.zip \
+    && curl -fsSL -O https://github.com/keycloak/keycloak/releases/download/${keycloak_version}/keycloak-${keycloak_version}.zip \
     && unzip keycloak-${keycloak_version}.zip \
     && mv keycloak-${keycloak_version} keycloak \
     && rm keycloak-${keycloak_version}.zip

@@ -22,7 +22,7 @@ RUN echo "Defaults:spark !requiretty" >> /etc/sudoers.d/spark \
     && chmod 440 /etc/sudoers.d/spark
 
 RUN cd /opt \
-    && curl -OLs https://downloads.apache.org/spark/spark-${spark_version}/spark-${spark_version}-bin-${hadoop_distribution}.tgz \
+    && curl -fsSL -O https://downloads.apache.org/spark/spark-${spark_version}/spark-${spark_version}-bin-${hadoop_distribution}.tgz \
     && tar -xf spark-${spark_version}-bin-${hadoop_distribution}.tgz \
     && mv spark-${spark_version}-bin-${hadoop_distribution} spark
 

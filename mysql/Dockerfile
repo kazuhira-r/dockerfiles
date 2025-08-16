@@ -35,7 +35,7 @@ RUN echo "Defaults:user !requiretty" >> /etc/sudoers.d/user \
 
 RUN update-locale LANG=ja_JP.UTF-8 LANGUAGE=ja_JP:
 
-RUN curl -s -LO https://dev.mysql.com/get/mysql-apt-config_${mysql_apt_version}_all.deb \
+RUN curl -fsSL -O https://dev.mysql.com/get/mysql-apt-config_${mysql_apt_version}_all.deb \
     && echo "mysql-apt-config mysql-apt-config/select-server select ${mysql_version}" | debconf-set-selections \
     && DEBIAN_FRONTEND=noninteractive dpkg -i mysql-apt-config_${mysql_apt_version}_all.deb
 

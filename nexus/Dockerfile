@@ -24,7 +24,7 @@ RUN echo "Defaults:nexus !requiretty" >> /etc/sudoers.d/nexus \
 RUN cd /opt \
     && mkdir sonatype \
     && cd sonatype \
-    && curl -sLO https://download.sonatype.com/nexus/${nexus_major_version}/nexus-${nexus_version}-linux-x86_64.tar.gz \
+    && curl -fsSL -O https://download.sonatype.com/nexus/${nexus_major_version}/nexus-${nexus_version}-linux-x86_64.tar.gz \
     && tar xz --keep-directory-symlink -f nexus-${nexus_version}-linux-x86_64.tar.gz \
     && mv nexus-${nexus_version} nexus \
     && rm nexus-${nexus_version}-linux-x86_64.tar.gz

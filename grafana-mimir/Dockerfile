@@ -9,6 +9,7 @@ RUN apt-get update \
                        curl \
                        ca-certificates \
                        vim \
+                      ## systemdがないとmimir.debのインストールができない（パッケージに依存関係がある）
                        systemd \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists*/
@@ -20,7 +21,7 @@ RUN echo "Defaults:user !requiretty" >> /etc/sudoers.d/user \
     && echo "user ALL=(ALL)      NOPASSWD: ALL" >> /etc/sudoers.d/user \
     && chmod 440 /etc/sudoers.d/user
 
-RUN curl -s -LO https://github.com/grafana/mimir/releases/download/mimir-${mimir_version}/mimir-${mimir_version}_amd64.deb \
+RUN curl -fsSL -O https://github.com/grafana/mimir/releases/download/mimir-${mimir_version}/mimir-${mimir_version}_amd64.deb \
     && dpkg -i mimir-${mimir_version}_amd64.deb \
     && rm mimir-${mimir_version}_amd64.deb
 

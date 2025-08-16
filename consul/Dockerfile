@@ -22,8 +22,8 @@ RUN apt-get update \
     && mkdir -p ${consul_home} ${consul_data_dir} ${consul_log_dir} ${consul_config_dir} \
     && touch ${consul_log_dir}/consul.log \
     && cd ${consul_home} \
-    && curl -s -LO https://releases.hashicorp.com/consul/${consul_version}/consul_${consul_version}_linux_amd64.zip \
-    && curl -s -LO https://releases.hashicorp.com/consul-template/${consul_template_version}/consul-template_${consul_template_version}_linux_amd64.zip \
+    && curl -fsSL -O https://releases.hashicorp.com/consul/${consul_version}/consul_${consul_version}_linux_amd64.zip \
+    && curl -fsSL -O https://releases.hashicorp.com/consul-template/${consul_template_version}/consul-template_${consul_template_version}_linux_amd64.zip \
     && unzip consul_${consul_version}_linux_amd64.zip \
     && unzip consul-template_${consul_template_version}_linux_amd64.zip
 

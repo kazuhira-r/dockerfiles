@@ -18,7 +18,7 @@ RUN echo "Defaults:jaeger !requiretty" >> /etc/sudoers.d/jaeger \
     && chmod 440 /etc/sudoers.d/jaeger
 
 WORKDIR /opt
-RUN curl -LO -s https://github.com/jaegertracing/jaeger/releases/download/v${jaeger_version}/jaeger-${jaeger_version}-linux-amd64.tar.gz \
+RUN curl -fsSL -O https://github.com/jaegertracing/jaeger/releases/download/v${jaeger_version}/jaeger-${jaeger_version}-linux-amd64.tar.gz \
     && tar xf jaeger-${jaeger_version}-linux-amd64.tar.gz \
     && mv jaeger-${jaeger_version}-linux-amd64 jaeger \
     && chown -R jaeger:jaeger jaeger

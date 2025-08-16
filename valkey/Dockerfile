@@ -22,7 +22,7 @@ RUN cd /opt \
                     pkgconf \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/* \
-    && curl -LO -s https://github.com/valkey-io/valkey/archive/refs/tags/${valkey_version}.tar.gz \
+    && curl -fsSL -O https://github.com/valkey-io/valkey/archive/refs/tags/${valkey_version}.tar.gz \
     && tar -xf ${valkey_version}.tar.gz \
     && cd valkey-${valkey_version} \
     && make \

@@ -20,10 +20,10 @@ RUN echo "Defaults:ispn !requiretty" >> /etc/sudoers.d/ispn \
 
 WORKDIR /opt
 
-RUN curl -L -O -s https://downloads.jboss.org/infinispan/${infinispan_version}/infinispan-server-${infinispan_version}.zip \
+RUN curl -fsSL -O https://downloads.jboss.org/infinispan/${infinispan_version}/infinispan-server-${infinispan_version}.zip \
    && unzip infinispan-server-${infinispan_version}.zip \
     # until 9.2.x...
-    # && curl -L -O -s http://downloads.jboss.org/infinispan/${infinispan_version}/infinispan-server-${infinispan_version}-bin.zip \
+    # && curl -fsSL -O http://downloads.jboss.org/infinispan/${infinispan_version}/infinispan-server-${infinispan_version}-bin.zip \
     # && unzip infinispan-server-${infinispan_version}-bin.zip \
     && mv infinispan-server-${infinispan_version} infinispan-server \
     && rm infinispan-server-${infinispan_version}.zip \

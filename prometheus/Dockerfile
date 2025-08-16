@@ -20,7 +20,7 @@ RUN echo "Defaults:prometheus !requiretty" >> /etc/sudoers.d/prometheus \
     && chmod 440 /etc/sudoers.d/prometheus
 
 RUN cd /opt \
-    && curl -LO -s https://github.com/prometheus/prometheus/releases/download/v${prometheus_version}/prometheus-${prometheus_version}.linux-amd64.tar.gz \
+    && curl -fsSL -O https://github.com/prometheus/prometheus/releases/download/v${prometheus_version}/prometheus-${prometheus_version}.linux-amd64.tar.gz \
     && tar xf prometheus-${prometheus_version}.linux-amd64.tar.gz \
     && mv prometheus-${prometheus_version}.linux-amd64 prometheus \
     && chown -R prometheus:prometheus prometheus

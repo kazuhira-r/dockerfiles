@@ -21,11 +21,11 @@ RUN echo "Defaults:trino !requiretty" >> /etc/sudoers.d/trino \
     && echo "trino ALL=(ALL)      NOPASSWD: ALL" >> /etc/sudoers.d/trino \
     && chmod 440 /etc/sudoers.d/trino
 
-RUN curl -s -L https://repo1.maven.org/maven2/io/trino/trino-cli/${trino_version}/trino-cli-${trino_version}-executable.jar -o /usr/local/bin/trino \
+RUN curl -fsSL https://repo1.maven.org/maven2/io/trino/trino-cli/${trino_version}/trino-cli-${trino_version}-executable.jar -o /usr/local/bin/trino \
     && chmod +x /usr/local/bin/trino
 
 RUN cd /opt \
-    && curl -s -LO https://repo1.maven.org/maven2/io/trino/trino-server/${trino_version}/trino-server-${trino_version}.tar.gz \
+    && curl -fsSL -O https://repo1.maven.org/maven2/io/trino/trino-server/${trino_version}/trino-server-${trino_version}.tar.gz \
     && tar xf trino-server-${trino_version}.tar.gz \
     && mv trino-server-${trino_version} trino-server \
     && chown -R trino:trino trino-server

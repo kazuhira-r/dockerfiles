@@ -28,12 +28,12 @@ RUN mkdir /opt/qdrant
 
 WORKDIR /opt/qdrant
 
-RUN curl -LO -s https://github.com/qdrant/qdrant/releases/download/v${qdrant_version}/qdrant-x86_64-unknown-linux-gnu.tar.gz \
+RUN curl -fsSL -O https://github.com/qdrant/qdrant/releases/download/v${qdrant_version}/qdrant-x86_64-unknown-linux-gnu.tar.gz \
     && tar xf qdrant-x86_64-unknown-linux-gnu.tar.gz \
     && chown -R qdrant:qdrant /opt/qdrant
 
 RUN mkdir static \
-    && curl -LO -s https://github.com/qdrant/qdrant-web-ui/releases/download/v${qdrant_web_ui_version}/dist-qdrant.zip \
+    && curl -fsSL -O https://github.com/qdrant/qdrant-web-ui/releases/download/v${qdrant_web_ui_version}/dist-qdrant.zip \
     && unzip dist-qdrant.zip -d static \
     && mv static/dist/* static \
     && rmdir static/dist \

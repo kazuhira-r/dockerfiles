@@ -15,7 +15,7 @@ RUN cd /opt \
                        gcc \
                        make \
     && apt-get clean \
-    && curl -OL -s http://download.redis.io/releases/redis-${redis_version}.tar.gz \
+    && curl -fsSL -O http://download.redis.io/releases/redis-${redis_version}.tar.gz \
     && tar -xf redis-${redis_version}.tar.gz \
     && mv redis-${redis_version} redis-src \
     && cd redis-src \

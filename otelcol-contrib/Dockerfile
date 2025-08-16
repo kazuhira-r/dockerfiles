@@ -19,7 +19,7 @@ RUN echo "Defaults:user !requiretty" >> /etc/sudoers.d/user \
     && echo "user ALL=(ALL)      NOPASSWD: ALL" >> /etc/sudoers.d/user \
     && chmod 440 /etc/sudoers.d/user
 
-RUN curl -s -LO https://github.com/open-telemetry/opentelemetry-collector-releases/releases/download/v${otelcol_contrib_version}/otelcol-contrib_${otelcol_contrib_version}_linux_amd64.deb \
+RUN curl -fsSL -O https://github.com/open-telemetry/opentelemetry-collector-releases/releases/download/v${otelcol_contrib_version}/otelcol-contrib_${otelcol_contrib_version}_linux_amd64.deb \
     && dpkg -i otelcol-contrib_${otelcol_contrib_version}_linux_amd64.deb
 
 USER user
