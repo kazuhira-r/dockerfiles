@@ -1,6 +1,6 @@
 FROM ubuntu:24.04
 
-ARG otelcol_contrib_version=0.132.0
+ARG otelcol_contrib_version=0.133.0
 
 RUN apt-get update \
     && apt-get install -y --no-install-recommends \
