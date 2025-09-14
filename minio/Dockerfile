@@ -1,7 +1,7 @@
 FROM ubuntu:24.04
 
-ARG minio_server_version=20250723155402
-ARG minio_client_version=20250721052808
+ARG minio_server_version=20250907161309
+ARG minio_client_version=20250813083541
 
 RUN apt-get update \
     && apt-get install -y --no-install-recommends \
