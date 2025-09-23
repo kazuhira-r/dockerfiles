@@ -1,7 +1,7 @@
 FROM ubuntu:24.04
 
 ARG nexus_major_version=3
-ARG nexus_version=3.82.0-08
+ARG nexus_version=3.84.1-01
 
 RUN apt-get update \
     && apt-get install -y --no-install-recommends \
@@ -47,6 +47,9 @@ RUN chown -R nexus:nexus /opt/sonatype
 
 USER nexus
 WORKDIR /opt/sonatype
+
+ENV NEXUS_SECURITY_RANDOMPASSWORD=true
+ENV NEXUS_SECURITY_INITIAL_PASSWORD=password
 
 EXPOSE 8081
 EXPOSE 8443
