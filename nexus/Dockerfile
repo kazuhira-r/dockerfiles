@@ -1,7 +1,7 @@
 FROM ubuntu:24.04
 
 ARG nexus_major_version=3
-ARG nexus_version=3.84.1-01
+ARG nexus_version=3.85.0-03
 
 RUN apt-get update \
     && apt-get install -y --no-install-recommends \
