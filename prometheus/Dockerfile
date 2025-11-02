@@ -1,6 +1,6 @@
 FROM ubuntu:24.04
 
-ARG prometheus_version=3.5.0
+ARG prometheus_version=3.7.3
 
 RUN apt-get update \
     && apt-get install -y --no-install-recommends \
