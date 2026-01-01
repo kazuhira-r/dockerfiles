@@ -1,14 +1,13 @@
 FROM ubuntu:24.04
 
 ## see, https://dev.mysql.com/downloads/repo/apt/
-ARG mysql_apt_version=0.8.34-1
+ARG mysql_apt_version=0.8.36-1
 ARG mysql_version=mysql-8.4-lts
 ARG root_password=password
 
 EXPOSE 3306
 
 ENV LANG=ja_JP.UTF-8
-ENV LANGUAGE=ja_JP:
 
 
 RUN apt-get update \
