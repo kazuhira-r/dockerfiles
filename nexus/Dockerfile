@@ -1,7 +1,7 @@
 FROM ubuntu:24.04
 
 ARG nexus_major_version=3
-ARG nexus_version=3.85.0-03
+ARG nexus_version=3.90.1-01
 
 RUN apt-get update \
     && apt-get install -y --no-install-recommends \
@@ -32,7 +32,8 @@ RUN cd /opt \
 RUN cd /opt/sonatype/sonatype-work/nexus3 \
   && mkdir -p etc/ssl \
   && $(find ../../nexus/jdk -name keytool) -genkeypair \
-      -keystore etc/ssl/keystore.jks \
+      -keystore etc/ssl/keystore.p12 \
+      -storetype pkcs12 \
       -storepass password \
       -alias nexus.example.com \
       -keyalg RSA \
@@ -42,6 +43,9 @@ RUN cd /opt/sonatype/sonatype-work/nexus3 \
   && echo 'nexus-args=${jetty.etc}/jetty.xml,${jetty.etc}/jetty-http.xml,${jetty.etc}/jetty-https.xml,${jetty.etc}/jetty-requestlog.xml' >> etc/nexus.properties \
   && echo 'application-port-ssl=8443' >> etc/nexus.properties \
   && echo 'ssl.etc=${karaf.data}/etc/ssl' >> etc/nexus.properties
+
+RUN cd /opt/sonatype/nexus \
+  && perl -wpi -e 's!keystore.jks!keystore.p12!g' etc/jetty/jetty-https.xml
 
 RUN chown -R nexus:nexus /opt/sonatype
 
