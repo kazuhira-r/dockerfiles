@@ -1,6 +1,6 @@
 FROM eclipse-temurin:25-noble
 
-ARG neo4j_version=2026.05.0
+ARG neo4j_version=2026.06.0
 
 RUN apt-get update \
     && apt-get install -y --no-install-recommends \
