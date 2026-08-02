@@ -24,7 +24,11 @@ RUN mkdir -p /etc/apt/keyrings \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
-RUN perl -wpi -e 's!\#(server.default_listen_address=.+)!$1!' /etc/neo4j/neo4j.conf
+RUN cp -p /var/lib/neo4j/products/neo4j-graph-data-science-*.jar /var/lib/neo4j/plugins
+
+RUN perl -wpi -e 's!\#(server.default_listen_address=.+)!$1!' /etc/neo4j/neo4j.conf \
+    && perl -wpi -e 's!(\#dbms.security.procedures.unrestricted=.+)!$1\ndbms.security.procedures.unrestricted=gds.*!' /etc/neo4j/neo4j.conf \
+    && perl -wpi -e 's!(\#dbms.security.procedures.allowlist=.+)!$1\ndbms.security.procedures.allowlist=gds.*!' /etc/neo4j/neo4j.conf
 
 RUN echo "Defaults:neo4j !requiretty" >> /etc/sudoers.d/neo4j \
     && echo "neo4j ALL=(ALL)      NOPASSWD: ALL" >> /etc/sudoers.d/neo4j \
