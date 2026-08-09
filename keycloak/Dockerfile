@@ -1,9 +1,9 @@
-FROM eclipse-temurin:21-jdk-noble
+FROM eclipse-temurin:25-jdk-noble
 
-ARG keycloak_version=26.0.7
+ARG keycloak_version=26.7.1
 
-ENV KEYCLOAK_ADMIN keycloak-admin
-ENV KEYCLOAK_ADMIN_PASSWORD password
+ENV KC_BOOTSTRAP_ADMIN_USERNAME=keycloak-admin
+ENV KC_BOOTSTRAP_ADMIN_PASSWORD=password
 
 RUN apt-get update \
     && apt-get install -y --no-install-recommends \
@@ -34,11 +34,15 @@ WORKDIR /opt/keycloak
 EXPOSE 8080
 
 COPY docker-entrypoint.sh docker-entrypoint.sh
-COPY conf/quarkus.properties conf/quarkus.properties
 RUN chmod a+x docker-entrypoint.sh \
     && chown -R keycloak:keycloak /opt/keycloak
 
 USER keycloak
+
+RUN { \
+    echo 'http-host=0.0.0.0'; \
+    echo 'http-access-log-enabled=true'; \
+} >> conf/keycloak.conf
 
 ENTRYPOINT ["./docker-entrypoint.sh"]
 CMD ["start-dev"]
