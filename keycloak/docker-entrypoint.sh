@@ -1,6 +1,11 @@
 #!/bin/bash
 
+echo 'show configuration conf/keycloak.conf'
+echo "\$ grep -vE '^#|^\$' conf/keycloak.conf"
+grep -vE '^#|^$' conf/keycloak.conf
+echo
 echo 'start keycloak...'
-echo "\$ KC_BOOTSTRAP_ADMIN_USERNAME=${KC_BOOTSTRAP_ADMIN_USERNAME} KC_BOOTSTRAP_ADMIN_PASSWORD=${KC_BOOTSTRAP_ADMIN_PASSWORD} bin/kc.sh $@"
 
-KC_BOOTSTRAP_ADMIN_USERNAME=${KC_BOOTSTRAP_ADMIN_USERNAME} KC_BOOTSTRAP_ADMIN_PASSWORD=${KC_BOOTSTRAP_ADMIN_PASSWORD} bin/kc.sh "$@"
+echo "\$ bin/kc.sh $@"
+
+bin/kc.sh "$@"

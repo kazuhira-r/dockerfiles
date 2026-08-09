@@ -2,8 +2,8 @@ FROM eclipse-temurin:25-jdk-noble
 
 ARG keycloak_version=26.7.1
 
-ENV KC_BOOTSTRAP_ADMIN_USERNAME=keycloak-admin
-ENV KC_BOOTSTRAP_ADMIN_PASSWORD=password
+ARG kc_bootstrap_admin_username=keycloak-admin
+ARG kc_bootstrap_admin_password=password
 
 RUN apt-get update \
     && apt-get install -y --no-install-recommends \
@@ -40,7 +40,12 @@ RUN chmod a+x docker-entrypoint.sh \
 USER keycloak
 
 RUN { \
+    echo ''; \
+    echo 'bootstrap-admin-username='${kc_bootstrap_admin_username}; \
+    echo 'bootstrap-admin-password='${kc_bootstrap_admin_password}; \
+    echo ''; \
     echo 'http-host=0.0.0.0'; \
+    echo ''; \
     echo 'http-access-log-enabled=true'; \
 } >> conf/keycloak.conf
 
