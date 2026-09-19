@@ -24,5 +24,7 @@ RUN curl -fsSL -O https://github.com/CtrlSpice/otel-desktop-viewer/releases/down
 
 USER user
 
+EXPOSE 4317 4318
+
 ENTRYPOINT ["otel-desktop-viewer"]
 CMD []
