@@ -1,6 +1,6 @@
 FROM ubuntu:24.04
 
-ARG otelcol_contrib_version=0.135.0
+ARG otelcol_contrib_version=0.161.0
 
 RUN apt-get update \
     && apt-get install -y --no-install-recommends \
@@ -23,5 +23,7 @@ RUN curl -fsSL -O https://github.com/open-telemetry/opentelemetry-collector-rele
     && dpkg -i otelcol-contrib_${otelcol_contrib_version}_linux_amd64.deb
 
 USER user
+
+EXPOSE 1777 4317 4318 6831 6832 13133 14268 55690 55679
 
 ENTRYPOINT ["sudo", "-u", "otelcol-contrib", "otelcol-contrib", "--config", "/etc/otelcol-contrib/config.yaml"]
