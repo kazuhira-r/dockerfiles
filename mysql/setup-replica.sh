@@ -33,4 +33,4 @@ start replica user = '${USER_NAME}' password = '${PASSWORD}';
 EOF
 )
 
-mysqlsh root:%ROOT_PASSWORD%@localhost --sql -e "${SQL}"
+sudo mysqlsh --socket=/var/run/mysqld/mysqld.sock --no-password --sql -e "${SQL}"

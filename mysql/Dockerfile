@@ -1,9 +1,8 @@
-FROM ubuntu:24.04
+FROM ubuntu:26.04
 
 ## see, https://dev.mysql.com/downloads/repo/apt/
 ARG mysql_apt_version=0.8.40-1
-ARG mysql_version=mysql-8.4-lts
-ARG root_password=password
+ARG mysql_version=mysql-9.7-lts
 
 EXPOSE 3306
 
@@ -39,11 +38,6 @@ RUN curl -fsSL -O https://dev.mysql.com/get/mysql-apt-config_${mysql_apt_version
     && DEBIAN_FRONTEND=noninteractive dpkg -i mysql-apt-config_${mysql_apt_version}_all.deb
 
 RUN apt-get update \
-    # !!root password is ''!!
-    # https://dev.mysql.com/doc/mysql-apt-repo-quick-guide/en/#repo-qg-apt-repo-non-insteractive
-    && echo "mysql-community-server mysql-community-server/root-pass password ${root_password}" | sudo debconf-set-selections \
-    && echo "mysql-community-server mysql-community-server/re-root-pass password ${root_password}" | sudo debconf-set-selections \
-    && apt-get update \
     && DEBIAN_FRONTEND=noninteractive apt-get install -y mysql-server mysql-shell \
     && apt-get clean
 
@@ -54,12 +48,10 @@ COPY create-database-and-user.sh /home/user/create-database-and-user.sh
 RUN chmod a+x /home/user/create-database-and-user.sh && chown user:user /home/user/create-database-and-user.sh
 
 COPY setup-source.sh /home/user/setup-source.sh
-RUN chmod a+x /home/user/setup-source.sh && chown user:user /home/user/setup-source.sh \
-    && perl -wpi -e "s!%ROOT_PASSWORD%!${root_password}!" /home/user/setup-source.sh
+RUN chmod a+x /home/user/setup-source.sh && chown user:user /home/user/setup-source.sh
 
 COPY setup-replica.sh /home/user/setup-replica.sh
-RUN chmod a+x /home/user/setup-replica.sh && chown user:user /home/user/setup-replica.sh \
-    && perl -wpi -e "s!%ROOT_PASSWORD%!${root_password}!" /home/user/setup-replica.sh
+RUN chmod a+x /home/user/setup-replica.sh && chown user:user /home/user/setup-replica.sh
 
 COPY setup-group-replication-initial-host.sh /home/user/setup-group-replication-initial-host.sh
 RUN chmod +x /home/user/setup-group-replication-initial-host.sh && chown user:user /home/user/setup-group-replication-initial-host.sh
@@ -80,7 +72,7 @@ RUN echo '\n\
 echo "*******************************************************\n\
 login MySQL Server as root user.\n\
 \n\
-$ mysqlsh root:${root_password}@localhost -S --sql\n\
+$ sudo mysqlsh --socket=/var/run/mysqld/mysqld.sock --no-password\n\
 \n\
 *******************************************************\n\
 "' >> /home/user/.bashrc

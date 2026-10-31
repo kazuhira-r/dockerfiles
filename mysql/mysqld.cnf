@@ -1,30 +1,31 @@
-## more infomations, see https://github.com/kamipo/etcfiles/blob/master/etc/my.cnf
-
 [mysqld]
-user               = mysql
-pid_file        = /var/run/mysqld/mysqld.pid
-socket          = /var/run/mysqld/mysqld.sock
-datadir         = /var/lib/mysql
-log_error       = /var/log/mysql/error.log
-#general_log      = ON
-#general-log-file = /dev/stdout
-#general_log_file = /var/log/mysql/server.log
+user        = mysql
 
-port            = 3306
-bind_address    = 0.0.0.0
+bind-address        = 0.0.0.0
+mysqlx-bind-address = 0.0.0.0
+key_buffer_size     = 16M
+
+myisam-recover-options  = BACKUP
+
+# general_log             = on
+# general_log_file        = /dev/stdout
+# general_log_file        = /var/log/mysql/server.log
+
 skip_name_resolve
-character_set_server = utf8mb4
-collation_server     = utf8mb4_0900_bin
-transaction_isolation = READ-COMMITTED
+
+
+character_set_server    = utf8mb4
+collation_server        = utf8mb4_0900_bin
+transaction_isolation   = READ-COMMITTED
 
 ## gtid
 gtid_mode = on
 enforce_gtid_consistency = on
 
 ## binary log
-log_bin = binlog
-sync_binlog = 1
+log_bin         = on
 binlog_expire_logs_seconds = 864000
+max_binlog_size   = 100M
 
 ## replication
 server_id = 1

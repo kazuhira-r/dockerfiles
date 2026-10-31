@@ -14,6 +14,6 @@ grant replication slave on *.* to '${USER_NAME}'@'${CONNECT_FROM}';
 EOF
 )
 
-mysqlsh root:%ROOT_PASSWORD%@localhost --sql -e "${SQL}"
+sudo mysqlsh --socket=/var/run/mysqld/mysqld.sock --no-password --sql -e "${SQL}"
 
 ./restart-mysqld.sh

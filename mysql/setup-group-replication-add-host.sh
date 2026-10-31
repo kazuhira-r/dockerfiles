@@ -5,7 +5,7 @@ USER_NAME=rpl_user
 PASSWORD=password
 CONNECT_FROM=%
 #CONNECT_FROM=172.17.0.0/255.255.255.0
-SERVER_ADDRESS=`hostname -i`
+SERVER_ADDRESS=$(hostname -i)
 GROUP_SEED=$2
 
 SINGLE_PRIMARY_MODE=$3
@@ -42,15 +42,15 @@ SHOW PLUGINS;
 EOS
 )
 
-mysqlsh root:${ROOT_PASSWORD}@localhost:3306 --sql -e "${SQL_INITIAL}"
-mysqlsh root:${ROOT_PASSWORD}@localhost:3306 --sql -e 'exit'
+sudo mysqlsh --socket=/var/run/mysqld/mysqld.sock --no-password --sql -e "${SQL_INITIAL}"
+sudo mysqlsh --socket=/var/run/mysqld/mysqld.sock --no-password --sql -e 'exit'
 
 SQL_START_REPLICATION=$(cat <<EOS
 START GROUP_REPLICATION;
 EOS
 )
 
-mysqlsh root:${ROOT_PASSWORD}@localhost:3306 --sql -e "${SQL_START_REPLICATION}"
+sudo mysqlsh --socket=/var/run/mysqld/mysqld.sock --no-password --sql -e "${SQL_START_REPLICATION}"
 
 sleep 3
 
@@ -59,4 +59,4 @@ SELECT * FROM performance_schema.replication_group_members;
 EOS
 )
 
-mysqlsh root:${ROOT_PASSWORD}@localhost:3306 --sql -e "${SQL_CONFIRM_MEMBERS}"
+sudo mysqlsh --socket=/var/run/mysqld/mysqld.sock --no-password --sql -e "${SQL_CONFIRM_MEMBERS}"

@@ -20,9 +20,7 @@ create user ${USER_NAME}@'%' identified ${WITH_OPTION} by '${PASSWORD}';
 
 -- grant all privileges on ${DATABASE_NAME}.* to ${USER_NAME}@localhost;
 grant all privileges on ${DATABASE_NAME}.* to ${USER_NAME}@'%';
-
-flush privileges;
 EOF
 )
 
-mysqlsh root:password@localhost:3306 --sql -e "${SQL}"
+sudo mysqlsh --socket=/var/run/mysqld/mysqld.sock --no-password --sql -e "${SQL}"
